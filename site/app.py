@@ -31,3 +31,11 @@ def connexion():
 @app.route('/jeusanslogin')
 def jeusanslogin():
     return render_template('jeusanslogin.html')
+
+@app.route('/jeulogin')
+def jeulogin():
+    return render_template('jeulogin.html')
+
+@app.route('/historique_score')
+def historique_score():
+    return render_template('historique_score.html')
