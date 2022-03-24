@@ -1,26 +1,24 @@
 {% extends "prelayout.html" %}
 {% block body %}
 
-
 <!DOCTYPE html>
 <html>
-
     <style>
-        *{font-family: Verdana, Geneva, Tahoma, sans-serif;}
-        .titre{position:absolute;top:20px;left:300px;font-size: x-large; font-weight: bold;}
-        .form{position:absolute;top:125px;left:125px;font-size: large; font-weight:bold;}
-        .fond{position:absolute;top:100px;left:500px;width:750px;height:200px;background-color:rgb(229,217,242);border-radius: 15px;}
+
     </style>
 
-    <title>Login Citoyen</title>
+    <title>Connexion</title>
+
     <div class=fond>
-    <h1 class=titre> Connexion </h1>
-    <form action="/logincitdeux" method="post" class=form>
-        <input autocomplete="off" name="email" type="text" placeholder="E-mail">
-        <input autocomplete="off" name="mdp" type="password" placeholder="Mot de passe">
-        <input type="submit" value="Se connecter">
-    </form>
+        <form action="/inscription" method="post" class=form> 
+            <input autocomplete="off" name="login" type="text" placeholder="Login" class=text>
+            <br><br>
+            <input autocomplete="off" name="mdp" type="password" placeholder="Mot de passe" class=text>
+            <br><br>
+            <input type="submit" value="S'inscrire">
+        </form>
     </div>
+
 </html>
 
 {% endblock %}
