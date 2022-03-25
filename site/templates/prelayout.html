@@ -17,7 +17,7 @@
         .fond{position:absolute;top:200px;left:600px;width: 700px;height: 400px;background-color: rgb(194, 194, 194);border-radius: 20px;}
         .titre{position:absolute;top: 30px; left: 50px;font-size: large; font-weight:bold;color:white;}
     </style>
-
+    <body>
     <div class=entete>
         <img src="{{url_for('static',filename='logo.png')}}" class=logo>
     </div>
@@ -29,5 +29,6 @@
         <a class=login href=/login>Connexion</a>
         <a class=jeusanslogin href=/jeusanslogin>Jouer sans se connecter</a>
     </div>
-   
+    </body>
+    {% block body %}{% endblock %}
 </html>
