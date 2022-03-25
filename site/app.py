@@ -18,7 +18,11 @@ def testconnect():
 
 @app.route('/')
 def initial():
-    return render_template('prelayout.html')
+    return render_template('layout.html')
+
+@app.route('/accueil')
+def accueil():
+    return render_template('accueil.html')
 
 @app.route('/inscription',methods=["GET","POST"])
 def inscription():
