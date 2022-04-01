@@ -9,8 +9,8 @@ global bonnes                               #on stock les lettres trouvées et b
 bonnes = ['-' for i in range(longueur)]     #on initialise cette liste
 def prop(MOT,longueur):                     
     global bonnes
-    propo=input("Proposition ({} lettres): \n".format(longueur))
-    PROP=list(propo)
+    propo=input("Proposition ({} lettres): \n".format(longueur))     #on demande à l'utilisateur un mot de la longueur du mot à trouver
+    PROP=list(propo)                        #on transforme la proposition en liste
 
     if len(PROP)!=longueur:                #on vérifie que le mot proposé est de la bonne couleur
         print("Pas bonne longueur")        #on renvoie un message d'erreur si la longueur ne correspond pas
