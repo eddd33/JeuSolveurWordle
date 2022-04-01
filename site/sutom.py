@@ -1,30 +1,33 @@
 import copy as cp
 
-mot=input("Rentrer le mot a trouver : \n")
+mot=input("Rentrer le mot a trouver : \n")    #demande du mot à l'utilisateur
 
-MOT = list(mot)
-longueur=len(MOT)
+MOT = list(mot)                             #on transforme le mot en liste de caractères
+longueur=len(MOT)                           #on stock la longueur du mot
 print(MOT)
-global bonnes
-bonnes = ['-' for i in range(longueur)]
-def prop(MOT,longueur):
+global bonnes                               #on stock les lettres trouvées et bien placées dans bonnes
+bonnes = ['-' for i in range(longueur)]     #on initialise cette liste
+def prop(MOT,longueur):                     
     global bonnes
     propo=input("Proposition ({} lettres): \n".format(longueur))
     PROP=list(propo)
 
-    if len(PROP)!=longueur:
-        print("Pas bonne longueur")
-        prop(MOT,longueur)
+    if len(PROP)!=longueur:                #on vérifie que le mot proposé est de la bonne couleur
+        print("Pas bonne longueur")        #on renvoie un message d'erreur si la longueur ne correspond pas
+        prop(MOT,longueur)                 #on demande une nouvelle proposition au joueur
         return 0
-    malplacees=[]
-    fausses=[]
-    tempo=cp.deepcopy(MOT)
+    malplacees=[]                           #on créer une liste pour signaler les lettres mal placées
+    fausses=[]                              #on créer une liste pour signaler les lettres fausses
+    tempo=cp.deepcopy(MOT)                  #on effectue une copie profonde de la liste contenant le mot
     indexaenlever=[]
     
     for i in range(len(PROP)): #test des bonnes lettres bien placées
-        if PROP[i]==MOT[i]:
-            bonnes[i]=PROP[i]
+        if PROP[i]==MOT[i]:                 #on compare la i-ème lettre du mot à trouvé avec la i-ème lettre du mot proposé
+            bonnes[i]=PROP[i]               #si elles sont égales, on l'enregistre dans la liste des lettres trouvées
             indexaenlever.append(i)
+            
+            
+            
             
     if len(indexaenlever)==0:                   #enleve les bonnes lettres du mot temporaire
         pass
