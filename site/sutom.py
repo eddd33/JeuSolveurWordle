@@ -1,32 +1,49 @@
 import copy as cp
 
+
+
+
+#bonnes est la liste des lettres à affiché avant de rentrer la prochaine proposition (bonnes lettres globalement sur tous les essais)
+#bonnesponctuel est la liste des lettres à afficher à la place de la proposition (bonnes lettres uniquement sur le mot rentré)
+#malponctuel est la liste des lettres à afficher à la place de la proposition qui sont mal placées
+#faussesponctuel est la liste des lettres à afficher à la place de la proposition qui ne sont pas bonnes.
+
+
 mot=input("Rentrer le mot a trouver : \n")    #demande du mot à l'utilisateur
 
 MOT = list(mot)                             #on transforme le mot en liste de caractères
 longueur=len(MOT)                           #on stock la longueur du mot
-print(MOT)
+#print(MOT)
 global bonnes                               #on stock les lettres trouvées et bien placées dans bonnes
 bonnes = ['-' for i in range(longueur)]     #on initialise cette liste
 global nb_essais
 nb_essais=0
-def prop(MOT,longueur):                     #fonction prenant en argument le mot à deviner sous forme de liste de lettre et sa longueur               
+
+
+
+def prop(MOT,longueur):                     #fonction prenant en argument le mot à deviner sous forme de liste de lettre et sa longueur   
+    bonnesponctuel = ['-' for i in range(longueur)]  
+    malponctuel=['-' for i in range(longueur)]         
     global bonnes
     propo=input("Proposition ({} lettres): \n".format(longueur))     #on demande à l'utilisateur un mot de la longueur du mot à trouver
+                                                                    # ligne à remplacer par l'entrée web
+
     PROP=list(propo)                        #on transforme la proposition en liste
 
     if len(PROP)!=longueur:                #on vérifie que le mot proposé est de la bonne couleur
         print("Pas bonne longueur")        #on renvoie un message d'erreur si la longueur ne correspond pas
         prop(MOT,longueur)                 #on demande une nouvelle proposition au joueur
         return 0
-    malplacees=[]                           #on créer une liste pour signaler les lettres mal placées
-    fausses=[]                              #on créer une liste pour signaler les lettres fausses
+                            
+    faussesponctuel=['-' for i in range(longueur)]                             #on créer une liste pour signaler les lettres fausses
     tempo=cp.deepcopy(MOT)                  #on effectue une copie profonde de la liste contenant le mot
     indexaenlever=[]
     
-    for i in range(len(PROP)): #test des bonnes lettres bien placées
+    for i in range(len(PROP)):              #test des bonnes lettres bien placées
         if PROP[i]==MOT[i]:                 #on compare la i-ème lettre du mot à trouvé avec la i-ème lettre du mot proposé
+            bonnesponctuel[i]=PROP[i]
             bonnes[i]=PROP[i]               #si elles sont égales, on l'enregistre dans la liste des lettres trouvées
-            indexaenlever.append(i)
+            indexaenlever.append(i)         # indexaenlever va servir pour les doubles lettres (ou +) dans un mot
                         
             
             
@@ -36,45 +53,61 @@ def prop(MOT,longueur):                     #fonction prenant en argument le mot
         #print(indexaenlever)
         for k in range(1,len(indexaenlever)+1):
             a=indexaenlever[-k]
-            print(a,tempo)
+            #print(a,tempo)
             del tempo[a]
-            del PROP[a]
+            PROP[a]=0
 
     if len(PROP)==0:
         #print("TU AS GAGNE")
         return 0
 
-    def malp(malplacees,fausses,PROP,MOT,tempo):
+    def malp(malponctuel,faussesponctuel,PROP,MOT,tempo,prof):  #fonction testant les lettres bonnes mais mal placées
 
-        #print("tempo : ",tempo)
-        #print("PROP : ",PROP)
-        
-        if len(PROP)==0:
+        #print(PROP,tempo)
+        if prof==len(PROP):                 #si la profondeur depasse la longueur sur mot
             return 0
-        if PROP[0] in tempo:
-            malplacees.append(PROP[0])
+        elif PROP[prof]==0:             #si la lettre a déja été traitée
+            pass
+        elif PROP[prof] in tempo:                    #on regarde si la lettre est dans le mot à trouver
+            malponctuel[prof]=PROP[prof]          #on ajoute aux lettres mal placées
 
-            I=tempo.index(PROP[0])
-            del tempo[I]
-            
-            del PROP[0]
+            I=tempo.index(PROP[prof])              #on récupère l'index de cette lettre dans le mot à trouver
+            del tempo[I]                         # on l'enlève
+            PROP[prof]=0                        # on traite la lettre
         else:
-            fausses.append(PROP[0])
-            del PROP[0]
-        malp(malplacees,fausses,PROP,MOT,tempo)
-    malp(malplacees,fausses,PROP,MOT,tempo)
+            faussesponctuel[prof]=PROP[prof]            #sinon la lettre est fausse
+            PROP[prof]=0                                #on traite la lettre
+        prof+=1                                 #on augmente la profondeur
+        malp(malponctuel,faussesponctuel,PROP,MOT,tempo,prof) #et on le refait jusqu'a ce qu'il n'y ai plus de lettres à tester
+    malp(malponctuel,faussesponctuel,PROP,MOT,tempo,0)
     
     global nb_essais
     nb_essais+=1
     print("Bonnes : ",bonnes)               #on indique au joueur les lettres bien placées
-    print("Mal Placées : ",malplacees)      #les lettres mal placées
-    print("Fausses : ",fausses)             #les lettres qui n'appartiennet pas au mot à trouver
+    print("Bonnes sur cette proposition : ",bonnesponctuel)
+    print("Mal Placées sur cette proposition : ", malponctuel)              #les lettres qui sont mal placées
+    print("Fausses sur cette proposition : ",faussesponctuel)             #les lettres qui n'appartiennet pas au mot à trouver
+    #Normalement les 3 listes si dessus se complètent
+    print("Nombre d'essais : ", nb_essais)
+    
+    
+    if not '-' in bonnes:
+        print("Vous avez gagné")
+        return 0
 
     prop(MOT,longueur)
+    #return bonnes,bonnesponctuel,malponctuel,faussesponctuel
+
+    
 
 prop(MOT,longueur)
-        
-            
+
+def reset():
+    global bonnes
+    bonnes = ['-' for i in range(longueur)]     
+    global nb_essais
+    nb_essais=0
+              
             
     
 
