@@ -1,0 +1,6 @@
+Faire 2 ou 3 listes des lettres de l'alphabet classés par occurence dans la langue francaise (par exemple en comptant le nombre de caractère récurrent dans les mots de la langue francaise) (programme fait)
+
+premiere proposition avec un mot contenant des lettres bien classées
+
+a chaque nouvelle proposition, on utilise forcément toutes les informations que l'on a (bien ou mal placées)
+
