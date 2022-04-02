@@ -7,7 +7,9 @@ longueur=len(MOT)                           #on stock la longueur du mot
 print(MOT)
 global bonnes                               #on stock les lettres trouvées et bien placées dans bonnes
 bonnes = ['-' for i in range(longueur)]     #on initialise cette liste
-def prop(MOT,longueur):                     
+global nb_essais
+nb_essais=0
+def prop(MOT,longueur):                     #fonction prenant en argument le mot à deviner sous forme de liste de lettre et sa longueur               
     global bonnes
     propo=input("Proposition ({} lettres): \n".format(longueur))     #on demande à l'utilisateur un mot de la longueur du mot à trouver
     PROP=list(propo)                        #on transforme la proposition en liste
@@ -25,8 +27,7 @@ def prop(MOT,longueur):
         if PROP[i]==MOT[i]:                 #on compare la i-ème lettre du mot à trouvé avec la i-ème lettre du mot proposé
             bonnes[i]=PROP[i]               #si elles sont égales, on l'enregistre dans la liste des lettres trouvées
             indexaenlever.append(i)
-            
-            
+                        
             
             
     if len(indexaenlever)==0:                   #enleve les bonnes lettres du mot temporaire
@@ -62,10 +63,12 @@ def prop(MOT,longueur):
             del PROP[0]
         malp(malplacees,fausses,PROP,MOT,tempo)
     malp(malplacees,fausses,PROP,MOT,tempo)
-
-    print("Bonnes : ",bonnes)
-    print("Mal Placées : ",malplacees)
-    print("Fausses : ",fausses)
+    
+    global nb_essais
+    nb_essais+=1
+    print("Bonnes : ",bonnes)               #on indique au joueur les lettres bien placées
+    print("Mal Placées : ",malplacees)      #les lettres mal placées
+    print("Fausses : ",fausses)             #les lettres qui n'appartiennet pas au mot à trouver
 
     prop(MOT,longueur)
 
