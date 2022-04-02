@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
-    <link rel="stylesheet" href="stylesheet.css">
-
+    
+    <head>
+    <link rel="stylesheet" href="static/stylesheet.css">
+    </head>
     <div class=entete>
         <img src="{{url_for('static',filename='logo.png')}}" class=logo>
     </div>
@@ -63,5 +65,6 @@
             <input type="submit" value="Filtrer" class=boutonfiltrerbis>
             </form>
     </div>
+
 {% block body %}{% endblock %}
 </html>
