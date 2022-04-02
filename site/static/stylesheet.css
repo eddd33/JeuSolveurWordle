@@ -19,5 +19,12 @@
 .nblettres{position:absolute;top:190px;left:0px;width: 250px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
 .boutonfiltrer{position:absolute;top:300px;left:100px}
 .boutonfiltrerbis{position:absolute;top:450px;left:100px}
-.deconnexion{position:absolute;top:140px; right:30px}
-.historique{position:absolute;top:190px; right: 20px}
+.deconnexion{position:absolute;top:140px; right:30px ;font-size: x-large; font-weight: bold; font-family:Arial, Helvetica, sans-serif;}
+.deconnexion:link{color: white;}
+.deconnexion:hover{color:black;}
+.historique{position:absolute;top:190px; right: 20px;}
+.historique:link{color:white;}
+.historique:hover{color:black}
+
+
+
