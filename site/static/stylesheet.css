@@ -28,4 +28,44 @@
 .historique:hover{color:black}
 
 
+#wordle {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .case-lettre {
+    border: 2px solid rgb(12, 12, 12);
+    border-radius: 3px;
+    margin: 2px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    height: 3rem;
+    width: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+  }
+  
+  .filled-box {
+    border: 2px solid black;
+  }
+  
+  .rang-lettre {
+    display: flex;
+  }
+
+#clavier {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#clavier div{
+  display: flex;
+}
+
+
 
