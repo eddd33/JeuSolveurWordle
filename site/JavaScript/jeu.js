@@ -30,13 +30,21 @@ document.addEventListener("keyup",(e) => {
     if (tryNB === 0){
         return
     }
-
+    console.log(e.key);
     key.textContent = e.key;
 
     if (key === "Backspace" && lettreSuiv !== 0){
         supprLettre()
         return
     }
+
+    let guess = key.match(/[A-Z]/)
+    if (!guess){
+        return
+    } else{
+        insertLettre(key)
+    }
+
 })
 
 function insertLettre(key){
@@ -48,6 +56,7 @@ function insertLettre(key){
     let box = rang.children[lettreSuiv - 1];
     box.textContent = key
     box.classList.add("box-pleine")
+    lettreSuiv = lettreSuiv +1
 }
 
 function supprLettre(){
