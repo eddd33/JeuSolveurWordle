@@ -1,18 +1,18 @@
-let longueur = document.getElementById(long).value;
+//let longueur = document.getElementById(long).value;
 
-let tentatives = document.getElementById(tryNB).value;
+//let tentatives = document.getElementById(tryNB).value;
 
 
 function initJeu() {
     let tableau = document.getElementById("wordle");
 
-    for (let i = 0; i < tentatives; i++) {
+    for (let i = 0; i < 5; i++) {
         let rang = document.createElement("div")
-        rang.className = "rang-lettre"
+        rang.className = "rang"
         
-        for (let j = 0; j < longueur; j++) {
+        for (let j = 0; j < 5; j++) {
             let box = document.createElement("div")
-            box.className = "case-lettre"
+            box.className = "case"
             rang.appendChild(box)
             box.textContent = '.';
         }
@@ -22,3 +22,39 @@ function initJeu() {
 }
 
 initJeu()
+
+
+let lettreSuiv = 0;
+
+document.addEventListener("keyup",(e) => {
+    if (tryNB === 0){
+        return
+    }
+
+    key.textContent = e.key;
+
+    if (key === "Backspace" && lettreSuiv !== 0){
+        supprLettre()
+        return
+    }
+})
+
+function insertLettre(key){
+    if (lettreSuiv == longueur){
+        return
+    }
+
+    let rang = document.getElementsByClassName("rang")[6 - tryNB];
+    let box = rang.children[lettreSuiv - 1];
+    box.textContent = key
+    box.classList.add("box-pleine")
+}
+
+function supprLettre(){
+    let rang = document.getElementsByClassName("rang")[6 - tryNB];
+    let box = rang.children[lettreSuiv - 1];
+    box.textContent = ""
+    box.classList.remove("box-pleine")
+    currentGuess.pop()
+    lettreSuiv = lettreSuiv -1
+}
