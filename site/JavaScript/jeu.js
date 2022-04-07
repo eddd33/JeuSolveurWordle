@@ -1,6 +1,6 @@
-var longueur = document.getElementById(long).value;
+let longueur = document.getElementById(long).value;
 
-var tentatives = document.getElementById(tryNB).value;
+let tentatives = document.getElementById(tryNB).value;
 
 
 function initJeu() {
