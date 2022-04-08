@@ -1,6 +1,6 @@
 
 def longueurmots(V):
-    f=open("/home/eleve/project2-E13/solveur/mots.txt","r")
+    f=open("/home/eleve/project2-E13/solveur/motst.txt","r")
     c=0
     longueurs=[[]for i in range(26)]
     for mot in f.readlines():

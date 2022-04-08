@@ -1,7 +1,7 @@
 from compteuroccurence import *
 def trouveurmot(L,deja=[],lettresfausses=[]):  #prend un liste de mot, une liste de mot déja utilisé et une liste de lettre a ne pas mettre
     occurences=compteuroccurenceliste(L)
-     #print(occurences)
+    #print("occurences",occurences)
     scoremots=[]
     for mot in L:
         s=0
@@ -16,25 +16,18 @@ def trouveurmot(L,deja=[],lettresfausses=[]):  #prend un liste de mot, une liste
                 s+=classement                          # on ajoute le classement de la lettre au score, le but étant d'avoir un score minimal
 
         scoremots.append(s)         #comprend la liste des scores des mots dans le meme ordre que L
-    
+        
+    #print("scoremots",scoremots)
     def donnermot(L,scoremot):
-        motàdonner=L(scoremot.index(min(scoremot)))
+        motàdonner=L[scoremot.index(min(scoremot))]
         indexmot=L.index(motàdonner)
-        a=0
-        for i in range(len(L)): 
-            if L[i] in L[:i,i+1:]:
-                a+=1
-                return donnermot(L[:indexmot,indexmot+1:],scoremot[:indexmot,indexmot+1:])
-
-        if a==0:
-            return motàdonner
+        
+        return motàdonner
 
 
     return donnermot(L,scoremots)
 
 
-    
-            
-
+#print("resultat",trouveurmot(["azer","abbe","abbe","rase","rare","pare","mrar","eore"]))
 
 
