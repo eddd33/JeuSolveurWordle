@@ -1,11 +1,11 @@
 .logo{position:absolute; top:0px; left:630px;max-width:300px;max-height: 100px;}
 .menugauche{background-color:rgb(109, 216, 175);width: 250px;height: 1000px;position: absolute; top:0px;left:0px;}
-.menudroit{background-color: rgb(245, 182, 131);width: 170px;height: 1000px;position: absolute; top: 0px; right: 0px;}
+.menudroit{background-color: rgb(245, 182, 131);width: 180px;height: 1000px;position: absolute; top: 0px; right: 0px;}
 .entete{background-color: rgb(194, 194, 194);width: 1800px;height: 100px;position:absolute; top:0px;left:250px;}
-.inscription{position:absolute;top:150px; left:80px;}
+.inscription{position:absolute;top:150px; left:70px;}
 .textinscription{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .inscription:hover > .textinscription{color:grey}
-.login{position:absolute;top:200px; left:80px;}
+.login{position:absolute;top:200px; left:70px;}
 .textlogin{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .login:hover > .textlogin{color:grey;}
 .jeusanslogin{position:absolute;top:250px; left:30px;}

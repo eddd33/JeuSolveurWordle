@@ -18,7 +18,7 @@ def testconnect():
 
 @app.route('/')
 def initial():
-    return render_template('layout.html')
+    return render_template('accueil.html')
 
 @app.route('/accueil')
 def accueil():
@@ -31,6 +31,10 @@ def inscription():
 @app.route('/login')
 def connexion():
     return render_template('login.html')
+
+@app.route('/deconnexion')
+def deconnexion():
+    return redirect('/accueil')
 
 @app.route('/jeusanslogin')
 def jeusanslogin():
