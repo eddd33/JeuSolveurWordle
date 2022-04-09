@@ -23,11 +23,12 @@ def prop(motslongueur,bonnes,mal,fausses,dejapropose):
     print(proposition)
 
     demande=input("Alors ? \n")
-    demandelist=list(demande)
-    print(demandelist)
-    if demandelist[0]=='-1':
+    if demande=='-1':
         print("Trouvé!")
         return 0
+    demandelist=list(demande)
+    print(demandelist)
+    
     for i in range(len(demandelist)):               #on ajoute les lettres et les emplacements au bons endroit
         if demandelist[i]=='2':
             bonnes.append((proposition[i],i))
