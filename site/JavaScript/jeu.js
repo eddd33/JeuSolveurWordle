@@ -11,8 +11,9 @@ function initJeu() {
         rang.className = "rang"
         
         for (let j = 0; j < 5; j++) {
-            let box = document.createElement("div")
+            let box = document.createElement("span")
             box.className = "case"
+            box.id = "key"
             rang.appendChild(box)
             box.textContent = '.';
         }
@@ -24,26 +25,31 @@ function initJeu() {
 initJeu()
 
 
-let lettreSuiv = 0;
+//let lettreSuiv = 0;
 
 document.addEventListener("keyup",(e) => {
+
+
+    let key = document.getElementById("key");
+    key.textContent = e.key;
+    console.log(e.key);
+
     if (tryNB === 0){
         return
     }
-    console.log(e.key);
-    key.textContent = e.key;
+    
 
     if (key === "Backspace" && lettreSuiv !== 0){
         supprLettre()
         return
     }
 
-    let guess = key.match(/[A-Z]/)
-    if (!guess){
-        return
-    } else{
-        insertLettre(key)
-    }
+    //let guess = key.match(/[A-Z]/)
+    //if (!guess){
+      //  return
+    //} else{
+      //  insertLettre(key)
+    //}
 
 })
 
