@@ -9,26 +9,26 @@ import copy as cp
 #faussesponctuel est la liste des lettres à afficher à la place de la proposition qui ne sont pas bonnes.
 
 
-mot=input("Rentrer le mot a trouver : \n")    #demande du mot à l'utilisateur
+#mot=input("Rentrer le mot a trouver : \n")    #demande du mot à l'utilisateur
 
-MOT = list(mot)                             #on transforme le mot en liste de caractères
-longueur=len(MOT)                           #on stock la longueur du mot
+#MOT = list(mot)                             #on transforme le mot en liste de caractères
+#longueur=len(MOT)                           #on stock la longueur du mot
 #print(MOT)
-global bonnes                               #on stock les lettres trouvées et bien placées dans bonnes
-bonnes = ['-' for i in range(longueur)]     #on initialise cette liste
+                             #on stock les lettres trouvées et bien placées dans bonnes
+    #on initialise cette liste
 global nb_essais
 nb_essais=0
 
 
 
-def prop(MOT,longueur):                     #fonction prenant en argument le mot à deviner sous forme de liste de lettre et sa longueur   
+def prop(motpropo,MOT,longueur,bonnes):                     #fonction prenant en argument le mot à deviner sous forme de liste de lettre et sa longueur   
+    MOT=list(MOT)
     bonnesponctuel = ['-' for i in range(longueur)]  
     malponctuel=['-' for i in range(longueur)]         
-    global bonnes
-    propo=input("Proposition ({} lettres): \n".format(longueur))     #on demande à l'utilisateur un mot de la longueur du mot à trouver
+    
                                                                     # ligne à remplacer par l'entrée web
 
-    PROP=list(propo)                        #on transforme la proposition en liste
+    PROP=list(motpropo)                        #on transforme la proposition en liste
 
     if len(PROP)!=longueur:                #on vérifie que le mot proposé est de la bonne couleur
         print("Pas bonne longueur")        #on renvoie un message d'erreur si la longueur ne correspond pas
@@ -79,6 +79,7 @@ def prop(MOT,longueur):                     #fonction prenant en argument le mot
             PROP[prof]=0                                #on traite la lettre
         prof+=1                                 #on augmente la profondeur
         malp(malponctuel,faussesponctuel,PROP,MOT,tempo,prof) #et on le refait jusqu'a ce qu'il n'y ai plus de lettres à tester
+    
     malp(malponctuel,faussesponctuel,PROP,MOT,tempo,0)
     
     global nb_essais
@@ -93,14 +94,14 @@ def prop(MOT,longueur):                     #fonction prenant en argument le mot
     
     if not '-' in bonnes:
         print("Vous avez gagné")
-        return 0
+        return 0,0,0,0
 
-    prop(MOT,longueur)
-    #return bonnes,bonnesponctuel,malponctuel,faussesponctuel
+    #prop(MOT,longueur)
+    return bonnes,bonnesponctuel,malponctuel,faussesponctuel
 
     
 
-prop(MOT,longueur)
+
 
 def reset():
     global bonnes

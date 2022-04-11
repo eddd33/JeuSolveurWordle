@@ -50,8 +50,16 @@
     </body>
 
     <div class=form>
+        <ul>
+            {% for L in liste %}
+            
+            <li><a>{{ L }}</a></li>
+    
+            {% endfor %}
+        </ul>
+        <a>{{ gagne }}</a>
         <form action="/jeusanslogin" method="post">
-            <input autocomplete="off" name="email" type="text" placeholder="Mot proposé" class=text>
+            <input autocomplete="off" name="motprop" type="text" placeholder="Mot proposé" class=text>
         <input type="submit" value="Proposer">
         </form>
     </div>
