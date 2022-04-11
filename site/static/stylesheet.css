@@ -11,7 +11,7 @@
 .login{position:absolute;top:200px; left:70px;}
 .textlogin{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .login:hover > .textlogin{color:grey;}
-.jeusanslogin{position:absolute;top:250px; left:30px;}
+.jeusanslogin{position:absolute;top:250px; left:0px;}
 .textjeusanslogin{font-size: x-large; font-family: Arial, Helvetica, sans-serif;color: white;}
 .jeusanslogin:hover > .textjeusanslogin{color:grey}
 .form{position:absolute;top: 150px; left: 250px;font-size: large; font-weight:bold;}
@@ -31,7 +31,7 @@
 .deconnexion{position:absolute;top:140px; right:30px;}
 .decotext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .deconnexion:hover > .decotext{color:grey;}
-.historique{position:absolute;top:190px; right: 20px;}
+.historique{position:absolute;top:190px; right: 0px;}
 .histotext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .historique:hover > .histotext{color:grey;}
 
