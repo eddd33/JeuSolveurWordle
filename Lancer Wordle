@@ -1,0 +1,25 @@
+Pour lancer l'application sur votre ordinateur il faut commencer par cloner le projet git.
+Pour cela ouvrez un terminal et exucter la commande suivante:
+git clone https://gitlab.telecomnancy.univ-lorraine.fr/ppii2k22/project2-E13
+
+
+
+Si la librairie flask est installée sur votre machine,rendez-vous dans le répertoire site:
+cd site/
+
+Puis lancer l'application avec flask avec les deux lignes suivantes:
+export FLASK_APP=app.py
+flask run
+
+Ouvrez ensuite le lien proposé
+
+
+
+Si la librairie flask n'est pas installer sur votre machine, vous pouvez lancer l'application après avoir activer l'envirennoment virtuel situé à la source du projet:
+cd..
+source env/bin/activate
+cd site/
+export FLASK_APP=app.py
+flask run
+
+Ouvrez ensuite le lien proposé
