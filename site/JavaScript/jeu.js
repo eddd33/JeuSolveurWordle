@@ -44,7 +44,7 @@ document.addEventListener("keyup",(e) => {
 
     console.log(pressKey);
 
-    if (pressKey === "Backspace" && lettreSuiv !== 0){
+    if (pressKey === "Backspace" && lettreAct !== 0){
         supprLettre()
         return
     }
@@ -77,10 +77,19 @@ function insertLettre(key){
 }
 
 function supprLettre(){
-    let rang = document.getElementsByClassName("rang")[6 - tryNB];
-    let box = rang.children[lettreSuiv - 1];
-    box.textContent = ""
-    box.classList.remove("box-pleine")
-    currentGuess.pop()
-    lettreSuiv = lettreSuiv -1
+    if (lettreAct > 0) {
+        lettreAct--
+        const boite = document.getElementById('ligne-' + rangAct + '-key-' + lettreAct)
+        boite.textContent = '.'
+        
+        boite.setAttribute('data', '')
+    }
+
+
+    //let rang = document.getElementsByClassName("rang")[6 - tryNB];
+    //let box = rang.children[lettreSuiv - 1];
+    //box.textContent = ""
+    //box.classList.remove("box-pleine")
+    //currentGuess.pop()
+    //lettreSuiv = lettreSuiv -1
 }
