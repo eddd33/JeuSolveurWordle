@@ -22,8 +22,8 @@ nb_essais=0
 
 
 def prop(motpropo,MOT,longueur,bonnes):                     #fonction prenant en argument le mot à deviner sous forme de liste de lettre et sa longueur   
-    MOT=list(MOT)
-    bonnesponctuel = ['-' for i in range(longueur)]  
+    MOT=list(MOT)                                           #on transforme le mot en liste de caractères
+    bonnesponctuel = ['-' for i in range(longueur)]         #on (re)initialise les listes 
     malponctuel=['-' for i in range(longueur)]         
     
                                                                     # ligne à remplacer par l'entrée web
