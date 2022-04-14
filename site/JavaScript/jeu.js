@@ -56,7 +56,17 @@ document.addEventListener("keyup",(e) => {
         insertLettre(pressKey)
     }
 
+    let Enter = document.getElementById("Enter")
+    Enter.addEventListener('click', () => handleClick(Enter.textContent))
+
+
 })
+
+function handleClick(key){
+    if (key === "Entrer" && lettreAct === 5){
+        checkGuess()
+    }
+}
 
 function insertLettre(key){
     if (lettreAct < 5 && rangAct < 5 ){
@@ -65,6 +75,7 @@ function insertLettre(key){
 
         boite.setAttribute('data', key)
         lettreAct++
+
     }
 
     //key = key.toLowerCase()
@@ -92,4 +103,9 @@ function supprLettre(){
     //box.classList.remove("box-pleine")
     //currentGuess.pop()
     //lettreSuiv = lettreSuiv -1
+}
+
+function checkGuess(){
+    rangAct++
+    lettreAct = 0
 }
