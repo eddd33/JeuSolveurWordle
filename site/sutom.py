@@ -16,8 +16,7 @@ import copy as cp
 #print(MOT)
                              #on stock les lettres trouvées et bien placées dans bonnes
     #on initialise cette liste
-global nb_essais
-nb_essais=0
+
 
 
 
@@ -82,8 +81,7 @@ def prop(motpropo,MOT,longueur,bonnes):                     #fonction prenant en
     
     malp(malponctuel,faussesponctuel,PROP,MOT,tempo,0)
     
-    global nb_essais
-    nb_essais+=1
+    
     print("Bonnes : ",bonnes)               #on indique au joueur les lettres bien placées
     print("Bonnes sur cette proposition : ",bonnesponctuel)
     print("Mal Placées sur cette proposition : ", malponctuel)              #les lettres qui sont mal placées
@@ -103,11 +101,11 @@ def prop(motpropo,MOT,longueur,bonnes):                     #fonction prenant en
 
 
 
-def reset():
-    global bonnes
-    bonnes = ['-' for i in range(longueur)]     
-    global nb_essais
-    nb_essais=0
+#def reset():
+#    global bonnes
+#    bonnes = ['-' for i in range(longueur)]     
+#    global nb_essais
+#    nb_essais=0
               
             
     
