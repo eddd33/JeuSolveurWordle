@@ -3,6 +3,7 @@ from flask import Flask
 from flask import render_template
 from flask import redirect
 from flask import request
+import random
 from sutom import *
 import sqlite3
 
@@ -52,6 +53,13 @@ def deconnexion():
 def jeusanslogin():
     global ini,L,bonnes,longueur,essais,nb_essais,verifreload
     print("ini",ini)
+    db=sqlite3.connect('projet.db')
+    cur=db.cursor()
+    cur.execute("SELECT mot FROM dico WHERE longueur={}".format(longueur))
+    mots=cur.fetchall()
+    n=random.randint()
+    motatrouve=mot[n]
+    db.close()
     if verifreload!=0:
         ini=0
         verifreload=0
@@ -89,6 +97,13 @@ def jeusanslogin():
 
 @app.route('/jeulogin')
 def jeulogin():
+    db=sqlite3.connect('projet.db')
+    cur=db.cursor()
+    cur.execute("SELECT mot FROM dico WHERE longueur={}".format(longueur))
+    mots=cur.fetchall()
+    n=random.randint()
+    motatrouve=mot[n]
+    db.close()
     return render_template('jeulogin.html')
 
 @app.route('/historique_score')
