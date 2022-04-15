@@ -51,15 +51,9 @@ def deconnexion():
 
 @app.route('/jeusanslogin',methods=["POST","GET"])
 def jeusanslogin():
-    global ini,L,bonnes,longueur,essais,nb_essais,verifreload
+    global ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve
     print("ini",ini)
-    db=sqlite3.connect('projet.db')
-    cur=db.cursor()
-    cur.execute("SELECT mot FROM dico WHERE longueur={}".format(longueur))
-    mots=cur.fetchall()
-    n=random.randint()
-    motatrouve=mot[n]
-    db.close()
+    
     if verifreload!=0:
         ini=0
         verifreload=0
@@ -68,29 +62,42 @@ def jeusanslogin():
         nb_essais=0
         L=[]
         L.append("Longueur du mot à trouver : {}".format(longueur))
+        db=sqlite3.connect('projet.db')
+        cur=db.cursor()
+        cur.execute("SELECT mot FROM dico WHERE longueur={}".format(longueur))
+        mots=cur.fetchall()
+        n=random.randint(0,len(mots))
+        motatrouve=mots[n][0]
+        print("motatrouve",motatrouve)
+        db.close()
         g=""
-        motatrouve="plage" # A LIER AVEC LA BD
+        #motatrouve="plage" # A LIER AVEC LA BD
         bonnes = ['-' for i in range(longueur)] 
         return render_template('jeusanslogin.html',liste=L)
     else:
-        motatrouve="plage" # A LIER AVEC LA BD
+        #motatrouve="plage" # A LIER AVEC LA BD
         
         g=""
         mot=request.form.get("motprop")
         if mot == "" or len(mot)!=longueur:
-            pass      # empecher de faire des mots nuls ou meme de mauvaises longueurs
-        
-        bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
-        #print(bonnes)
-        nb_essais+=1
-        L.pop()
-        if bonnes==0:
-            g="Vous avez gagné ! "
-            verifreload=1
-            L.append("{}".format(mot))
+            L.pop()
+            L.append("Mauvaise longueur de mot, réessaye mongolo")      # empecher de faire des mots nuls ou meme de mauvaises longueurs
         else:
-            L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
-        L.append("Nombre d'essais : {}".format(nb_essais))
+            bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
+            #print(bonnes)
+            nb_essais+=1
+            L.pop()
+            if bonnes==0:
+                g="Vous avez gagné ! "
+                verifreload=1
+                L.append("{}".format(mot))
+            elif nb_essais==essais:
+                g="Vous avez perdu ! Le mot était {}".format(motatrouve)
+                verifreload=1
+                L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
+            else:
+                L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
+            L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
         return render_template('jeusanslogin.html',liste=L,gagne=g)
 
     
@@ -102,7 +109,7 @@ def jeulogin():
     cur.execute("SELECT mot FROM dico WHERE longueur={}".format(longueur))
     mots=cur.fetchall()
     n=random.randint()
-    motatrouve=mot[n]
+    motatrouve=mots[n]
     db.close()
     return render_template('jeulogin.html')
 

@@ -87,7 +87,6 @@ def prop(motpropo,MOT,longueur,bonnes):                     #fonction prenant en
     print("Mal Placées sur cette proposition : ", malponctuel)              #les lettres qui sont mal placées
     print("Fausses sur cette proposition : ",faussesponctuel)             #les lettres qui n'appartiennet pas au mot à trouver
     #Normalement les 3 listes si dessus se complètent
-    print("Nombre d'essais : ", nb_essais)
     
     
     if not '-' in bonnes:
