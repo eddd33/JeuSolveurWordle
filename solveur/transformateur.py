@@ -22,10 +22,12 @@ def transformation(L,bonnes,mal,fausses):
         for m in mal:
             if not m[0] in mot:
                 T.remove(mot)
+                break
     for mot in T:
         for m in mal:
             if mot[m[1]]==m[0]:
                 T.remove(mot)
+                break
 
     ubuf=[]                                         #liste contenant les lettre qui sont dans bonnes (ou mal) et aussi fausses
     for f in fausses:
