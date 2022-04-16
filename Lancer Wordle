@@ -15,8 +15,8 @@ Ouvrez ensuite le lien proposé
 
 
 
-Si la librairie flask n'est pas installer sur votre machine, vous pouvez lancer l'application après avoir activer l'envirennoment virtuel situé à la source du projet:
-cd..
+Si la librairie flask n'est pas installée sur votre machine, vous pouvez lancer l'application après avoir activer l'environnement virtuel situé à la source du projet:
+cd ..
 source env/bin/activate
 cd site/
 export FLASK_APP=app.py
