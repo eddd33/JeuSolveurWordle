@@ -37,9 +37,28 @@ def accueil():
     ini=0
     return render_template('accueil.html')
 
-@app.route('/inscription',methods=["GET","POST"])
+@app.route('/inscription')
 def inscription():
     return render_template('inscription.html')
+
+@app.route('/register',method=["POST"])
+def register():
+    db=sqlite3.connect('projet.db')
+    cur=db.cursor()
+    cur.execute("SELECT pseudo FROM user")
+    users=cur.fetchall()
+    login=request.form.get("login")
+    mdp=request.form.get("mdp")
+    if not login:
+        return render_template('erreur.hmtl',message="Login non renseigné")
+    if not mdp:
+        return render_template('erreur.hmtl',message="Mot de passe non renseigné")
+    if login in users:
+        return render_template('erreur.html',message="Login déjà utilisé, veuillez en choisir un autre.")
+    cur.execute("INSERT INTO user (pseudo,mdp) VALUES (?,?)",(login,mdp))
+    db.commit()
+    db.close()
+    return render_template('inscription_reussie.html')
 
 @app.route('/login')
 def connexion():
