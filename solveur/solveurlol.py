@@ -16,8 +16,9 @@ bonnes=[]
 mal=[]
 
 nb_essais=0
+nb=0
 #Propose un mot
-def prop(motslongueur,bonnes,mal,fausses,dejapropose,nb_essais):
+def prop(motslongueur,bonnes,mal,fausses,dejapropose,nb_essais,nb):
     malponctuel=[]
     bonnesponctuel=[]
     faussesponctuel=[]
@@ -27,10 +28,10 @@ def prop(motslongueur,bonnes,mal,fausses,dejapropose,nb_essais):
 
     demande=input("Alors ? \n")
     if demande=='-1':
-        print("Trouvé!")
+        print("Trouvé! en {} propositions".format(nb+1))
         return 0
     demandelist=list(demande)
-    print(demandelist)
+    #print(demandelist)
     
     for i in range(len(demandelist)):               #on ajoute les lettres et les emplacements au bons endroit
         if demandelist[i]=='2':
@@ -45,9 +46,9 @@ def prop(motslongueur,bonnes,mal,fausses,dejapropose,nb_essais):
 
     motslongueur=transformation(motslongueur,bonnes,mal,fausses,bonnesponctuel,malponctuel,faussesponctuel)
     #print(motslongueur)
-    prop(motslongueur,bonnes,mal,fausses,dejapropose,nb_essais+1)
+    prop(motslongueur,bonnes,mal,fausses,dejapropose,nb_essais+1,nb+1)
 
-prop(motslongueur,bonnes,mal,fausses,dejapropose,nb_essais)
+prop(motslongueur,bonnes,mal,fausses,dejapropose,nb_essais,nb)
 
 
 #Validation
