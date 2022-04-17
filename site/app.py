@@ -55,7 +55,7 @@ def register():
         return render_template('erreur.hmtl',message="Mot de passe non renseigné")
     if login in users:
         return render_template('erreur.html',message="Login déjà utilisé, veuillez en choisir un autre.")
-    cur.execute("INSERT INTO user (pseudo,mdp) VALUES (?,?)",(login,mdp))
+    cur.execute("INSERT INTO user (pseudo,mdp,parties_jouees,parties_gagnees) VALUES (?,?,0,0)",(login,mdp))
     db.commit()
     db.close()
     return render_template('inscription_reussie.html')
@@ -64,8 +64,28 @@ def register():
 def connexion():
     return render_template('login.html')
 
+@app.route('/loginbis',methods=['POST'])
+def loginbis():
+    db=sqlite3.connect('projet.db')
+    cur=db.cursor()
+    cur.execute("SELECT pseudo FROM user")
+    users=cur.fetchall()
+    pseudo=request.form.get("login")
+    mdp=request.form.get("mdp")
+    if pseudo not in users:
+        return render_template('erreur.html',message="Login inconnu. Veuillez vous inscrire.")
+    cur.execute("SELECT mdp FROM user WHERE pseudo='{}'".format(pseudo))
+    bonmdp=cur.fetchone()
+    if mdp!=bonmdp:
+        return render_template('erreur.html',message="Mot de passe incorrect")
+    global login
+    login=pseudo
+    return render_template('layout.html')
+
 @app.route('/deconnexion')
 def deconnexion():
+    global login    
+    login=None
     return redirect('/accueil')
 
 @app.route('/jeusanslogin',methods=["POST","GET"])
@@ -123,6 +143,8 @@ def jeusanslogin():
 
 @app.route('/jeulogin')
 def jeulogin():
+    if not testconnect():
+        return redirect('/login')
     db=sqlite3.connect('projet.db')
     cur=db.cursor()
     cur.execute("SELECT mot FROM dico WHERE longueur={}".format(longueur))
@@ -134,6 +156,8 @@ def jeulogin():
 
 @app.route('/historique_score')
 def historique_score():
+    if not testconnect():
+        return redirect('/login')
     return render_template('historique_score.html')
 
 @app.route("/filtrelettres",methods=["POST","GET"])
