@@ -15,13 +15,13 @@ fausses=[]
 bonnes=[]
 mal=[]
 
-
+nb_essais=0
 #Propose un mot
-def prop(motslongueur,bonnes,mal,fausses,dejapropose):
+def prop(motslongueur,bonnes,mal,fausses,dejapropose,nb_essais):
     malponctuel=[]
     bonnesponctuel=[]
     faussesponctuel=[]
-    proposition=trouveurmot(motslongueur,dejapropose)
+    proposition=trouveurmot(motslongueur,dejapropose,[],nb_essais)
     dejapropose.append(proposition)
     print(proposition)
 
@@ -45,10 +45,13 @@ def prop(motslongueur,bonnes,mal,fausses,dejapropose):
 
     motslongueur=transformation(motslongueur,bonnes,mal,fausses,bonnesponctuel,malponctuel,faussesponctuel)
     #print(motslongueur)
-    prop(motslongueur,bonnes,mal,fausses,dejapropose)
+    prop(motslongueur,bonnes,mal,fausses,dejapropose,nb_essais+1)
 
-prop(motslongueur,bonnes,mal,fausses,dejapropose)
+prop(motslongueur,bonnes,mal,fausses,dejapropose,nb_essais)
 
 
 #Validation
 
+
+
+#il y a un probleme avec rideau par exemple, le résultat dépend du sens dans lequel on met la séquence de chiffre

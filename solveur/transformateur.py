@@ -1,3 +1,5 @@
+import copy as cp
+
 def transformation(L,bonnes,mal,fausses,bonnesponctuel,malponctuel,faussesponctuel):
     T=[]
     bonnes=singularite(bonnes)
@@ -22,12 +24,14 @@ def transformation(L,bonnes,mal,fausses,bonnesponctuel,malponctuel,faussesponctu
 
     
     #si parmis ces mots il n'y a pas une des lettres mal placés, on les enlève
-    for mot in T:
+    T2=cp.deepcopy(T)
+    for mot in T2:
         for m in mal:
             if not m[0] in mot:
                 T.remove(mot)
                 break
-    for mot in T:
+    T2=cp.deepcopy(T)
+    for mot in T2:
         for m in mal:
             if mot[m[1]]==m[0]:
                 T.remove(mot)
@@ -85,17 +89,21 @@ def transformation(L,bonnes,mal,fausses,bonnesponctuel,malponctuel,faussesponctu
         #print("a",a)
         if a==2:
             aenlever.append(f)
-    
-    for mot in T:
+    #print("aenleve",aenlever)
+    #print("T1",T)
+    T2=cp.deepcopy(T)
+    for mot in T2:
+        #print(mot)
         for lettre in mot:
             if lettre in aenlever:
+                #print(mot)
                 T.remove(mot)
                 break
 
     
 
 
-    for f in faussesponctuel:       #Probleme ici
+    for f in faussesponctuel:       #enleve les mots avec une lettre bonne et une lettre fausses communes
         c=0
         for b in bonnesponctuel:  #compte le nombre d'occurence de la fausse lettre dans les lettres bonnes du mot proposé
             if b[0]==f:
@@ -103,15 +111,16 @@ def transformation(L,bonnes,mal,fausses,bonnesponctuel,malponctuel,faussesponctu
         for m in malponctuel:     #compte le nombre d'occurence de la fausse lettre dans les lettres bonnes du mot proposé
             if m[0]==f:
                 c+=1
-        
-        for mot in T:
+        T2=cp.deepcopy(T)
+        for mot in T2:
             if occurence(mot,f)>c:
-                print("ca enleve des trucs")
+                #print("ca enleve des trucs")
                 T.remove(mot)
-                break
+                
+                
 
-    print(bonnes,mal,malponctuel,fausses)
-                    
+    #print(bonnes,mal,malponctuel,fausses)
+    #print("T",T)          
 
     return T
 
