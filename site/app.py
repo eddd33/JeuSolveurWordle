@@ -41,7 +41,7 @@ def accueil():
 def inscription():
     return render_template('inscription.html')
 
-@app.route('/register',method=["POST"])
+@app.route('/register',methods=["POST"])
 def register():
     db=sqlite3.connect('projet.db')
     cur=db.cursor()
