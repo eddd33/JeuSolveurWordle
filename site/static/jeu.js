@@ -6,12 +6,12 @@
 function initJeu() {
     let tableau = document.getElementById("wordle");
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
         let rang = document.createElement("div")
         rang.className = "rang"
         rang.id = "ligne-" + i
         
-        for (let j = 0; j < 5; j++) {
+        for (let j = 0; j < 8; j++) {
             let box = document.createElement("span")
             box.className = "case"
             box.id = "ligne-" + i + "-key-" + j
