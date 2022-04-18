@@ -6,12 +6,12 @@
 function initJeu() {
     let tableau = document.getElementById("wordle");
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 5; i++) {
         let rang = document.createElement("div")
         rang.className = "rang"
         rang.id = "ligne-" + i
         
-        for (let j = 0; j < 4; j++) {
+        for (let j = 0; j < 5; j++) {
             let box = document.createElement("span")
             box.className = "case"
             box.id = "ligne-" + i + "-key-" + j
@@ -49,7 +49,7 @@ document.addEventListener("keyup",(e) => {
         return
     }
 
-    let guess = pressKey.match(/[A-Z]/gi)
+    let guess = pressKey.match(/^[A-Za-z]$/)
     if (!guess || guess.length > 1){
         return
     } else{
