@@ -22,17 +22,22 @@ verifreload=0
 
 def testconnect():
     global login
-    if 'login' in globals() :
+    if login!=0:
+        print(login)
         return True
     else:
         return False
 
 @app.route('/')
 def initial():
-    return render_template('accueil.html')
+    global login
+    login=0
+    return redirect("/accueil")
 
 @app.route('/accueil')
 def accueil():
+    if testconnect():
+        return redirect("/deco")
     global ini
     ini=0
     return render_template('accueil.html')
@@ -43,6 +48,8 @@ def inscription():
 
 @app.route('/register',methods=["POST"])
 def register():
+    global ini
+    ini=0
     db=sqlite3.connect('projet.db')
     cur=db.cursor()
     cur.execute("SELECT pseudo FROM user")
@@ -62,25 +69,29 @@ def register():
 
 @app.route('/login')
 def connexion():
+    global ini
+    ini=0
     return render_template('login.html')
 
 @app.route('/loginbis',methods=['POST'])
 def loginbis():
     db=sqlite3.connect('projet.db')
     cur=db.cursor()
-    cur.execute("SELECT pseudo FROM user")
-    users=cur.fetchall()
     pseudo=request.form.get("login")
     mdp=request.form.get("mdp")
-    if pseudo not in users:
+    cur.execute("SELECT pseudo FROM user where pseudo='{}'".format(pseudo))
+    users=cur.fetchone()
+    print(users)
+    
+    if not users:
         return render_template('erreur.html',message="Login inconnu. Veuillez vous inscrire.")
     cur.execute("SELECT mdp FROM user WHERE pseudo='{}'".format(pseudo))
-    bonmdp=cur.fetchone()
+    bonmdp=cur.fetchone()[0]
     if mdp!=bonmdp:
         return render_template('erreur.html',message="Mot de passe incorrect")
     global login
     login=pseudo
-    return render_template('layout.html')
+    return redirect('/jeulogin')
 
 @app.route('/deconnexion')
 def deconnexion():
@@ -90,6 +101,8 @@ def deconnexion():
 
 @app.route('/jeusanslogin',methods=["POST","GET"])
 def jeusanslogin():
+    if testconnect():
+        return redirect("/deco")
     global ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve
     print("ini",ini)
     
@@ -141,18 +154,76 @@ def jeusanslogin():
 
     
 
-@app.route('/jeulogin')
+@app.route('/jeulogin',methods=["GET","POST"])
 def jeulogin():
     if not testconnect():
         return redirect('/login')
-    db=sqlite3.connect('projet.db')
-    cur=db.cursor()
-    cur.execute("SELECT mot FROM dico WHERE longueur={}".format(longueur))
-    mots=cur.fetchall()
-    n=random.randint()
-    motatrouve=mots[n]
-    db.close()
-    return render_template('jeulogin.html')
+    global ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve
+    print("ini",ini)
+    
+    if verifreload!=0:
+        ini=0
+        verifreload=0
+    if ini==0:
+        ini+=1
+        nb_essais=0
+        L=[]
+        L.append("Longueur du mot à trouver : {}".format(longueur))
+        db=sqlite3.connect('projet.db')
+        cur=db.cursor()
+        cur.execute("SELECT mot FROM dico WHERE longueur={}".format(longueur))
+        mots=cur.fetchall()
+        n=random.randint(0,len(mots))
+        motatrouve=mots[n][0]
+        print("motatrouve",motatrouve)
+        db.close()
+        g=""
+        
+        bonnes = ['-' for i in range(longueur)] 
+        return render_template('jeulogin.html',liste=L)
+    else:
+        g=""
+        print("motprop",request.form.get("motprop"))
+        mot=request.form.get("motprop")
+        if mot == "" or len(mot)!=longueur:
+            L.pop()
+            L.append("Mauvaise longueur de mot, réessaye mongolo")      # empecher de faire des mots nuls ou meme de mauvaises longueurs
+        else:
+            bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
+            #print(bonnes)
+            nb_essais+=1
+            L.pop()
+            if bonnes==0:
+                g="Vous avez gagné ! "
+                verifreload=1
+                L.append("{}".format(mot))
+                db=sqlite3.connect("projet.db")
+                cur=db.cursor()
+                cur.execute("SELECT parties_jouees,parties_gagnees FROM user WHERE pseudo='{}'".format(login))
+                parties=cur.fetchone()
+                part_j,part_g=parties[0]+1,parties[1]+1
+                cur.execute("UPDATE user SET parties_jouees = {} WHERE pseudo = '{}'".format(part_j,login))
+                cur.execute("UPDATE user SET parties_gagnees = {} WHERE pseudo = '{}'".format(part_g,login))
+
+                db.commit()
+                db.close()
+            elif nb_essais==essais:
+                g="Vous avez perdu ! Le mot était {}".format(motatrouve)
+                verifreload=1
+                L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
+                db=sqlite3.connect("projet.db")
+                cur=db.cursor()
+                cur.execute("SELECT parties_jouees,parties_gagnees FROM user WHERE pseudo='{}'".format(login))
+                parties=cur.fetchone()
+                part_j,part_g=parties[0]+1,parties[1]
+                cur.execute("UPDATE user SET parties_jouees = {} WHERE pseudo = '{}'".format(part_j,login))
+
+                db.commit()
+                db.close()
+            else:
+                L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
+            L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
+    return render_template('jeulogin.html',liste=L,gagne=g)
 
 @app.route('/historique_score')
 def historique_score():
@@ -165,11 +236,23 @@ def filtrelettres():
     global longueur,ini
     ini=0   #reset le jeu
     longueur=int(request.form.get("nbdelettres"))
-    return redirect("/jeusanslogin")
+    if testconnect():
+        return redirect("jeulogin")
+    else:
+        return redirect("/jeusanslogin")
 
 @app.route("/filtrechances",methods=["POST","GET"])
 def filtrechances():
     global essais,ini
     ini=0
     essais=int(request.form.get("nbdechances"))
-    return redirect("/jeusanslogin")
+    if testconnect():
+        return redirect("jeulogin")
+    else:
+        return redirect("/jeusanslogin")
+
+@app.route("/deco")
+def deco():
+    global login
+    login = 0
+    return redirect("/accueil")

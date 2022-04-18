@@ -9,7 +9,7 @@
     </div>
     <div class=menudroit>
         <div class=deconnexion>
-            <a href=\accueil class=decotext>Déconnexion</a>
+            <a href=\deco class=decotext>Déconnexion</a>
         </div>
         <div class=historique>
         <a href=\historique_score class=histotext>Voir mes scores</a>
@@ -17,8 +17,8 @@
     </div>
 
     <div class=menugauche>
-        <form action="/filtrecat" method="post">
-        <select name="Nombre de lettres" class=nblettres>
+        <form action="/filtrelettres" method="post">
+        <select name="nbdelettres" class=nblettres>
             <option disabled selected value="" class=options>Nombre de lettres</option>
             <option value="3">3</option>
             <option value="4">4</option>
@@ -46,8 +46,8 @@
         </select>
         <input type="submit" value="Choisir" class=boutonfiltrer>
         </form>
-        <form action="/filtrecat" method="post">
-            <select name="Nombre de Chances" class=nbchances>
+        <form action="/filtrechances" method="post">
+            <select name="nbdechances" class=nbchances>
                 <option disabled selected value="" class=options>Nombre de chances</option>
                 <option value="6">6</option>
                 <option value="7">7</option>
