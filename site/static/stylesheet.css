@@ -68,6 +68,7 @@
     display: flex;
   }
 
+  
 #clavier {
   margin: 1rem 0;
   display: flex;
@@ -75,11 +76,26 @@
   align-items: center;
   position: relative;
   top: 100px;
+  height: 200px
+  
 }
 
-#clavier div{
+.rangee {
+  width : 100%;
   display: flex;
+  justify-content: center;
+
 }
 
-
+.rangee button {
+  border: 0;
+  padding: 0;
+  height: 58px;
+  width: 58px;
+  cursor: pointer;
+  background-color: rgb(194, 194, 194);
+  border-radius: 10%;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
 
