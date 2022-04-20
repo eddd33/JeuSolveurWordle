@@ -170,7 +170,7 @@ def jeusanslogin():
 def jeulogin():
     if not testconnect():
         return redirect('/login')
-    global ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve
+    global ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,login
     print("ini",ini)
     
     if verifreload!=0:
@@ -192,7 +192,7 @@ def jeulogin():
         g=""
         
         bonnes = ['-' for i in range(longueur)] 
-        return render_template('jeulogin.html',liste=L)
+        return render_template('jeulogin.html',liste=L,login=login)
     else:
         g=""
         print("motprop",request.form.get("motprop"))
@@ -238,13 +238,13 @@ def jeulogin():
                 else:
                     L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
                 L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
-    return render_template('jeulogin.html',liste=L,gagne=g)
+    return render_template('jeulogin.html',liste=L,gagne=g,login=login)
 
 @app.route('/historique_score')
 def historique_score():
     if not testconnect():
         return redirect('/login')
-    return render_template('historique_score.html')
+    return render_template('historique_score.html',login=login)
 
 @app.route("/filtrelettres",methods=["POST","GET"])
 def filtrelettres():

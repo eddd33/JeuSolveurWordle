@@ -18,8 +18,8 @@
 .text{border-radius:15px;height:35px}
 .titreLettres{position:absolute;top:150px;left:0px;width: 250px;height:80px;color:white;font-size: x-large; font-weight: bold;}
 .titreChances{position:absolute;top:360px;left:0px;width: 250px;height:80px;color:white;font-size: x-large; font-weight: bold;}
-.nbchances{position:absolute;top:420px;left:0px;width: 250px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
-.nblettres{position:absolute;top:190px;left:0px;width: 250px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
+.nbchances{position:absolute;top:420px;left:0px;width: 280px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
+.nblettres{position:absolute;top:190px;left:0px;width: 280px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
 .boutonfiltrer{position:absolute;top:300px;left:100px}
 .boutonfiltrerbis{position:absolute;top:600px;left:100px}
 .fond{position:absolute;top:200px;left:600px;width: 700px;height: 400px;background-color: rgb(194, 194, 194);border-radius: 20px;}
@@ -28,15 +28,15 @@
 .score{position: absolute;top: 240px;left: 80px;font: x-large;font-weight: bold;color:white;}
 .nbchances{position:absolute;top:340px;left:0px;width: 250px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
 .nblettres{position:absolute;top:190px;left:0px;width: 250px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
-.boutonfiltrer{position:absolute;top:300px;left:100px}
-.boutonfiltrerbis{position:absolute;top:450px;left:100px}
-.deconnexion{position:absolute;top:140px; right:25px;}
+.boutonfiltrer{position:absolute;top:300px;left:102px}
+.boutonfiltrerbis{position:absolute;top:450px;left:102px}
+.deconnexion{position:absolute;top:140px; right:22px;}
 .decotext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .deconnexion:hover > .decotext{color:grey;}
 .historique{position:absolute;top:190px; right: 5px;}
 .histotext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .historique:hover > .histotext{color:grey;}
-
+.bonjour{position:absolute;top:90px; right: 5px;}
 
 #wordle {
     display: flex;
