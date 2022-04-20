@@ -37,6 +37,7 @@
 .histotext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .historique:hover > .histotext{color:grey;}
 .bonjour{position:absolute;top:90px; right: 5px;}
+.bonjourtext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 
 #wordle {
     display: flex;
