@@ -15,6 +15,8 @@ global longueur #longueur du mot
 global essais   
 global nb_essais #nb d'essais sur la partie en cours
 global verifreload # regarde si l'utilisateur a reload apres avoir gagné
+global login
+login=0
 essais=6
 longueur=5
 ini =0
@@ -44,6 +46,8 @@ def accueil():
 
 @app.route('/inscription')
 def inscription():
+    global login
+    login=0
     return render_template('inscription.html')
 
 @app.route('/register',methods=["POST"])
@@ -69,8 +73,9 @@ def register():
 
 @app.route('/login')
 def connexion():
-    global ini
+    global ini,login
     ini=0
+    login=0
     return render_template('login.html')
 
 @app.route('/loginbis',methods=['POST'])
@@ -96,14 +101,17 @@ def loginbis():
 @app.route('/deconnexion')
 def deconnexion():
     global login    
-    login=None
+    login=0
     return redirect('/accueil')
+
+global mot
+mot=0
 
 @app.route('/jeusanslogin',methods=["POST","GET"])
 def jeusanslogin():
     if testconnect():
         return redirect("/deco")
-    global ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve
+    global ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
     print("ini",ini)
     
     if verifreload!=0:
@@ -123,33 +131,37 @@ def jeusanslogin():
         print("motatrouve",motatrouve)
         db.close()
         g=""
-        #motatrouve="plage" # A LIER AVEC LA BD
         bonnes = ['-' for i in range(longueur)] 
         return render_template('jeusanslogin.html',liste=L)
     else:
-        #motatrouve="plage" # A LIER AVEC LA BD
         
         g=""
-        mot=request.form.get("motprop")
-        if mot == "" or len(mot)!=longueur:
-            L.pop()
-            L.append("Mauvaise longueur de mot, réessaye mongolo")      # empecher de faire des mots nuls ou meme de mauvaises longueurs
+        motp=request.form.get("motprop")
+        if motp==mot:   #evite les problème de refresh
+            pass
         else:
-            bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
-            #print(bonnes)
-            nb_essais+=1
-            L.pop()
-            if bonnes==0:
-                g="Vous avez gagné ! "
-                verifreload=1
-                L.append("{}".format(mot))
-            elif nb_essais==essais:
-                g="Vous avez perdu ! Le mot était {}".format(motatrouve)
-                verifreload=1
-                L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
+            mot=motp
+            print("mot",mot)
+            if mot == "" or len(mot)!=longueur:
+                L.pop()
+                L.append("Mauvaise longueur de mot, réessaye mongolo")      # empecher de faire des mots nuls ou meme de mauvaises longueurs
             else:
-                L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
-            L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
+                bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
+                #print(bonnes)
+                nb_essais+=1
+                L.pop()
+                if bonnes==0:
+                    g="Vous avez gagné ! "
+                    verifreload=1
+                    L.append("{}".format(mot))
+                elif nb_essais==essais:
+                    g="Vous avez perdu ! Le mot était {}".format(motatrouve)
+                    verifreload=1
+                    L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
+                else:
+                    L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
+                L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
+       
         return render_template('jeusanslogin.html',liste=L,gagne=g)
 
     
@@ -184,45 +196,48 @@ def jeulogin():
     else:
         g=""
         print("motprop",request.form.get("motprop"))
-        mot=request.form.get("motprop")
-        if mot == "" or len(mot)!=longueur:
-            L.pop()
-            L.append("Mauvaise longueur de mot, réessaye mongolo")      # empecher de faire des mots nuls ou meme de mauvaises longueurs
+        motp=request.form.get("motprop")
+        if motp==mot:
+            pass
         else:
-            bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
-            #print(bonnes)
-            nb_essais+=1
-            L.pop()
-            if bonnes==0:
-                g="Vous avez gagné ! "
-                verifreload=1
-                L.append("{}".format(mot))
-                db=sqlite3.connect("projet.db")
-                cur=db.cursor()
-                cur.execute("SELECT parties_jouees,parties_gagnees FROM user WHERE pseudo='{}'".format(login))
-                parties=cur.fetchone()
-                part_j,part_g=parties[0]+1,parties[1]+1
-                cur.execute("UPDATE user SET parties_jouees = {} WHERE pseudo = '{}'".format(part_j,login))
-                cur.execute("UPDATE user SET parties_gagnees = {} WHERE pseudo = '{}'".format(part_g,login))
-
-                db.commit()
-                db.close()
-            elif nb_essais==essais:
-                g="Vous avez perdu ! Le mot était {}".format(motatrouve)
-                verifreload=1
-                L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
-                db=sqlite3.connect("projet.db")
-                cur=db.cursor()
-                cur.execute("SELECT parties_jouees,parties_gagnees FROM user WHERE pseudo='{}'".format(login))
-                parties=cur.fetchone()
-                part_j,part_g=parties[0]+1,parties[1]
-                cur.execute("UPDATE user SET parties_jouees = {} WHERE pseudo = '{}'".format(part_j,login))
-
-                db.commit()
-                db.close()
+            if mot == "" or len(mot)!=longueur:
+                L.pop()
+                L.append("Mauvaise longueur de mot, réessaye mongolo")      # empecher de faire des mots nuls ou meme de mauvaises longueurs
             else:
-                L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
-            L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
+                bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
+                #print(bonnes)
+                nb_essais+=1
+                L.pop()
+                if bonnes==0:
+                    g="Vous avez gagné ! "
+                    verifreload=1
+                    L.append("{}".format(mot))
+                    db=sqlite3.connect("projet.db")
+                    cur=db.cursor()
+                    cur.execute("SELECT parties_jouees,parties_gagnees FROM user WHERE pseudo='{}'".format(login))
+                    parties=cur.fetchone()
+                    part_j,part_g=parties[0]+1,parties[1]+1
+                    cur.execute("UPDATE user SET parties_jouees = {} WHERE pseudo = '{}'".format(part_j,login))
+                    cur.execute("UPDATE user SET parties_gagnees = {} WHERE pseudo = '{}'".format(part_g,login))
+
+                    db.commit()
+                    db.close()
+                elif nb_essais==essais:
+                    g="Vous avez perdu ! Le mot était {}".format(motatrouve)
+                    verifreload=1
+                    L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
+                    db=sqlite3.connect("projet.db")
+                    cur=db.cursor()
+                    cur.execute("SELECT parties_jouees,parties_gagnees FROM user WHERE pseudo='{}'".format(login))
+                    parties=cur.fetchone()
+                    part_j,part_g=parties[0]+1,parties[1]
+                    cur.execute("UPDATE user SET parties_jouees = {} WHERE pseudo = '{}'".format(part_j,login))
+
+                    db.commit()
+                    db.close()
+                else:
+                    L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
+                L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
     return render_template('jeulogin.html',liste=L,gagne=g)
 
 @app.route('/historique_score')
