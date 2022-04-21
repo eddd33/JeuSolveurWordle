@@ -244,7 +244,13 @@ def jeulogin():
 def historique_score():
     if not testconnect():
         return redirect('/login')
-    return render_template('historique_score.html',login=login)
+    db=sqlite3.connect("projet.db")
+    cur=db.cursor()
+    cur.execute("SELECT parties_jouees,parties_gagnees FROM user WHERE pseudo={}".format(login))
+    parties=cur.fetchall()
+    nb_jouees=parties[0]
+    nb_gagnees=parties[1]
+    return render_template('historique_score.html',login=login,nb_jouees=nb_jouees,nb_gagnees=nb_gagnees)
 
 @app.route("/filtrelettres",methods=["POST","GET"])
 def filtrelettres():

@@ -27,11 +27,18 @@
 .deconnexion{position:absolute;top:140px; right:22px;}
 .decotext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .deconnexion:hover > .decotext{color:grey;}
-.historique{position:absolute;top:190px; right: 5px;}
+.jeulogin{position:absolute;top:190px; right: 50px;}
+.jeulogintext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.jeulogin:hover > .jeulogintext{color:grey;}
+.historique{position:absolute;top:240px; right: 5px;}
 .histotext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .historique:hover > .histotext{color:grey;}
 .bonjour{position:absolute;top:40px; left: 5px;}
 .bonjourtext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.titre_nb_jouees{position:absolute;top:60px; left: 100px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.nb_jouees{position:absolute;top:90px; left: 100px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.titre_nb_gagnees{position:absolute;top:60px; left: 500px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.nb_gagnees{position:absolute;top:90px; left: 500px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 
 #wordle {
   display: flex;
