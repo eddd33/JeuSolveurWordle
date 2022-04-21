@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
     <div class=menugauche>
-        <form action="/filtrelettres" method="post">
         <div class=titreLettres>Nombre de lettres</div>
+        <form action="/filtrelettres" method="post">
         <select name="nbdelettres" class=nblettres id="long">
             <option value="4">4</option>
             <option selected value="5">5</option>
@@ -17,10 +17,9 @@
             <option value="11">11</option>
             <option value="12">12</option>
         </select>
-        <input type="submit" value="Filtrer" class=boutonfiltrer>
-        </form>
+        </form>    
+        <div class=titreChances>Nombre de chances</div>
         <form action="/filtrechances" method="post">
-            <div class=titreChances>Nombre de chances</div>
             <select name="nbdechances" class=nbchances id="tryNB">
                 <option value="4">4</option>
                 <option selected value="5">5</option>
@@ -34,9 +33,10 @@
                 <option value="13">13</option>
                 <option value="14">14</option>
             </select>
-            <input type="submit" value="Filtrer" class=boutonfiltrerbis>
             </form>
     </div>
+
+    
 
     <div class=menudroit>
         <div class=accueil>
