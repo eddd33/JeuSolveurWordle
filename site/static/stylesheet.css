@@ -1,25 +1,24 @@
 .logo{position:absolute; top:0px; left:630px;max-width:300px;max-height: 100px;}
-.menugauche{background-color:rgb(109, 216, 175);width: 280px;height: 1000px;position: absolute; top:0px;left:0px;}
-.menudroit{background-color: rgb(245, 182, 131);width: 180px;height: 1000px;position: absolute; top: 0px; right: 0px;}
-.entete{background-color: rgb(194, 194, 194);width: 1800px;height: 100px;position:absolute; top:0px;left:250px;}
-.accueil{position: absolute;top:100px;right: 50px;}
+.menugauche{background-color:rgb(109, 216, 175);width: 250px;height: 1000px;position: absolute; top:0px;left:0px;}
+.menudroit{background-color: rgb(245, 182, 131);width: 240px;height: 1000px;position: absolute; top: 0px; right: 0px;}
+.entete{background-color: rgb(194, 194, 194);width: 1500px;height: 100px;position:absolute; top:0px;left:250px;}
 .textaccueil{font-size: x-large;font-family:Arial, Helvetica, sans-serif;color:white;}
 .accueil:hover > .textaccueil{color:grey;}
-.inscription{position:absolute;top:150px; left:75px;}
+.inscription{position:absolute;top:150px; left:70px;}
 .textinscription{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .inscription:hover > .textinscription{color:grey}
-.login{position:absolute;top:200px; left:70px;}
+.login{position:absolute;top:200px; left:65px;}
 .textlogin{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .login:hover > .textlogin{color:grey;}
-.jeusanslogin{position:absolute;top:250px; left:5px;}
+.jeusanslogin{position:absolute;top:250px; left:0px;}
 .textjeusanslogin{font-size: x-large; font-family: Arial, Helvetica, sans-serif;color: white;}
 .jeusanslogin:hover > .textjeusanslogin{color:grey}
 .form{position:absolute;top: 150px; left: 250px;font-size: large; font-weight:bold;}
 .text{border-radius:15px;height:35px}
-.titreLettres{position:absolute;top:150px;left:0px;width: 250px;height:80px;color:white;font-size: x-large; font-weight: bold;}
-.titreChances{position:absolute;top:360px;left:0px;width: 250px;height:80px;color:white;font-size: x-large; font-weight: bold;}
-.nbchances{position:absolute;top:420px;left:0px;width: 280px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
-.nblettres{position:absolute;top:190px;left:0px;width: 280px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
+.titreLettres{position:absolute;top:200px;left:0px;color:white;font-size: x-large; font-weight: bold;}
+.titreChances{position:absolute;top:400px;left:0px;color:white;font-size: x-large; font-weight: bold;}
+.nbchances{position:absolute;top:440px;left:0px;width: 250px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
+.nblettres{position:absolute;top:240px;left:0px;width: 250px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
 .fond{position:absolute;top:200px;left:600px;width: 700px;height: 400px;background-color: rgb(194, 194, 194);border-radius: 20px;}
 .titre{position:absolute;top: 30px; left: 50px;font-size: x-large; font-weight:bold;font-family: Arial, Helvetica, sans-serif; color:white;}
 .message{position:absolute;top: 30px; left: 50px;font-size: x-large; font-weight:bold;font-family: Arial, Helvetica, sans-serif; color:white;}

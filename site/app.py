@@ -34,15 +34,10 @@ def testconnect():
 def initial():
     global login
     login=0
-    return redirect("/accueil")
-
-@app.route('/accueil')
-def accueil():
-    if testconnect():
-        return redirect("/deco")
     global ini
     ini=0
-    return render_template('accueil.html')
+    return redirect("/jeusanslogin")
+
 
 @app.route('/inscription')
 def inscription():
