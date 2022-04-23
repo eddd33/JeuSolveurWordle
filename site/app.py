@@ -97,7 +97,7 @@ def loginbis():
 def deconnexion():
     global login    
     login=0
-    return redirect('/accueil')
+    return redirect('/jeusanslogin')
 
 global mot
 mot=0
@@ -271,4 +271,4 @@ def filtrechances():
 def deco():
     global login
     login = 0
-    return redirect("/accueil")
+    return redirect("/jeusanslogin")
