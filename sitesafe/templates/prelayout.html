@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html>
+    <link rel="stylesheet" href="static/stylesheet.css">
+    
+    <body>
+    <div class=entete>
+        <img src="{{url_for('static',filename='logo.png')}}" class=logo>
+    </div>
+    <div class=menudroit>
+        <div class=inscription>
+            <a class=textinscription href=/inscription>Inscription</a>
+        </div>
+        <div class=login>
+        <a class=textlogin href=/login>Connexion</a>
+        </div>
+        <div class=jeusanslogin>
+        <a class=textjeusanslogin href=/jeusanslogin>Jouer sans se connecter</a>
+        </div>
+    </div>
+
+    <div class=menugauche>
+    </div>
+    </body>
+    {% block body %}{% endblock %}
+</html>

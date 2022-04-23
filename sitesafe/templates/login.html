@@ -1,0 +1,28 @@
+{% extends "prelayout.html" %}
+{% block body %}
+
+<!DOCTYPE html>
+<html>
+    <title>Connexion</title>
+
+    <div class=fond>
+        <h1 class=titre>Connexion</h1>
+        <form action="/loginbis" method="post" class=form> 
+            <input autocomplete="off" name="login" type="text" placeholder="Login" class=text>
+            <br><br>
+            <input autocomplete="off" name="mdp" type="password" placeholder="Mot de passe" class=text>
+            <br><br>
+            <input type="submit" value="Se connecter">
+        </form>
+    </div>
+
+    <div class=menudroit>
+        <div class=accueil>
+            <a href=\accueil class=textaccueil>Accueil</a>
+        </div>
+    </div>
+   
+
+</html>
+
+{% endblock %}

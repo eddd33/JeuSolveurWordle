@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Wordle</h1>
+        <div id="wordle"></div>
+    </body>
+
+    <div class=form>
+        <ul>
+            {% for L in liste %}
+            
+            <li><a>{{ L }}</a></li>
+    
+            {% endfor %}
+        </ul>
+        <a>{{ gagne }}</a>
+        <form action="/jeulogin" method="post">
+            <input autocomplete="off" name="motprop" type="text" placeholder="Mot proposé" class=text>
+        <input type="submit" value="Proposer">
+        </form>
+    </div>
+
+    <div class=menugauche>
+        <div class=titreLettres>Nombre de lettres</div>
+        <form action="/filtrelettres" method="post">
+        <select name="nbdelettres" class=nblettres id="long">
+            <option value="4">4</option>
+            <option selected value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
+        </form>    
+        <div class=titreChances>Nombre de chances</div>
+        <form action="/filtrechances" method="post">
+            <select name="nbdechances" class=nbchances id="tryNB">
+                <option value="4">4</option>
+                <option selected value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+            </select>
+            </form>
+    </div>
+
+
+    <div id="clavier">
+        <div class="rangee">
+            <button id="A">A</button>
+            <button id="Z">Z</button>
+            <button id="E">E</button>
+            <button id="R">R</button>
+            <button id="T">T</button>
+            <button id="Y">Y</button>
+            <button id="U">U</button>
+            <button id="I">I</button>
+            <button id="O">O</button>
+            <button id="P">P</button>
+        </div>
+        <div class="rangee">
+            <button id="Q">Q</button>
+            <button id="S">S</button>
+            <button id="D">D</button>
+            <button id="F">F</button>
+            <button id="G">G</button>
+            <button id="G">H</button>
+            <button id="J">J</button>
+            <button id="K">K</button>
+            <button id="L">L</button>
+            <button id="M">M</button>
+        </div>
+        <div class="rangee">
+            <button id="Sup">Sup</button>
+            <button id="W">W</button>
+            <button id="X">X</button>
+            <button id="C">C</button>
+            <button id="V">V</button>
+            <button id="B">B</button>
+            <button id="N">N</button>
+            
+            <button id="Enter">Entrer</button>
+
+        </div>
+    </div>
+  
+    <script src="/static/jeu.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/stylesheet.css">
+
+</html>
+
+{% endblock %}

@@ -1,0 +1,111 @@
+.logo{position:absolute; top:0px; left:630px;max-width:300px;max-height: 100px;}
+.menugauche{background-color:rgb(109, 216, 175);width: 260px;height: 1000px;position: absolute; top:0px;left:0px;}
+.menudroit{background-color: rgb(245, 182, 131);width: 260px;height: 1000px;position: absolute; top: 0px; right: 0px;}
+.entete{background-color: rgb(194, 194, 194);width: 1500px;height: 100px;position:absolute; top:0px;left:250px;}
+.textaccueil{font-size: x-large;font-family:Arial, Helvetica, sans-serif;color:white;}
+.accueil:hover > .textaccueil{color:grey;}
+.inscription{position:absolute;top:150px; left:70px;}
+.textinscription{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.inscription:hover > .textinscription{color:grey}
+.login{position:absolute;top:200px; left:65px;}
+.textlogin{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.login:hover > .textlogin{color:grey;}
+.jeusanslogin{position:absolute;top:250px; left:0px;}
+.textjeusanslogin{font-size: x-large; font-family: Arial, Helvetica, sans-serif;color: white;}
+.jeusanslogin:hover > .textjeusanslogin{color:grey}
+.form{position:absolute;top: 150px; left: 350px;font-size: large; font-weight:bold;}
+.text{border-radius:15px;height:35px}
+.titreLettres{position:absolute;top:150px;left:0px;width: 250px;height:80px;color:white;font-size: x-large; font-weight: bold;}
+.titreChances{position:absolute;top:360px;left:0px;width: 250px;height:80px;color:white;font-size: x-large; font-weight: bold;}
+
+.nbchances{position:absolute;top:420px;left:0px;width: 260px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
+.nblettres{position:absolute;top:190px;left:0px;width: 260px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
+
+.fond{position:absolute;top:200px;left:600px;width: 700px;height: 400px;background-color: rgb(194, 194, 194);border-radius: 20px;}
+.titre{position:absolute;top: 30px; left: 50px;font-size: x-large; font-weight:bold;font-family: Arial, Helvetica, sans-serif; color:white;}
+.message{position:absolute;top: 30px; left: 50px;font-size: x-large; font-weight:bold;font-family: Arial, Helvetica, sans-serif; color:white;}
+.score{position: absolute;top: 240px;left: 80px;font: x-large;font-weight: bold;color:white;}
+.deconnexion{position:absolute;top:140px; right:50px;}
+.decotext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.deconnexion:hover > .decotext{color:grey;}
+.jeulogin{position:absolute;top:190px; right: 100px;}
+.jeulogintext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.jeulogin:hover > .jeulogintext{color:grey;}
+.historique{position:absolute;top:240px; right: 20px;}
+.histotext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.historique:hover > .histotext{color:grey;}
+.bonjour{position:absolute;top:40px; left: 5px;}
+.bonjourtext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.titre_nb_jouees{position:absolute;top:60px; left: 100px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.nb_jouees{position:absolute;top:90px; left: 100px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.titre_nb_gagnees{position:absolute;top:60px; left: 500px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.nb_gagnees{position:absolute;top:90px; left: 500px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.boutonfiltrer{position:absolute;top:300px;left:100px}
+.boutonfiltrerbis{position:absolute;top:450px;left:100px}
+
+#wordle {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  top: 100px;
+  width: 516px;
+  margin-left: auto;
+  margin-right: auto;
+  }
+  
+  .case {
+    border: 2px solid rgb(12, 12, 12);
+    border-radius: 3px;
+    margin: 2px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    height: 3rem;
+    width: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+  }
+  
+  .box-pleine {
+    border: 2px solid black;
+  }
+  
+  .rang {
+    display: flex;
+  }
+
+  
+#clavier {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  top: 100px;
+  height: 200px;
+  width: 616px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rangee {
+  width : 100%;
+  display: flex;
+  justify-content: center;
+
+}
+
+.rangee button {
+  border: 0;
+  padding: 0;
+  height: 58px;
+  width: 58px;
+  cursor: pointer;
+  background-color: rgb(194, 194, 194);
+  border-radius: 10%;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
