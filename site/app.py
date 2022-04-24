@@ -1,4 +1,5 @@
 import re
+from tkinter import N
 from flask import Flask
 from flask import render_template
 from flask import redirect
@@ -241,10 +242,10 @@ def historique_score():
         return redirect('/login')
     db=sqlite3.connect("projet.db")
     cur=db.cursor()
-    cur.execute("SELECT parties_jouees,parties_gagnees FROM user WHERE pseudo={}".format(login))
-    parties=cur.fetchall()
-    nb_jouees=parties[0]
-    nb_gagnees=parties[1]
+    cur.execute("SELECT parties_jouees FROM user WHERE pseudo='{}'".format(login))
+    nb_jouees=cur.fetchone()[0]
+    cur.execute("SELECT parties_gagnees FROM user WHERE pseudo='{}'".format(login))
+    nb_gagnees=cur.fetchone()[0]
     return render_template('historique_score.html',login=login,nb_jouees=nb_jouees,nb_gagnees=nb_gagnees)
 
 @app.route("/filtrelettres",methods=["POST","GET"])
