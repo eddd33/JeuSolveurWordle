@@ -70,10 +70,15 @@ let lettreAct = 0;
 
 let rangAct = 0;
 
+
+
 document.addEventListener("keyup",(e) => {
 
+    let Sup = document.getElementById("Sup")
+    Sup.addEventListener('click', () => handleClick(Sup.textContent))
 
-    let key = document.getElementById("key");
+    let a = document.getElementById("A")
+    a.addEventListener('click', () => handleClick(a.textContent))
 
     if (tryNB === 0){
         return
@@ -98,14 +103,20 @@ document.addEventListener("keyup",(e) => {
     let Enter = document.getElementById("Enter")
     Enter.addEventListener('click', () => handleClick(Enter.textContent))
 
-
 })
+
+
 
 function handleClick(key){
     if (key === "Entrer" && lettreAct === longueur){
         checkGuess()
     }
+
+    else if (key === "A" && lettreAct < longueur){
+        insertLettre(key)
+    }
 }
+
 
 function insertLettre(key){
     if (lettreAct < longueur && rangAct < tentatives ){

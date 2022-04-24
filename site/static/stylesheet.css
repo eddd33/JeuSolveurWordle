@@ -13,10 +13,10 @@
 .jeusanslogin{position:absolute;top:250px; left:0px;}
 .textjeusanslogin{font-size: x-large; font-family: Arial, Helvetica, sans-serif;color: white;}
 .jeusanslogin:hover > .textjeusanslogin{color:grey}
-.form{position:absolute;top: 150px; left: 250px;font-size: large; font-weight:bold;}
+.form{position:absolute;top: 100px; left: 700px;font-size: large; font-weight:bold;}
 .text{border-radius:15px;height:35px}
 .titreLettres{position:absolute;top:200px;left:0px;color:white;font-size: x-large; font-weight: bold;}
-.titreChances{position:absolute;top:400px;left:0px;color:white;font-size: x-large; font-weight: bold;}
+.titreChances{position:absolute;top:400px;left:0px;color:white;font-size: large; font-weight: bold;}
 .nbchances{position:absolute;top:440px;left:0px;width: 260px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
 .nblettres{position:absolute;top:240px;left:0px;width: 260px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
 .fond{position:absolute;top:200px;left:600px;width: 700px;height: 400px;background-color: rgb(194, 194, 194);border-radius: 20px;}
@@ -39,12 +39,17 @@
 .titre_nb_gagnees{position:absolute;top:60px; left: 500px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .nb_gagnees{position:absolute;top:90px; left: 500px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 
+:root {
+  --wrong: #b59f3b;
+  --right: #538d4e;
+}
+
 #wordle {
   display: flex;
   align-items: center;
   flex-direction: column;
   position: relative;
-  top: 100px;
+  top: 500px;
   width: 516px;
   margin-left: auto;
   margin-right: auto;
@@ -67,6 +72,14 @@
   .box-pleine {
     border: 2px solid black;
   }
+
+  .case-juste {
+    background: var(--right);
+  }
+
+  .case-fausse {
+    background: var(--wrong);
+  }
   
   .rang {
     display: flex;
@@ -79,7 +92,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  top: 100px;
+  top: 500px;
   height: 200px;
   width: 616px;
   margin-left: auto;
