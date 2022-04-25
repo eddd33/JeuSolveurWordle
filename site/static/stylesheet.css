@@ -1,5 +1,5 @@
 .logo{position:absolute; top:0px; left:625px;max-width:300px;max-height: 100px;}
-.menugauche{background-color:rgb(109, 216, 175);width: 260px;height: 1000px;position: absolute; top:0px;left:0px;}
+.menugauche{background-color:rgb(109, 216, 175);width: 280px;height: 1000px;position: absolute; top:0px;left:0px;}
 .menudroit{background-color: rgb(245, 182, 131);width: 270px;height: 1000px;position: absolute; top: 0px; right: 0px;}
 .entete{background-color: rgb(194, 194, 194);width: 1500px;height: 100px;position:absolute; top:0px;left:250px;}
 .textaccueil{font-size: x-large;font-family:Arial, Helvetica, sans-serif;color:white;}
@@ -18,8 +18,8 @@
 .text{border-radius:15px;height:35px}
 .titreLettres{position:absolute;top:200px;left:0px;color:white;font-size: x-large; font-weight: bold;}
 .titreChances{position:absolute;top:400px;left:0px;color:white;font-size: x-large; font-weight: bold;}
-.nbchances{position:absolute;top:440px;left:0px;width: 260px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
-.nblettres{position:absolute;top:240px;left:0px;width: 260px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
+.nbchances{position:absolute;top:440px;left:0px;width: 280px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
+.nblettres{position:absolute;top:240px;left:0px;width: 280px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
 .fond{position:absolute;top:200px;left:600px;width: 700px;height: 400px;background-color: rgb(194, 194, 194);border-radius: 20px;}
 .titre{position:absolute;top: 30px; left: 50px;font-size: x-large; font-weight:bold;font-family: Arial, Helvetica, sans-serif; color:white;}
 .message{position:absolute;top: 30px; left: 50px;font-size: x-large; font-weight:bold;font-family: Arial, Helvetica, sans-serif; color:white;}
@@ -33,12 +33,12 @@
 .historique{position:absolute;top:240px; right: 40px;}
 .histotext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .historique:hover > .histotext{color:grey;}
-.bonjour{position:absolute;top:40px; left: 10px;}
+.bonjour{position:absolute;top:35px; left: 10px;}
 .bonjourtext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .titre_nb_jouees{position:absolute;top:90px; left: 50px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .nb_jouees{position:absolute;top:120px; left: 100px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.titre_nb_gagnees{position:absolute;top:90px; left: 450px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.nb_gagnees{position:absolute;top:120px; left: 500px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.titre_nb_gagnees{position:absolute;top:90px; left: 400px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.nb_gagnees{position:absolute;top:120px; left: 450px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 
 :root {
   --wrong: #b59f3b;

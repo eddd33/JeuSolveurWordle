@@ -238,6 +238,8 @@ def jeulogin():
 
 @app.route('/historique_score')
 def historique_score():
+    global ini
+    ini=0
     if not testconnect():
         return redirect('/login')
     db=sqlite3.connect("projet.db")
