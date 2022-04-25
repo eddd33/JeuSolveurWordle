@@ -24,13 +24,13 @@
 .titre{position:absolute;top: 30px; left: 50px;font-size: x-large; font-weight:bold;font-family: Arial, Helvetica, sans-serif; color:white;}
 .message{position:absolute;top: 30px; left: 50px;font-size: x-large; font-weight:bold;font-family: Arial, Helvetica, sans-serif; color:white;}
 .score{position: absolute;top: 240px;left: 80px;font: x-large;font-weight: bold;color:white;}
-.deconnexion{position:absolute;top:140px; right:55px;}
+.deconnexion{position:absolute;top:140px; right:60px;}
 .decotext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .deconnexion:hover > .decotext{color:grey;}
 .jeulogin{position:absolute;top:190px; right: 105px;}
 .jeulogintext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .jeulogin:hover > .jeulogintext{color:grey;}
-.historique{position:absolute;top:240px; right: 40px;}
+.historique{position:absolute;top:240px; right: 45px;}
 .histotext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .historique:hover > .histotext{color:grey;}
 .bonjour{position:absolute;top:35px; left: 10px;}
