@@ -151,16 +151,22 @@ function supprLettre(){
 function checkGuess(){
     rangAct++
     lettreAct = 0
+}
+
+function python(){
     let premiere = document.getElementById("ligne-0-key-0").innerHTML;
     console.log(premiere);
-    // fetch("http://127.0.0.1:5000/jeusanslogin", 
-    // {
-    // method: 'POST',
-    // headers: {
-    // 'Content-type': 'application/json',
-    // 'Accept': 'application/json'
-    // },
+    fetch("http://127.0.0.1:5000/jeusanslogin", 
+    {
+    method: 'POST',
+    headers: {
+    'Content-type': 'application/json',
+    'Accept': 'application/json'
+    },
 
 
-    // body:JSON.stringify(premiere)})
+    body:JSON.stringify(premiere)})
 }
+
+let bouton = document.getElementById("bouton")
+bouton.addEventListener('click', event => handleClick("Entrer") && python())
