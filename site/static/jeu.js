@@ -8,7 +8,6 @@
 let longueur = 5;
 let tentatives = 6;
 
-
 function initJeu(longueur,tentatives) {
     let tableau = document.getElementById("wordle");
 
@@ -107,8 +106,8 @@ document.addEventListener("keyup",(e) => {
         insertLettre(pressKey)
     }
 
-    //let Enter = document.getElementById("Enter")
-    //Enter.addEventListener('click', () => handleClick(Enter.textContent))
+    let Enter = document.getElementById("Enter")
+    Enter.addEventListener('click', () => handleClick(Enter.textContent))
 
 })
 
@@ -131,7 +130,9 @@ function insertLettre(key){
         boite.textContent = key
 
         boite.setAttribute('data', key)
+        pythonajout(rangAct,lettreAct)
         lettreAct++
+        
 
     }
 
@@ -140,6 +141,7 @@ function insertLettre(key){
 function supprLettre(){
     if (lettreAct > 0) {
         lettreAct--
+        pythonsuppr()
         const boite = document.getElementById('ligne-' + rangAct + '-key-' + lettreAct)
         boite.textContent = '.'
         
@@ -149,14 +151,17 @@ function supprLettre(){
 }
 
 function checkGuess(){
+    pythonvalide()
     rangAct++
     lettreAct = 0
+    recupinfo()
 }
 
-function python(){
-    let premiere = document.getElementById("ligne-0-key-0").innerHTML;
+// dans la fonction suivante premiere est la lettre que l'on vient de rentrer
+function pythonajout(ligne,lettre){
+    let premiere = document.getElementById("ligne-"+ligne+"-key-"+lettre).innerHTML;
     console.log(premiere);
-    fetch("http://127.0.0.1:5000/jeusanslogin", 
+    fetch("http://127.0.0.1:5000/recuplettre", 
     {
     method: 'POST',
     headers: {
@@ -167,6 +172,35 @@ function python(){
 
     body:JSON.stringify(premiere)})
 }
+function pythonsuppr(){
+    fetch("http://127.0.0.1:5000/recuplettre", 
+    {
+    method: 'POST',
+    headers: {
+    'Content-type': 'application/json',
+    'Accept': 'application/json'
+    },
 
-let bouton = document.getElementById("bouton")
-bouton.addEventListener('click', event => handleClick("Entrer") && python())
+
+    body:JSON.stringify("suppr")})
+}
+function pythonvalide(){
+    fetch("http://127.0.0.1:5000/recuplettre", 
+    {
+    method: 'POST',
+    headers: {
+    'Content-type': 'application/json',
+    'Accept': 'application/json'
+    },
+
+
+    body:JSON.stringify("valide")})
+}
+
+
+function recupinfo(){
+    let infocouleur = document.getElementById("infos").innerHTML;
+    console.log(infocouleur);
+}
+//let bouton = document.getElementById("bouton")
+//bouton.addEventListener('click', event => handleClick("Entrer") && python())

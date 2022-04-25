@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html>
+
     <div class=menugauche>
         <div class=titreLettres>Nombre de lettres</div>
         <form action="/jeusanslogin" method="post">
@@ -87,13 +88,18 @@
             <button id="V">V</button>
             <button id="B">B</button>
             <button id="N">N</button>
-            <form action="/jeusanslogin">
+
+            <button id="Enter">Entrer</button>
+
+            <!-- <form action="/jeusanslogin">
                 <input type="submit" value="Entrer">
             </form>
-            
+             -->
 
         </div>
     </div>
+
+    <div class="transparente" id="infos">{{ res }}</div>
 
     <script src="/static/jeu.js"></script>
 

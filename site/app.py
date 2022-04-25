@@ -110,12 +110,27 @@ def jslprov():
     return redirect('/jeusanslogin')
 
 
+@app.route('/recuplettre',methods=["POST","GET"])
+def recuplettre():
+    global motpropose
+    lettre=request.json
+    if lettre == None:
+        pass
+    elif lettre == "valide":
+        return redirect("/jeusanslogin")
+    elif lettre == "suppr":
+        motpropose.pop()
+    else:
+        motpropose.append(lettre)
+    print("CA C BON",request.json,motpropose)
+    return "bonjour"
+
 
 @app.route('/jeusanslogin',methods=["POST","GET"])
 def jeusanslogin():
     if testconnect():
         return redirect("/deco")
-    global ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
+    global resultats,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
     print("ini",ini)
     
     print("CA C BON",request.json)
@@ -124,9 +139,11 @@ def jeusanslogin():
         ini=0
         verifreload=0
     if ini==0:
+        resultats=[]
         ini+=1
         nb_essais=0
         L=[]
+        motpropose=[]
         L.append("Longueur du mot à trouver : {}".format(longueur))
         db=sqlite3.connect('projet.db')
         cur=db.cursor()
@@ -142,33 +159,48 @@ def jeusanslogin():
     else:
         
         g=""
-        motp=request.form.get("motprop")
+        motp=motpropose
         if motp==mot:   #evite les problème de refresh
             pass
         else:
             mot=motp
             print("mot",mot)
             if mot == "" or len(mot)!=longueur:
-                L.pop()
-                L.append("Mauvaise longueur de mot, réessaye mongolo")      # empecher de faire des mots nuls ou meme de mauvaises longueurs
+                pass
             else:
                 bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
+                resultats.append(([],[]))
+                for i in range(len(motpropose)):
+                    if bonnesponctuel[i]==motpropose[i]:
+                        resultats[-1][0].append(motpropose[i])
+                        resultats[-1][1].append("green")
+                    elif malponctuel[i]==motpropose[i]:
+                        resultats[-1][0].append(motpropose[i])
+                        resultats[-1][1].append("orange")
+                    else:
+                        resultats[-1][0].append(motpropose[i])
+                        resultats[-1][1].append("gray")
+
+
                 #print(bonnes)
                 nb_essais+=1
-                L.pop()
-                if bonnes==0:
-                    g="Vous avez gagné ! "
-                    verifreload=1
-                    L.append("{}".format(mot))
-                elif nb_essais==essais:
-                    g="Vous avez perdu ! Le mot était {}".format(motatrouve)
-                    verifreload=1
-                    L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
-                else:
-                    L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
-                L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
+                
 
-        return render_template('jeusanslogin.html',liste=L,gagne=g)
+        print(resultats)
+
+                # if bonnes==0:
+                #     g="Vous avez gagné ! "
+                #     verifreload=1
+                #     L.append("{}".format(mot))
+                # elif nb_essais==essais:
+                #     g="Vous avez perdu ! Le mot était {}".format(motatrouve)
+                #     verifreload=1
+                #     L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
+                # else:
+                #     L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
+                # L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
+        motpropose=[]
+        return render_template('jeusanslogin.html',liste=L,gagne=g,res=resultats)
 
     
 
