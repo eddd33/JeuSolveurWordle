@@ -4,10 +4,10 @@
 .entete{background-color: rgb(194, 194, 194);width: 1500px;height: 100px;position:absolute; top:0px;left:250px;}
 .textaccueil{font-size: x-large;font-family:Arial, Helvetica, sans-serif;color:white;}
 .accueil:hover > .textaccueil{color:grey;}
-.inscription{position:absolute;top:150px; left:75px;}
+.inscription{position:absolute;top:150px; left:80px;}
 .textinscription{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .inscription:hover > .textinscription{color:grey}
-.login{position:absolute;top:200px; left:70px;}
+.login{position:absolute;top:200px; left:82px;}
 .textlogin{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .login:hover > .textlogin{color:grey;}
 .jeusanslogin{position:absolute;top:250px; left:5px;}
@@ -37,8 +37,8 @@
 .bonjourtext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .titre_nb_jouees{position:absolute;top:90px; left: 50px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .nb_jouees{position:absolute;top:120px; left: 100px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.titre_nb_gagnees{position:absolute;top:90px; left: 400px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.nb_gagnees{position:absolute;top:120px; left: 450px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.titre_nb_gagnees{position:absolute;top:90px; left: 350px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.nb_gagnees{position:absolute;top:120px; left: 400px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 
 :root {
   --wrong: #b59f3b;

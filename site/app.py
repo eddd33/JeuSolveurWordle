@@ -95,8 +95,10 @@ def loginbis():
 
 @app.route('/deconnexion')
 def deconnexion():
-    global login    
+    global login 
+    global ini   
     login=0
+    ini=0
     return redirect('/jeusanslogin')
 
 global mot
