@@ -152,3 +152,13 @@ function checkGuess(){
     rangAct++
     lettreAct = 0
 }
+
+fetch("http://127.0.0.1:5000/jeusanslogin", 
+{
+method: 'POST',
+headers: {
+'Content-type': 'application/json',
+'Accept': 'application/json'
+},
+
+body:JSON.stringify("bonjour")})

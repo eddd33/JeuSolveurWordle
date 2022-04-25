@@ -5,6 +5,7 @@ from flask import request
 import random
 from sutom import *
 import sqlite3
+import json
 
 app=Flask(__name__)
 
@@ -117,7 +118,7 @@ def jeusanslogin():
     global ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
     print("ini",ini)
     
-    #test144=request.data.getId("")
+    print("CA C BON",request.json())
 
     if verifreload!=0:
         ini=0
