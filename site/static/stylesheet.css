@@ -35,10 +35,10 @@
 .historique:hover > .histotext{color:grey;}
 .bonjour{position:absolute;top:35px; left: 10px;}
 .bonjourtext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.titre_nb_jouees{position:absolute;top:90px; left: 50px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.nb_jouees{position:absolute;top:120px; left: 100px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.titre_nb_gagnees{position:absolute;top:190px; left: 50px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.nb_gagnees{position:absolute;top:220px; left: 100px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.titre_nb_jouees{position:absolute;top:140px; left: 50px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.nb_jouees{position:absolute;top:170px; left: 100px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.titre_nb_gagnees{position:absolute;top:240px; left: 50px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
+.nb_gagnees{position:absolute;top:270px; left: 100px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 
 :root {
   --wrong: #b59f3b;
