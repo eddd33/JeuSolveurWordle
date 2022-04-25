@@ -1,4 +1,3 @@
-import re
 from tkinter import N
 from flask import Flask
 from flask import render_template
@@ -102,6 +101,14 @@ def deconnexion():
 
 global mot
 mot=0
+
+@app.route('/jslprov')
+def jslprov():
+    global ini
+    ini=0
+    return redirect('/jeusanslogin')
+
+
 
 @app.route('/jeusanslogin',methods=["POST","GET"])
 def jeusanslogin():
