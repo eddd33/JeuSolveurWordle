@@ -1,4 +1,3 @@
-from tkinter import N
 from flask import Flask
 from flask import render_template
 from flask import redirect
@@ -6,7 +5,6 @@ from flask import request
 import random
 from sutom import *
 import sqlite3
-
 
 app=Flask(__name__)
 
@@ -119,6 +117,8 @@ def jeusanslogin():
     global ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
     print("ini",ini)
     
+    #test144=request.data.getId("")
+
     if verifreload!=0:
         ini=0
         verifreload=0
@@ -166,7 +166,7 @@ def jeusanslogin():
                 else:
                     L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
                 L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
-       
+
         return render_template('jeusanslogin.html',liste=L,gagne=g)
 
     

@@ -63,7 +63,7 @@ def prop(motpropo,MOT,longueur,bonnes):                     #fonction prenant en
     def malp(malponctuel,faussesponctuel,PROP,MOT,tempo,prof):  #fonction testant les lettres bonnes mais mal placées
 
         #print(PROP,tempo)
-        if prof==len(PROP):                 #si la profondeur depasse la longueur sur mot
+        if prof==len(PROP):                 #si la profondeur depasse la longueur du mot
             return 0
         elif PROP[prof]==0:             #si la lettre a déja été traitée
             pass

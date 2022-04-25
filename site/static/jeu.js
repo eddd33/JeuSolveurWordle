@@ -1,5 +1,12 @@
+
+// récuperer la longueur et le nb de tentative sans changer en direct
+// du coup initialiser a chaque fois avec une liste des mots deja utilisés? 
+
+
+
+
 let longueur = 5;
-let tentatives = 5;
+let tentatives = 6;
 
 
 function initJeu(longueur,tentatives) {
