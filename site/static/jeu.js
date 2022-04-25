@@ -107,8 +107,8 @@ document.addEventListener("keyup",(e) => {
         insertLettre(pressKey)
     }
 
-    let Enter = document.getElementById("Enter")
-    Enter.addEventListener('click', () => handleClick(Enter.textContent))
+    //let Enter = document.getElementById("Enter")
+    //Enter.addEventListener('click', () => handleClick(Enter.textContent))
 
 })
 
@@ -151,14 +151,16 @@ function supprLettre(){
 function checkGuess(){
     rangAct++
     lettreAct = 0
+    let premiere = document.getElementById("ligne-0-key-0").innerHTML;
+    console.log(premiere);
+    // fetch("http://127.0.0.1:5000/jeusanslogin", 
+    // {
+    // method: 'POST',
+    // headers: {
+    // 'Content-type': 'application/json',
+    // 'Accept': 'application/json'
+    // },
+
+
+    // body:JSON.stringify(premiere)})
 }
-
-fetch("http://127.0.0.1:5000/jeusanslogin", 
-{
-method: 'POST',
-headers: {
-'Content-type': 'application/json',
-'Accept': 'application/json'
-},
-
-body:JSON.stringify("bonjour")})

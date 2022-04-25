@@ -118,7 +118,7 @@ def jeusanslogin():
     global ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
     print("ini",ini)
     
-    print("CA C BON",request.json())
+    print("CA C BON",request.json)
 
     if verifreload!=0:
         ini=0
