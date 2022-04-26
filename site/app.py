@@ -112,15 +112,25 @@ def jslprov():
 
 @app.route('/recuplettre',methods=["POST","GET"])
 def recuplettre():
-    global motpropose,motstringpropose
+    global motpropose,motstringpropose,longueur,essais,ini
     lettre=request.json
+    print("lettre",lettre)
     if lettre == None:
         pass
     elif lettre == "valide":
-        print("PUTAIn")
+        print("PUTAIN")
         return redirect("/jeusanslogin")
     elif lettre == "suppr":
         motpropose.pop()
+        motstrli=list(motstringpropose)
+        motstrli.pop()
+        motstringpropose="".join(motstrli)
+        print(motstringpropose)
+    elif lettre[0]=="!":
+        ini=0
+        inf=lettre.split("!")
+        print("inf",inf)
+        return redirect("/jeusanslogin")
     else:
         motstringpropose+=lettre
         motpropose.append(lettre)
@@ -132,7 +142,7 @@ def recuplettre():
 def jeusanslogin():
     if testconnect():
         return redirect("/deco")
-    global motstringpropose,resultats,resultatstring,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
+    global fini,stringmots,motstringpropose,resultats,resultatstring,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
     print("ini",ini)
     
     print("CA C BON",request.json)
@@ -141,8 +151,10 @@ def jeusanslogin():
         ini=0
         verifreload=0
     if ini==0:
+        stringmots=""
         motstringpropose=""
         resultats=[]
+        fini=0
         resultatstring=""
         ini+=1
         nb_essais=0
@@ -159,7 +171,7 @@ def jeusanslogin():
         db.close()
         g=""
         bonnes = ['-' for i in range(longueur)] 
-        return render_template('jeusanslogin.html',liste=L,avance=nb_essais)
+        return render_template('jeusanslogin.html',liste=L,avance=nb_essais,longueur=longueur,tentatives=essais)
     else:
         
         g=""
@@ -173,17 +185,23 @@ def jeusanslogin():
                 pass
             else:
                 bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
-                resultats.append(([],[]))
-                for i in range(len(motpropose)):
-                    if bonnesponctuel[i]==motpropose[i]:
-                        resultats[-1][0].append(motpropose[i])
+                if bonnesponctuel==0:
+                    for i in range(longueur):
                         resultatstring+="v"
-                    elif malponctuel[i]==motpropose[i]:
-                        resultats[-1][0].append(motpropose[i])
-                        resultatstring+="o"
-                    else:
-                        resultats[-1][0].append(motpropose[i])
-                        resultatstring+="g"
+                    fini=1
+                    verifreload=1
+                else:
+                    resultats.append(([],[]))
+                    for i in range(len(motpropose)):
+                        if bonnesponctuel[i]==motpropose[i]:
+                            resultats[-1][0].append(motpropose[i])
+                            resultatstring+="v"
+                        elif malponctuel[i]==motpropose[i]:
+                            resultats[-1][0].append(motpropose[i])
+                            resultatstring+="o"
+                        else:
+                            resultats[-1][0].append(motpropose[i])
+                            resultatstring+="g"
 
                 #print(bonnes)
                 nb_essais+=1
@@ -203,8 +221,10 @@ def jeusanslogin():
                 #     L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
                 # L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
         motpropose=[]
+        stringmots+=motstringpropose
+        motstringpropose=""
         print("c'est censé rendertemplate")
-        return render_template('jeusanslogin.html',liste=L,gagne=g,res=motstringpropose,avance=nb_essais,couleurs=resultatstring)
+        return render_template('jeusanslogin.html',liste=L,gagne=g,res=stringmots,avance=nb_essais,couleurs=resultatstring,fini=fini,longueur=longueur,tentatives=essais)
 
     
 

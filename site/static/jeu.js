@@ -5,16 +5,18 @@
 
 
 
-let longueur = 5;
-let tentatives = 6;
+let longueur = Number(recuplongueur());
+let tentatives = Number(recuptentatives());
+console.log(longueur);
+console.log(tentatives);
 let infos = recupinfo();
 let avancee = recupavancee();
+let couleur = recupcouleurs();
+let fini = recupfini();
 
 
 
-
-
-function initJeu(longueur,tentatives,infos,avancee) {
+function initJeu(longueur,tentatives,infos,avancee,couleur) {
     if (avancee != 0){
         let tableau = document.getElementById("wordle");
 
@@ -32,7 +34,16 @@ function initJeu(longueur,tentatives,infos,avancee) {
                     box.textContent = ".";
                 }
                 else{
-                    box.textContent = infos[i*5+j] ;
+                    box.textContent = infos[i*longueur+j] ;
+                    if (couleur[i*longueur+j] === "v"){
+                        box.style.background = 'green'
+                    }
+                    else if (couleur[i*longueur+j] === "o"){
+                        box.style.background = 'orange'
+                    }
+                    else if (couleur[i*longueur+j] === "g"){
+                        box.style.background = 'grey'
+                    }
                 }
                 
             }
@@ -62,26 +73,27 @@ function initJeu(longueur,tentatives,infos,avancee) {
     
 }
 
-initJeu(longueur,tentatives,infos,avancee)
+initJeu(longueur,tentatives,infos,avancee,couleur)
 
 let elt1 = document.getElementById('long');
 elt1.addEventListener('change', function () {
     longueur = Number(this.value);
 
-    let tableau = document.getElementById("wordle");
-    let i=0;
-    while (tableau.firstChild) {
-        id = "ligne-" + i
-        let rang = document.getElementById(id)
-        while (rang.firstChild) {
-            rang.removeChild(rang.firstChild);
-        }
-        i++;
-        tableau.removeChild(tableau.firstChild);
-    }
-    lettreAct = 0
-    rangAct = 0
-    initJeu(longueur,tentatives)
+    // let tableau = document.getElementById("wordle");
+    // let i=0;
+    // while (tableau.firstChild) {
+    //     id = "ligne-" + i
+    //     let rang = document.getElementById(id)
+    //     while (rang.firstChild) {
+    //         rang.removeChild(rang.firstChild);
+    //     }
+    //     i++;
+    //     tableau.removeChild(tableau.firstChild);
+    // }
+    // lettreAct = 0
+    // rangAct = 0
+    console.log("ca passe?")
+    pythonchange(longueur,tentatives)
     
 })
 
@@ -89,20 +101,20 @@ let elt2 = document.getElementById('tryNB');
 elt2.addEventListener('change', function () {
     tentatives = Number(this.value);
 
-    let tableau = document.getElementById("wordle");
-    let i=0;
-    while (tableau.firstChild) {
-        id = "ligne-" + i
-        let rang = document.getElementById(id)
-        while (rang.firstChild) {
-            rang.removeChild(rang.firstChild);
-        }
-        i++;
-        tableau.removeChild(tableau.firstChild);
-    }
-    lettreAct = 0
-    rangAct = 0
-    initJeu(longueur,tentatives)
+    // let tableau = document.getElementById("wordle");
+    // let i=0;
+    // while (tableau.firstChild) {
+    //     id = "ligne-" + i
+    //     let rang = document.getElementById(id)
+    //     while (rang.firstChild) {
+    //         rang.removeChild(rang.firstChild);
+    //     }
+    //     i++;
+    //     tableau.removeChild(tableau.firstChild);
+    // }
+    // lettreAct = 0
+    // rangAct = 0
+    pythonchange(longueur,tentatives)
     
 })
 
@@ -111,6 +123,9 @@ let lettreAct = 0;
 let rangAct = Number(avancee);
 console.log(avancee)
 
+if (Number(fini)===1){
+    rangAct=tentatives;
+}
 
 
 document.addEventListener("keyup",(e) => {
@@ -232,6 +247,32 @@ function pythonvalide(){
     body:JSON.stringify("valide")})
     location.reload()
 }
+function pythonvalide(){
+    fetch("http://127.0.0.1:5000/recuplettre", 
+    {
+    method: 'POST',
+    headers: {
+    'Content-type': 'application/json',
+    'Accept': 'application/json'
+    },
+
+
+    body:JSON.stringify("valide")})
+    location.reload()
+}
+function pythonchange(longueur,tentatives){
+    fetch("http://127.0.0.1:5000/recuplettre", 
+    {
+    method: 'POST',
+    headers: {
+    'Content-type': 'application/json',
+    'Accept': 'application/json'
+    },
+
+
+    body:JSON.stringify("!"+longueur+"!"+tentatives)})
+    location.reload()
+}
 
 
 function recupinfo(){
@@ -248,6 +289,21 @@ function recupavancee(){
     let infoavance = document.getElementById("avancee").innerHTML;
     console.log(infoavance);
     return infoavance
+}
+function recupfini(){
+    let infofini = document.getElementById("fini").innerHTML;
+    console.log(infofini);
+    return infofini
+}
+function recuplongueur(){
+    let infolongueur = document.getElementById("longueur").innerHTML;
+    console.log(infolongueur);
+    return infolongueur
+}
+function recuptentatives(){
+    let infotentatives = document.getElementById("tentatives").innerHTML;
+    console.log(infotentatives);
+    return infotentatives
 }
 //let bouton = document.getElementById("bouton")
 //bouton.addEventListener('click', event => handleClick("Entrer") && python())
