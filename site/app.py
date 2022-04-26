@@ -112,15 +112,17 @@ def jslprov():
 
 @app.route('/recuplettre',methods=["POST","GET"])
 def recuplettre():
-    global motpropose
+    global motpropose,motstringpropose
     lettre=request.json
     if lettre == None:
         pass
     elif lettre == "valide":
+        print("PUTAIn")
         return redirect("/jeusanslogin")
     elif lettre == "suppr":
         motpropose.pop()
     else:
+        motstringpropose+=lettre
         motpropose.append(lettre)
     print("CA C BON",request.json,motpropose)
     return "bonjour"
@@ -130,7 +132,7 @@ def recuplettre():
 def jeusanslogin():
     if testconnect():
         return redirect("/deco")
-    global resultats,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
+    global motstringpropose,resultats,resultatstring,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
     print("ini",ini)
     
     print("CA C BON",request.json)
@@ -139,7 +141,9 @@ def jeusanslogin():
         ini=0
         verifreload=0
     if ini==0:
+        motstringpropose=""
         resultats=[]
+        resultatstring=""
         ini+=1
         nb_essais=0
         L=[]
@@ -155,7 +159,7 @@ def jeusanslogin():
         db.close()
         g=""
         bonnes = ['-' for i in range(longueur)] 
-        return render_template('jeusanslogin.html',liste=L)
+        return render_template('jeusanslogin.html',liste=L,avance=nb_essais)
     else:
         
         g=""
@@ -173,14 +177,13 @@ def jeusanslogin():
                 for i in range(len(motpropose)):
                     if bonnesponctuel[i]==motpropose[i]:
                         resultats[-1][0].append(motpropose[i])
-                        resultats[-1][1].append("green")
+                        resultatstring+="v"
                     elif malponctuel[i]==motpropose[i]:
                         resultats[-1][0].append(motpropose[i])
-                        resultats[-1][1].append("orange")
+                        resultatstring+="o"
                     else:
                         resultats[-1][0].append(motpropose[i])
-                        resultats[-1][1].append("gray")
-
+                        resultatstring+="g"
 
                 #print(bonnes)
                 nb_essais+=1
@@ -200,7 +203,8 @@ def jeusanslogin():
                 #     L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
                 # L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
         motpropose=[]
-        return render_template('jeusanslogin.html',liste=L,gagne=g,res=resultats)
+        print("c'est censé rendertemplate")
+        return render_template('jeusanslogin.html',liste=L,gagne=g,res=motstringpropose,avance=nb_essais,couleurs=resultatstring)
 
     
 

@@ -7,28 +7,62 @@
 
 let longueur = 5;
 let tentatives = 6;
+let infos = recupinfo();
+let avancee = recupavancee();
 
-function initJeu(longueur,tentatives) {
-    let tableau = document.getElementById("wordle");
 
-    for (let i = 0; i < tentatives; i++) {
-        let rang = document.createElement("div")
-        rang.className = "rang"
-        rang.id = "ligne-" + i
-        
-        for (let j = 0; j < longueur; j++) {
-            let box = document.createElement("span")
-            box.className = "case"
-            box.id = "ligne-" + i + "-key-" + j
-            rang.appendChild(box)
-            box.textContent = '.';
-        }
 
-        tableau.appendChild(rang)
+
+
+function initJeu(longueur,tentatives,infos,avancee) {
+    if (avancee != 0){
+        let tableau = document.getElementById("wordle");
+
+        for (let i = 0; i < tentatives; i++) {
+            let rang = document.createElement("div")
+            rang.className = "rang"
+            rang.id = "ligne-" + i
+            
+            for (let j = 0; j < longueur; j++) {
+                let box = document.createElement("span")
+                box.className = "case"
+                box.id = "ligne-" + i + "-key-" + j
+                rang.appendChild(box)
+                if (i>=avancee){
+                    box.textContent = ".";
+                }
+                else{
+                    box.textContent = infos[i*5+j] ;
+                }
+                
+            }
+
+            tableau.appendChild(rang)
+        }   
     }
+    else{
+        let tableau = document.getElementById("wordle");
+
+        for (let i = 0; i < tentatives; i++) {
+            let rang = document.createElement("div")
+            rang.className = "rang"
+            rang.id = "ligne-" + i
+            
+            for (let j = 0; j < longueur; j++) {
+                let box = document.createElement("span")
+                box.className = "case"
+                box.id = "ligne-" + i + "-key-" + j
+                rang.appendChild(box)
+                box.textContent = '.';
+            }
+
+            tableau.appendChild(rang)
+    }
+    }
+    
 }
 
-initJeu(longueur,tentatives)
+initJeu(longueur,tentatives,infos,avancee)
 
 let elt1 = document.getElementById('long');
 elt1.addEventListener('change', function () {
@@ -74,7 +108,8 @@ elt2.addEventListener('change', function () {
 
 let lettreAct = 0;
 
-let rangAct = 0;
+let rangAct = Number(avancee);
+console.log(avancee)
 
 
 
@@ -195,12 +230,24 @@ function pythonvalide(){
 
 
     body:JSON.stringify("valide")})
+    location.reload()
 }
 
 
 function recupinfo(){
     let infocouleur = document.getElementById("infos").innerHTML;
     console.log(infocouleur);
+    return infocouleur
+}
+function recupcouleurs(){
+    let infocouleurs = document.getElementById("couleurs").innerHTML;
+    console.log(infocouleurs);
+    return infocouleurs
+}
+function recupavancee(){
+    let infoavance = document.getElementById("avancee").innerHTML;
+    console.log(infoavance);
+    return infoavance
 }
 //let bouton = document.getElementById("bouton")
 //bouton.addEventListener('click', event => handleClick("Entrer") && python())
