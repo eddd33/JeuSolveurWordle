@@ -1,23 +1,8 @@
-{% extends "layout.html" %}
+{% extends "prelayout.html" %}
 {% block body %}
 
 <!DOCTYPE html>
 <html>
-
-    <div class=prop>
-        <ul>
-            {% for L in liste %}
-            
-            <li><a>{{ L }}</a></li>
-    
-            {% endfor %}
-        </ul>
-        <a>{{ gagne }}</a>
-        <form action="/jeulogin" method="post">
-            <input autocomplete="off" name="motprop" type="text" placeholder="Mot proposé" class=text>
-        <input type="submit" value="Proposer">
-        </form>
-    </div>
 
     <div class=menugauche>
         <div class=titreLettres>Nombre de lettres</div>
@@ -52,54 +37,82 @@
                 <option value="13">13</option>
                 <option value="14">14</option>
             </select>
+            <div class=bouton>
+            <input type="submit" value="Valider">
+            </div>
             </form>
     </div>
-
+   
     <div class=fondjeu>
-        <body>
-            <div id="wordle"></div>
-        </body>
+    <body>
+        <div id="wordle"></div>
+    </body>
+
+    <div class=prop>
+        <ul>
+            {% for L in liste %}
+            
+            <li><a>{{ L }}</a></li>
+    
+            {% endfor %}
+        </ul>
+        <a>{{ gagne }}</a>
+    
+    </div>
+
     <div id="clavier">
         <div class="rangee">
-            <button id="a">A</button>
-            <button id="z">Z</button>
-            <button id="e">E</button>
-            <button id="r">R</button>
-            <button id="t">T</button>
-            <button id="y">Y</button>
-            <button id="u">U</button>
-            <button id="i">I</button>
-            <button id="o">O</button>
-            <button id="p">P</button>
+            <button id="A">A</button>
+            <button id="Z">Z</button>
+            <button id="E">E</button>
+            <button id="R">R</button>
+            <button id="T">T</button>
+            <button id="Y">Y</button>
+            <button id="U">U</button>
+            <button id="I">I</button>
+            <button id="O">O</button>
+            <button id="P">P</button>
         </div>
         <div class="rangee">
-            <button id="q">Q</button>
-            <button id="s">S</button>
-            <button id="d">D</button>
-            <button id="f">F</button>
-            <button id="g">G</button>
-            <button id="h">H</button>
-            <button id="j">J</button>
-            <button id="k">K</button>
-            <button id="l">L</button>
-            <button id="m">M</button>
+            <button id="Q">Q</button>
+            <button id="S">S</button>
+            <button id="D">D</button>
+            <button id="F">F</button>
+            <button id="G">G</button>
+            <button id="G">H</button>
+            <button id="J">J</button>
+            <button id="K">K</button>
+            <button id="L">L</button>
+            <button id="M">M</button>
         </div>
         <div class="rangee">
             <button id="Sup">Sup</button>
-            <button id="w">W</button>
-            <button id="x">X</button>
-            <button id="c">C</button>
-            <button id="v">V</button>
-            <button id="b">B</button>
-            <button id="n">N</button>
-            
+            <button id="W">W</button>
+            <button id="X">X</button>
+            <button id="C">C</button>
+            <button id="V">V</button>
+            <button id="B">B</button>
+            <button id="N">N</button>
+
             <button id="Enter">Entrer</button>
+
+            <!-- <form action="/jeusanslogin">
+                <input type="submit" value="Entrer">
+            </form>
+             -->
 
         </div>
     </div>
+
     </div>
-  
-    <script src="/static/jeu.js"></script>
+
+    <div class="transparente" id="infos">{{ res }}</div>
+    <div class="transparente" id="couleurs">{{ couleurs }}</div>
+    <div class="transparente" id="avancee">{{ avance }}</div>
+    <div class="transparente" id="fini">{{ fini }}</div>
+    <div class="transparente" id="longueur">{{ longueur }}</div>
+    <div class="transparente" id ="tentatives">{{ tentatives }}</div>
+    <script src="/static/jeulogin.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/static/stylesheet.css">
 

@@ -112,32 +112,59 @@ def jslprov():
 
 @app.route('/recuplettre',methods=["POST","GET"])
 def recuplettre():
-    global motpropose,motstringpropose,longueur,essais,ini
-    lettre=request.json
-    print("lettre",lettre)
-    if lettre == None:
-        pass
-    elif lettre == "valide":
-        print("PUTAIN")
-        return redirect("/jeusanslogin")
-    elif lettre == "suppr":
-        motpropose.pop()
-        motstrli=list(motstringpropose)
-        motstrli.pop()
-        motstringpropose="".join(motstrli)
-        print(motstringpropose)
-    elif lettre[0]=="!":
-        ini=0
-        inf=lettre.split("!")
-        print("inf",inf)
-        longueur=int(inf[1])
-        essais=int(inf[2])
-        return redirect("/jeusanslogin")
+    global motpropose,motstringpropose,longueur,essais,ini,login
+    if testconnect():
+        lettre=request.json
+        print("lettre",lettre)
+        if lettre == None:
+            pass
+        elif lettre == "valide":
+            print("PUTAIN")
+            return redirect("/jeulogin")
+        elif lettre == "suppr":
+            motpropose.pop()
+            motstrli=list(motstringpropose)
+            motstrli.pop()
+            motstringpropose="".join(motstrli)
+            print(motstringpropose)
+        elif lettre[0]=="!":
+            ini=0
+            inf=lettre.split("!")
+            print("inf",inf)
+            longueur=int(inf[1])
+            essais=int(inf[2])
+            return redirect("/jeulogin")
+        else:
+            motstringpropose+=lettre
+            motpropose.append(lettre)
+        print("CA C BON",request.json,motpropose)
+        return "bonjour"
     else:
-        motstringpropose+=lettre
-        motpropose.append(lettre)
-    print("CA C BON",request.json,motpropose)
-    return "bonjour"
+        lettre=request.json
+        print("lettre",lettre)
+        if lettre == None:
+            pass
+        elif lettre == "valide":
+            print("PUTAIN")
+            return redirect("/jeusanslogin")
+        elif lettre == "suppr":
+            motpropose.pop()
+            motstrli=list(motstringpropose)
+            motstrli.pop()
+            motstringpropose="".join(motstrli)
+            print(motstringpropose)
+        elif lettre[0]=="!":
+            ini=0
+            inf=lettre.split("!")
+            print("inf",inf)
+            longueur=int(inf[1])
+            essais=int(inf[2])
+            return redirect("/jeusanslogin")
+        else:
+            motstringpropose+=lettre
+            motpropose.append(lettre)
+        print("CA C BON",request.json,motpropose)
+        return "bonjour"
 
 
 @app.route('/jeusanslogin',methods=["POST","GET"])
@@ -240,20 +267,31 @@ def jeulogin():
     if not testconnect():
         return redirect('/login')
     global ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,login
+    global fini,stringmots,motstringpropose,resultats,resultatstring,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
     print("ini",ini)
-    
+    print("longueur apres changement",longueur)
+    print("CA C BON",request.json)
+
     if verifreload!=0:
         ini=0
         verifreload=0
     if ini==0:
+        stringmots=""
+        motstringpropose=""
+        resultats=[]
+        fini=0
+        resultatstring=""
         ini+=1
         nb_essais=0
         L=[]
+        motpropose=[]
         L.append("Longueur du mot à trouver : {}".format(longueur))
         db=sqlite3.connect('projet.db')
         cur=db.cursor()
         cur.execute("SELECT mot FROM dico WHERE longueur={}".format(longueur))
         mots=cur.fetchall()
+        #print("mot",mots)
+        print("longueur AU SECOURS",longueur)
         n=random.randint(0,len(mots))
         motatrouve=mots[n][0]
         print("motatrouve",motatrouve)
@@ -261,26 +299,25 @@ def jeulogin():
         g=""
         
         bonnes = ['-' for i in range(longueur)] 
-        return render_template('jeulogin.html',liste=L,login=login)
+        return render_template('jeulogin.html',liste=L,avance=nb_essais,longueur=longueur,tentatives=essais,login=login)
     else:
+        
         g=""
-        print("motprop",request.form.get("motprop"))
-        motp=request.form.get("motprop")
-        if motp==mot:
+        motp=motpropose
+        if motp==mot:   #evite les problème de refresh
             pass
         else:
+            mot=motp
+            print("mot",mot)
             if mot == "" or len(mot)!=longueur:
-                L.pop()
-                L.append("Mauvaise longueur de mot, réessaye mongolo")      # empecher de faire des mots nuls ou meme de mauvaises longueurs
+                pass
             else:
                 bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
-                #print(bonnes)
-                nb_essais+=1
-                L.pop()
-                if bonnes==0:
-                    g="Vous avez gagné ! "
+                if bonnesponctuel==0:
+                    for i in range(longueur):
+                        resultatstring+="v"
+                    fini=1
                     verifreload=1
-                    L.append("{}".format(mot))
                     db=sqlite3.connect("projet.db")
                     cur=db.cursor()
                     cur.execute("SELECT parties_jouees,parties_gagnees FROM user WHERE pseudo='{}'".format(login))
@@ -291,23 +328,42 @@ def jeulogin():
 
                     db.commit()
                     db.close()
-                elif nb_essais==essais:
-                    g="Vous avez perdu ! Le mot était {}".format(motatrouve)
-                    verifreload=1
-                    L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
-                    db=sqlite3.connect("projet.db")
-                    cur=db.cursor()
-                    cur.execute("SELECT parties_jouees,parties_gagnees FROM user WHERE pseudo='{}'".format(login))
-                    parties=cur.fetchone()
-                    part_j,part_g=parties[0]+1,parties[1]
-                    cur.execute("UPDATE user SET parties_jouees = {} WHERE pseudo = '{}'".format(part_j,login))
-
-                    db.commit()
-                    db.close()
                 else:
-                    L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
-                L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
-    return render_template('jeulogin.html',liste=L,gagne=g,login=login)
+                    resultats.append(([],[]))
+                    for i in range(len(motpropose)):
+                        if bonnesponctuel[i]==motpropose[i]:
+                            resultats[-1][0].append(motpropose[i])
+                            resultatstring+="v"
+                        elif malponctuel[i]==motpropose[i]:
+                            resultats[-1][0].append(motpropose[i])
+                            resultatstring+="o"
+                        else:
+                            resultats[-1][0].append(motpropose[i])
+                            resultatstring+="g"
+
+                #print(bonnes)
+                nb_essais+=1
+                
+
+        print(resultats)
+
+                # if bonnes==0:
+                #     g="Vous avez gagné ! "
+                #     verifreload=1
+                #     L.append("{}".format(mot))
+                # elif nb_essais==essais:
+                #     g="Vous avez perdu ! Le mot était {}".format(motatrouve)
+                #     verifreload=1
+                #     L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
+                # else:
+                #     L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
+                # L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
+        motpropose=[]
+        stringmots+=motstringpropose
+        motstringpropose=""
+        print("c'est censé rendertemplate")
+        print("resultatstring",resultatstring,"prout",stringmots)
+        return render_template('jeulogin.html',login=login,liste=L,gagne=g,res=stringmots,avance=nb_essais,couleurs=resultatstring,fini=fini,longueur=longueur,tentatives=essais)
 
 @app.route('/historique_score')
 def historique_score():
