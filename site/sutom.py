@@ -101,21 +101,28 @@ def prop(motpropo,MOT,longueur,bonnes):                     #fonction prenant en
 
 
 
-def couleurClavier(alphabet,clavier,bonnes,mals,fausses): #mal et fausses sont ponctuelles
-    for b in bonnes:
-        if b!='-':
-            ind=alphabet.index(b)
+def couleurClavier(alphabet,clavier,bonnes,mals,fausses,motpropo): #mal et fausses sont ponctuelles
+    if bonnes == 0:
+        for lettre in motpropo:
+            ind=alphabet.index(lettre)
             clavier[ind]="v"
-    for m in mals:
-        if m!='-':
-            ind=alphabet.index(m)
-            if clavier[ind]!="v":
-                clavier[ind]="o"
-    for f in fausses:
-        if f!='-':
-            ind=alphabet.index(f)
-            if clavier[ind]!="v" and clavier[ind]!="o":
-                clavier[ind]="g"
+    else:
+
+
+        for b in bonnes:
+            if b!='-':
+                ind=alphabet.index(b)
+                clavier[ind]="v"
+        for m in mals:
+            if m!='-':
+                ind=alphabet.index(m)
+                if clavier[ind]!="v":
+                    clavier[ind]="o"
+        for f in fausses:
+            if f!='-':
+                ind=alphabet.index(f)
+                if clavier[ind]!="v" and clavier[ind]!="o":
+                    clavier[ind]="g"
     return clavier
             
     

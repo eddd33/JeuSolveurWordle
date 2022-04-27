@@ -217,6 +217,7 @@ def jeusanslogin():
         else:
             mot=motp
             print("mot",mot)
+            nb_essais+=1
             if mot == "" or len(mot)!=longueur:
                 pass
             else:
@@ -240,8 +241,8 @@ def jeusanslogin():
                             resultatstring+="g"
 
                 #print(bonnes)
-                nb_essais+=1
-                clav=couleurClavier(Alphabet,clav,bonnes,malponctuel,faussesponctuel)
+                
+                clav=couleurClavier(Alphabet,clav,bonnes,malponctuel,faussesponctuel,motpropose)
 
         print(resultats)
 
@@ -272,8 +273,7 @@ def jeusanslogin():
 def jeulogin():
     if not testconnect():
         return redirect('/login')
-    global ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,login
-    global fini,stringmots,motstringpropose,resultats,resultatstring,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
+    global Alphabet,clav,fini,stringmots,motstringpropose,resultats,resultatstring,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
     print("ini",ini)
     print("longueur apres changement",longueur)
     print("CA C BON",request.json)
@@ -282,6 +282,7 @@ def jeulogin():
         ini=0
         verifreload=0
     if ini==0:
+        clav=["w" for i in range(26)]
         stringmots=""
         motstringpropose=""
         resultats=[]
@@ -305,7 +306,7 @@ def jeulogin():
         g=""
         
         bonnes = ['-' for i in range(longueur)] 
-        return render_template('jeulogin.html',liste=L,avance=nb_essais,longueur=longueur,tentatives=essais,login=login)
+        return render_template('jeulogin.html',clavier=clav,liste=L,avance=nb_essais,longueur=longueur,tentatives=essais)
     else:
         
         g=""
@@ -319,6 +320,8 @@ def jeulogin():
                 pass
             else:
                 bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
+                print("ESSAIS",nb_essais,essais)
+                nb_essais+=1
                 if bonnesponctuel==0:
                     for i in range(longueur):
                         resultatstring+="v"
@@ -334,6 +337,20 @@ def jeulogin():
 
                     db.commit()
                     db.close()
+                elif nb_essais==essais:
+                    verifreload=1
+                    L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
+                    db=sqlite3.connect("projet.db")
+                    cur=db.cursor()
+                    cur.execute("SELECT parties_jouees,parties_gagnees FROM user WHERE pseudo='{}'".format(login))
+                    parties=cur.fetchone()
+                    part_j,part_g=parties[0]+1,parties[1]
+                    cur.execute("UPDATE user SET parties_jouees = {} WHERE pseudo = '{}'".format(part_j,login))
+
+                    db.commit()
+                    db.close()
+
+
                 else:
                     resultats.append(([],[]))
                     for i in range(len(motpropose)):
@@ -348,8 +365,8 @@ def jeulogin():
                             resultatstring+="g"
 
                 #print(bonnes)
-                nb_essais+=1
                 
+                clav=couleurClavier(Alphabet,clav,bonnes,malponctuel,faussesponctuel,motpropose)
 
         print(resultats)
 
@@ -369,7 +386,10 @@ def jeulogin():
         motstringpropose=""
         print("c'est censé rendertemplate")
         print("resultatstring",resultatstring,"prout",stringmots)
-        return render_template('jeulogin.html',login=login,liste=L,gagne=g,res=stringmots,avance=nb_essais,couleurs=resultatstring,fini=fini,longueur=longueur,tentatives=essais)
+
+        
+
+        return render_template('jeulogin.html',login=login,clavier=clav,liste=L,gagne=g,res=stringmots,avance=nb_essais,couleurs=resultatstring,fini=fini,longueur=longueur,tentatives=essais)
 
 @app.route('/historique_score')
 def historique_score():
