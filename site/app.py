@@ -15,6 +15,8 @@ global essais
 global nb_essais #nb d'essais sur la partie en cours
 global verifreload # regarde si l'utilisateur a reload apres avoir gagné
 global login
+global Alphabet
+Alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 login=0
 essais=6
 longueur=5
@@ -172,7 +174,7 @@ def jeusanslogin():
     
     if testconnect():
         return redirect("/deco")
-    global fini,stringmots,motstringpropose,resultats,resultatstring,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
+    global Alphabet,clav,fini,stringmots,motstringpropose,resultats,resultatstring,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
     print("ini",ini)
     print("longueur apres changement",longueur)
     print("CA C BON",request.json)
@@ -181,6 +183,7 @@ def jeusanslogin():
         ini=0
         verifreload=0
     if ini==0:
+        clav=["w" for i in range(26)]
         stringmots=""
         motstringpropose=""
         resultats=[]
@@ -204,7 +207,7 @@ def jeusanslogin():
         g=""
         
         bonnes = ['-' for i in range(longueur)] 
-        return render_template('jeusanslogin.html',liste=L,avance=nb_essais,longueur=longueur,tentatives=essais)
+        return render_template('jeusanslogin.html',clavier=clav,liste=L,avance=nb_essais,longueur=longueur,tentatives=essais)
     else:
         
         g=""
@@ -238,7 +241,7 @@ def jeusanslogin():
 
                 #print(bonnes)
                 nb_essais+=1
-                
+                clav=couleurClavier(Alphabet,clav,bonnes,malponctuel,faussesponctuel)
 
         print(resultats)
 
@@ -258,7 +261,10 @@ def jeusanslogin():
         motstringpropose=""
         print("c'est censé rendertemplate")
         print("resultatstring",resultatstring,"prout",stringmots)
-        return render_template('jeusanslogin.html',liste=L,gagne=g,res=stringmots,avance=nb_essais,couleurs=resultatstring,fini=fini,longueur=longueur,tentatives=essais)
+
+        
+
+        return render_template('jeusanslogin.html',clavier=clav,liste=L,gagne=g,res=stringmots,avance=nb_essais,couleurs=resultatstring,fini=fini,longueur=longueur,tentatives=essais)
 
     
 

@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html>
-
+    
     <div class=menugauche>
         <div class=titreLettres>Nombre de lettres</div>
         <form action="/jeulogin" method="post">
@@ -62,37 +62,37 @@
 
     <div id="clavier">
         <div class="rangee">
-            <button id="A">A</button>
-            <button id="Z">Z</button>
-            <button id="E">E</button>
-            <button id="R">R</button>
-            <button id="T">T</button>
-            <button id="Y">Y</button>
-            <button id="U">U</button>
-            <button id="I">I</button>
-            <button id="O">O</button>
-            <button id="P">P</button>
+            <button id="A" class={{ clavier[0] }}>A</button>
+            <button id="Z" class={{ clavier[25] }}>Z</button>
+            <button id="E" class={{ clavier[4] }}>E</button>
+            <button id="R" class={{ clavier[17] }}>R</button>
+            <button id="T" class={{ clavier[19] }}>T</button>
+            <button id="Y" class={{ clavier[24] }}>Y</button>
+            <button id="U" class={{ clavier[20] }}>U</button>
+            <button id="I" class={{ clavier[8] }}>I</button>
+            <button id="O" class={{ clavier[14] }}>O</button>
+            <button id="P" class={{ clavier[15] }}>P</button>
         </div>
         <div class="rangee">
-            <button id="Q">Q</button>
-            <button id="S">S</button>
-            <button id="D">D</button>
-            <button id="F">F</button>
-            <button id="G">G</button>
-            <button id="G">H</button>
-            <button id="J">J</button>
-            <button id="K">K</button>
-            <button id="L">L</button>
-            <button id="M">M</button>
+            <button id="Q" class={{ clavier[16] }}>Q</button>
+            <button id="S" class={{ clavier[18] }}>S</button>
+            <button id="D" class={{ clavier[3] }}>D</button>
+            <button id="F" class={{ clavier[5] }}>F</button>
+            <button id="G" class={{ clavier[6] }}>G</button>
+            <button id="H" class={{ clavier[7] }}>H</button>
+            <button id="J" class={{ clavier[9] }}>J</button>
+            <button id="K" class={{ clavier[10] }}>K</button>
+            <button id="L" class={{ clavier[11] }}>L</button>
+            <button id="M" class={{ clavier[12] }}>M</button>
         </div>
         <div class="rangee">
             <button id="Sup">Sup</button>
-            <button id="W">W</button>
-            <button id="X">X</button>
-            <button id="C">C</button>
-            <button id="V">V</button>
-            <button id="B">B</button>
-            <button id="N">N</button>
+            <button id="W" class={{ clavier[22] }}>W</button>
+            <button id="X" class={{ clavier[23] }}>X</button>
+            <button id="C" class={{ clavier[2] }}>C</button>
+            <button id="V" class={{ clavier[21] }}>V</button>
+            <button id="B" class={{ clavier[1] }}>B</button>
+            <button id="N" class={{ clavier[13] }}>N</button>
 
             <button id="Enter">Entrer</button>
 
@@ -112,7 +112,7 @@
     <div class="transparente" id="fini">{{ fini }}</div>
     <div class="transparente" id="longueur">{{ longueur }}</div>
     <div class="transparente" id ="tentatives">{{ tentatives }}</div>
-    <script src="/static/jeulogin.js"></script>
+    <script src="/static/jeu.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/static/stylesheet.css">
 

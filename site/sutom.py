@@ -1,4 +1,5 @@
 import copy as cp
+from socket import ALG_SET_PUBKEY
 
 
 
@@ -100,16 +101,21 @@ def prop(motpropo,MOT,longueur,bonnes):                     #fonction prenant en
 
 
 
-#def reset():
-#    global bonnes
-#    bonnes = ['-' for i in range(longueur)]     
-#    global nb_essais
-#    nb_essais=0
-              
-            
-    
-
-    
-            
+def couleurClavier(alphabet,clavier,bonnes,mals,fausses): #mal et fausses sont ponctuelles
+    for b in bonnes:
+        if b!='-':
+            ind=alphabet.index(b)
+            clavier[ind]="v"
+    for m in mals:
+        if m!='-':
+            ind=alphabet.index(m)
+            if clavier[ind]!="v":
+                clavier[ind]="o"
+    for f in fausses:
+        if f!='-':
+            ind=alphabet.index(f)
+            if clavier[ind]!="v" and clavier[ind]!="o":
+                clavier[ind]="g"
+    return clavier
             
     
