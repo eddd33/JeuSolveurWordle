@@ -130,6 +130,8 @@ def recuplettre():
         ini=0
         inf=lettre.split("!")
         print("inf",inf)
+        longueur=int(inf[1])
+        essais=int(inf[2])
         return redirect("/jeusanslogin")
     else:
         motstringpropose+=lettre
@@ -140,11 +142,12 @@ def recuplettre():
 
 @app.route('/jeusanslogin',methods=["POST","GET"])
 def jeusanslogin():
+    
     if testconnect():
         return redirect("/deco")
     global fini,stringmots,motstringpropose,resultats,resultatstring,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
     print("ini",ini)
-    
+    print("longueur apres changement",longueur)
     print("CA C BON",request.json)
 
     if verifreload!=0:
@@ -165,11 +168,14 @@ def jeusanslogin():
         cur=db.cursor()
         cur.execute("SELECT mot FROM dico WHERE longueur={}".format(longueur))
         mots=cur.fetchall()
+        #print("mot",mots)
+        print("longueur AU SECOURS",longueur)
         n=random.randint(0,len(mots))
         motatrouve=mots[n][0]
         print("motatrouve",motatrouve)
         db.close()
         g=""
+        
         bonnes = ['-' for i in range(longueur)] 
         return render_template('jeusanslogin.html',liste=L,avance=nb_essais,longueur=longueur,tentatives=essais)
     else:
@@ -224,6 +230,7 @@ def jeusanslogin():
         stringmots+=motstringpropose
         motstringpropose=""
         print("c'est censé rendertemplate")
+        print("resultatstring",resultatstring,"prout",stringmots)
         return render_template('jeusanslogin.html',liste=L,gagne=g,res=stringmots,avance=nb_essais,couleurs=resultatstring,fini=fini,longueur=longueur,tentatives=essais)
 
     

@@ -8,8 +8,9 @@
         <div class=titreLettres>Nombre de lettres</div>
         <form action="/jeusanslogin" method="post">
         <select name="nbdelettres" class=nblettres id="long">
+            <option selected disabled value="">{{ longueur }}</option>
             <option value="4">4</option>
-            <option selected value="5">5</option>
+            <option value="5">5</option>
             <option value="6">6</option>
             <option value="7">7</option>
             <option value="8">8</option>
@@ -23,9 +24,10 @@
         <div class=titreChances>Nombre de chances</div>
         <form action="/jeusanslogin" method="post">
             <select name="nbdechances" class=nbchances id="tryNB">
+                <option selected disabled value=""> {{ tentatives }}</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
-                <option selected value="6">6</option>
+                <option value="6">6</option>
                 <option value="7">7</option>
                 <option value="8">8</option>
                 <option value="9">9</option>
@@ -35,11 +37,12 @@
                 <option value="13">13</option>
                 <option value="14">14</option>
             </select>
+            <input class=bouton type="submit" value="Valider">
             </form>
     </div>
    
+    <div class=fondjeu>
     <body>
-        <h1>Wordle</h1>
         <div id="wordle"></div>
     </body>
 
@@ -99,12 +102,14 @@
         </div>
     </div>
 
+    </div>
+
     <div class="transparente" id="infos">{{ res }}</div>
     <div class="transparente" id="couleurs">{{ couleurs }}</div>
     <div class="transparente" id="avancee">{{ avance }}</div>
     <div class="transparente" id="fini">{{ fini }}</div>
     <div class="transparente" id="longueur">{{ longueur }}</div>
-    <div class="transparente" id ="tentatives">{{ tentatives}}</div>
+    <div class="transparente" id ="tentatives">{{ tentatives }}</div>
     <script src="/static/jeu.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/static/stylesheet.css">

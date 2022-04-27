@@ -7,9 +7,10 @@
 
 let longueur = Number(recuplongueur());
 let tentatives = Number(recuptentatives());
-console.log(longueur);
-console.log(tentatives);
+console.log("longueur",longueur);
+console.log("tentatives",tentatives);
 let infos = recupinfo();
+console.log(infos);
 let avancee = recupavancee();
 let couleur = recupcouleurs();
 let fini = recupfini();
@@ -271,9 +272,8 @@ function pythonchange(longueur,tentatives){
 
 
     body:JSON.stringify("!"+longueur+"!"+tentatives)})
-    location.reload()
+    //location.reload()
 }
-
 
 function recupinfo(){
     let infocouleur = document.getElementById("infos").innerHTML;
