@@ -1,58 +1,389 @@
-.logo{position:absolute; top:0px; left:630px;max-width:300px;max-height: 100px;}
-.menugauche{background-color:rgb(109, 216, 175);width: 280px;height: 2000px;position: absolute; top:0px;left:0px;}
-.menudroit{background-color: rgb(245, 182, 131);width: 270px;height: 2000px;position: absolute; top: 0px; right: 0px;}
-.entete{background-color: rgb(194, 194, 194);width: 1500px;height: 100px;position:absolute; top:0px;left:250px;}
-.textaccueil{font-size: x-large;font-family:Arial, Helvetica, sans-serif;color:white;}
-.accueil:hover > .textaccueil{color:grey;}
-.inscription{position:absolute;top:150px; left:82px;}
-.textinscription{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.inscription:hover > .textinscription{color:grey}
-.login{position:absolute;top:200px; left:82px;}
-.textlogin{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.login:hover > .textlogin{color:grey;}
-.jeusanslogin{position:absolute;top:250px; left:5px;}
-.textjeusanslogin{font-size: x-large; font-family: Arial, Helvetica, sans-serif;color: white;}
-.jeusanslogin:hover > .textjeusanslogin{color:grey}
-.form{position:absolute;top: 150px; left: 250px;font-size: large; font-weight:bold;}
-.prop{position:absolute;top: 100px; left: 820px;font-size: large; font-weight:bold;}
-.text{border-radius:15px;height:35px}
-.titreLettres{position:absolute;top:200px;left:0px;color:white;font-size: x-large; font-weight: bold;}
-.titreChances{position:absolute;top:400px;left:0px;color:white;font-size: x-large; font-weight: bold;}
-.nbchances{position:absolute;top:440px;left:0px;width: 280px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
-.nblettres{position:absolute;top:240px;left:0px;width: 280px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
-.fond{position:absolute;top:200px;left:600px;width: 700px;height: 400px;background-color: rgb(194, 194, 194);border-radius: 20px;}
-.fondjeu{position: absolute;top: 200px;left:500px;width:900px;height: 1500px;background-color: rgb(194,194,194);border-radius: 20px;}
-.titre{position:absolute;top: 30px; left: 50px;font-size: x-large; font-weight:bold;font-family: Arial, Helvetica, sans-serif; color:white;}
-.message{position:absolute;top: 30px; left: 50px;font-size: x-large; font-weight:bold;font-family: Arial, Helvetica, sans-serif; color:white;}
-.score{position: absolute;top: 240px;left: 80px;font: x-large;font-weight: bold;color:white;}
-.deconnexion{position:absolute;top:140px; right:60px;}
-.decotext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.deconnexion:hover > .decotext{color:grey;}
-.jeulogin{position:absolute;top:190px; right: 105px;}
-.jeulogintext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.jeulogin:hover > .jeulogintext{color:grey;}
-.historique{position:absolute;top:240px; right: 45px;}
-.histotext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.historique:hover > .histotext{color:grey;}
-.bonjour{position:absolute;top:35px; left: 10px;}
-.bonjourtext{font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.titre_nb_jouees{position:absolute;top:140px; left: 50px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.nb_jouees{position:absolute;top:170px; left: 100px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.titre_nb_gagnees{position:absolute;top:240px; left: 50px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.nb_gagnees{position:absolute;top:270px; left: 100px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
-.transparente{position : absolute;top:100px; left:300px;opacity: 0;}
-.bouton{position:absolute;top:550px;left:110px;}
-.w{background-color:white;}
-.v{background-color:#6dd8af}
-.o{background-color: rgb(245, 182, 131);}
-.g{background-color: gray;}
-.legende{position:absolute;top:45px;left:45px}
-.legendev{position:absolute;top: 2px;left:40px; width:400px;}
-.legendeo{position:absolute;top: 2px;left:300px;width:400px;}
-.legendeg{position: absolute;top: 2px;left:665px;width:400px;}
-.casev{position:absolute;top:0px;left:0px;width: 25px;height: 25px;background-color: rgb(109, 216, 175);border-radius: 2px;}
-.caseo{position:absolute;top:0px;left:260px;width: 25px;height: 25px;background-color: rgb(245, 182, 131);border-radius: 2px;}
-.caseg{position:absolute;top:0px;left:625px;width: 25px;height: 25px;background-color: grey;border-radius: 2px;}
+.logo {
+  position: absolute;
+  top: 0px;
+  left: 630px;
+  max-width: 300px;
+  max-height: 100px;
+}
+
+.menugauche {
+  background-color: rgb(109, 216, 175);
+  width: 280px;
+  height: 2000px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.menudroit {
+  background-color: rgb(245, 182, 131);
+  width: 270px;
+  height: 2000px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.entete {
+  background-color: rgb(194, 194, 194);
+  width: 1500px;
+  height: 100px;
+  position: absolute;
+  top: 0px;
+  left: 250px;
+}
+
+.textaccueil {
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.accueil:hover>.textaccueil {
+  color: grey;
+}
+
+.inscription {
+  position: absolute;
+  top: 150px;
+  left: 82px;
+}
+
+.textinscription {
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.inscription:hover>.textinscription {
+  color: grey
+}
+
+.login {
+  position: absolute;
+  top: 200px;
+  left: 82px;
+}
+
+.textlogin {
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.login:hover>.textlogin {
+  color: grey;
+}
+
+.jeusanslogin {
+  position: absolute;
+  top: 250px;
+  left: 5px;
+}
+
+.textjeusanslogin {
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.jeusanslogin:hover>.textjeusanslogin {
+  color: grey
+}
+
+.form {
+  position: absolute;
+  top: 150px;
+  left: 250px;
+  font-size: large;
+  font-weight: bold;
+}
+
+.prop {
+  position: absolute;
+  top: 100px;
+  left: 820px;
+  font-size: large;
+  font-weight: bold;
+}
+
+.text {
+  border-radius: 15px;
+  height: 35px
+}
+
+.titreLettres {
+  position: absolute;
+  top: 200px;
+  left: 0px;
+  color: white;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.titreChances {
+  position: absolute;
+  top: 400px;
+  left: 0px;
+  color: white;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.nbchances {
+  position: absolute;
+  top: 440px;
+  left: 0px;
+  width: 280px;
+  height: 80px;
+  color: white;
+  font-size: x-large;
+  font-weight: bold;
+  background-color: rgb(101, 212, 170);
+}
+
+.nblettres {
+  position: absolute;
+  top: 240px;
+  left: 0px;
+  width: 280px;
+  height: 80px;
+  color: white;
+  font-size: x-large;
+  font-weight: bold;
+  background-color: rgb(101, 212, 170);
+}
+
+.fond {
+  position: absolute;
+  top: 200px;
+  left: 600px;
+  width: 700px;
+  height: 400px;
+  background-color: rgb(194, 194, 194);
+  border-radius: 20px;
+}
+
+.fondjeu {
+  position: absolute;
+  top: 200px;
+  left: 500px;
+  width: 900px;
+  height: 1500px;
+  background-color: rgb(194, 194, 194);
+  border-radius: 20px;
+}
+
+.titre {
+  position: absolute;
+  top: 30px;
+  left: 50px;
+  font-size: x-large;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.message {
+  position: absolute;
+  top: 30px;
+  left: 50px;
+  font-size: x-large;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.score {
+  position: absolute;
+  top: 240px;
+  left: 80px;
+  font: x-large;
+  font-weight: bold;
+  color: white;
+}
+
+.deconnexion {
+  position: absolute;
+  top: 140px;
+  right: 60px;
+}
+
+.decotext {
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.deconnexion:hover>.decotext {
+  color: grey;
+}
+
+.jeulogin {
+  position: absolute;
+  top: 190px;
+  right: 105px;
+}
+
+.jeulogintext {
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.jeulogin:hover>.jeulogintext {
+  color: grey;
+}
+
+.historique {
+  position: absolute;
+  top: 240px;
+  right: 45px;
+}
+
+.histotext {
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.historique:hover>.histotext {
+  color: grey;
+}
+
+.bonjour {
+  position: absolute;
+  top: 35px;
+  left: 10px;
+}
+
+.bonjourtext {
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.titre_nb_jouees {
+  position: absolute;
+  top: 140px;
+  left: 50px;
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.nb_jouees {
+  position: absolute;
+  top: 170px;
+  left: 100px;
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.titre_nb_gagnees {
+  position: absolute;
+  top: 240px;
+  left: 50px;
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.nb_gagnees {
+  position: absolute;
+  top: 270px;
+  left: 100px;
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.transparente {
+  position: absolute;
+  top: 100px;
+  left: 300px;
+  opacity: 0;
+}
+
+.bouton {
+  position: absolute;
+  top: 550px;
+  left: 110px;
+}
+
+.w {
+  background-color: white;
+}
+
+.v {
+  background-color: #6dd8af
+}
+
+.o {
+  background-color: rgb(245, 182, 131);
+}
+
+.g {
+  background-color: gray;
+}
+
+.legende {
+  position: absolute;
+  top: 100px;
+  left: 45px
+}
+
+.legendev {
+  position: absolute;
+  top: 2px;
+  left: 40px;
+  width: 400px;
+}
+
+.legendeo {
+  position: absolute;
+  top: 2px;
+  left: 300px;
+  width: 400px;
+}
+
+.legendeg {
+  position: absolute;
+  top: 2px;
+  left: 665px;
+  width: 400px;
+}
+
+.casev {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 25px;
+  height: 25px;
+  background-color: rgb(109, 216, 175);
+  border-radius: 2px;
+}
+
+.caseo {
+  position: absolute;
+  top: 0px;
+  left: 260px;
+  width: 25px;
+  height: 25px;
+  background-color: rgb(245, 182, 131);
+  border-radius: 2px;
+}
+
+.caseg {
+  position: absolute;
+  top: 0px;
+  left: 625px;
+  width: 25px;
+  height: 25px;
+  background-color: grey;
+  border-radius: 2px;
+}
 
 :root {
   --wrong: #f5b683;
@@ -68,39 +399,39 @@
   width: 516px;
   margin-left: auto;
   margin-right: auto;
-  }
-  
-  .case {
-    border: 2px solid rgb(12, 12, 12);
-    border-radius: 3px;
-    margin: 2px;
-    font-size: 2.5rem;
-    font-weight: 700;
-    height: 3rem;
-    width: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-transform: uppercase;
-  }
-  
-  .box-pleine {
-    border: 2px solid black;
-  }
+}
 
-  .case-juste {
-    background: var(--right);
-  }
+.case {
+  border: 2px solid rgb(12, 12, 12);
+  border-radius: 3px;
+  margin: 2px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
 
-  .case-fausse {
-    background: var(--wrong);
-  }
-  
-  .rang {
-    display: flex;
-  }
+.box-pleine {
+  border: 2px solid black;
+}
 
-  
+.case-juste {
+  background: var(--right);
+}
+
+.case-fausse {
+  background: var(--wrong);
+}
+
+.rang {
+  display: flex;
+}
+
+
 #clavier {
   margin: 1rem 0;
   display: flex;
@@ -115,7 +446,7 @@
 }
 
 .rangee {
-  width : 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
 
@@ -127,9 +458,21 @@
   height: 58px;
   width: 58px;
   cursor: pointer;
-  
+
   border-radius: 10%;
   margin-right: 6px;
   margin-bottom: 6px;
 }
 
+.bravodiv{
+  position:relative;
+  top:2%;
+  left: 38%;
+  justify-content: center;
+}
+
+.bravomessage{
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+}

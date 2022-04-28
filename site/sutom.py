@@ -92,6 +92,7 @@ def prop(motpropo,MOT,longueur,bonnes):                     #fonction prenant en
     
     if not '-' in bonnes:
         print("Vous avez gagné")
+        bravo = "Félicitations"
         return 0,0,0,0
 
     #prop(MOT,longueur)

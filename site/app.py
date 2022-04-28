@@ -16,8 +16,10 @@ global nb_essais #nb d'essais sur la partie en cours
 global verifreload # regarde si l'utilisateur a reload apres avoir gagné
 global login
 global Alphabet
+global bravo
 Alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 login=0
+bravo = ""
 essais=6
 longueur=5
 ini =0
@@ -174,7 +176,7 @@ def jeusanslogin():
     
     if testconnect():
         return redirect("/deco")
-    global Alphabet,clav,fini,stringmots,motstringpropose,resultats,resultatstring,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
+    global bravo,Alphabet,clav,fini,stringmots,motstringpropose,resultats,resultatstring,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
     print("ini",ini)
     print("longueur apres changement",longueur)
     print("CA C BON",request.json)
@@ -183,6 +185,7 @@ def jeusanslogin():
         ini=0
         verifreload=0
     if ini==0:
+        bravo = ""
         clav=["w" for i in range(26)]
         stringmots=""
         motstringpropose=""
@@ -207,7 +210,7 @@ def jeusanslogin():
         g=""
         
         bonnes = ['-' for i in range(longueur)] 
-        return render_template('jeusanslogin.html',clavier=clav,liste=L,avance=nb_essais,longueur=longueur,tentatives=essais)
+        return render_template('jeusanslogin.html',clavier=clav,liste=L,avance=nb_essais,longueur=longueur,tentatives=essais, bravo=bravo)
     else:
         
         g=""
@@ -227,6 +230,7 @@ def jeusanslogin():
                         resultatstring+="v"
                     fini=1
                     verifreload=1
+                    bravo="Vous avez gagné !!"
                 else:
                     resultats.append(([],[]))
                     for i in range(len(motpropose)):
@@ -262,10 +266,9 @@ def jeusanslogin():
         motstringpropose=""
         print("c'est censé rendertemplate")
         print("resultatstring",resultatstring,"prout",stringmots)
-
         
 
-        return render_template('jeusanslogin.html',clavier=clav,liste=L,gagne=g,res=stringmots,avance=nb_essais,couleurs=resultatstring,fini=fini,longueur=longueur,tentatives=essais)
+        return render_template('jeusanslogin.html',clavier=clav,liste=L,gagne=g,res=stringmots,avance=nb_essais,couleurs=resultatstring,fini=fini,longueur=longueur,tentatives=essais, bravo=bravo)
 
     
 
@@ -273,7 +276,7 @@ def jeusanslogin():
 def jeulogin():
     if not testconnect():
         return redirect('/login')
-    global Alphabet,clav,fini,stringmots,motstringpropose,resultats,resultatstring,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
+    global bravo,Alphabet,clav,fini,stringmots,motstringpropose,resultats,resultatstring,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
     print("ini",ini)
     print("longueur apres changement",longueur)
     print("CA C BON",request.json)
@@ -282,6 +285,7 @@ def jeulogin():
         ini=0
         verifreload=0
     if ini==0:
+        bravo = ""
         clav=["w" for i in range(26)]
         stringmots=""
         motstringpropose=""
@@ -306,7 +310,7 @@ def jeulogin():
         g=""
         
         bonnes = ['-' for i in range(longueur)] 
-        return render_template('jeulogin.html',clavier=clav,liste=L,avance=nb_essais,longueur=longueur,tentatives=essais)
+        return render_template('jeulogin.html',clavier=clav,liste=L,avance=nb_essais,longueur=longueur,tentatives=essais, bravo=bravo)
     else:
         
         g=""
@@ -327,6 +331,7 @@ def jeulogin():
                         resultatstring+="v"
                     fini=1
                     verifreload=1
+                    bravo="Vous avez gagné !!"
                     db=sqlite3.connect("projet.db")
                     cur=db.cursor()
                     cur.execute("SELECT parties_jouees,parties_gagnees FROM user WHERE pseudo='{}'".format(login))
@@ -389,7 +394,7 @@ def jeulogin():
 
         
 
-        return render_template('jeulogin.html',login=login,clavier=clav,liste=L,gagne=g,res=stringmots,avance=nb_essais,couleurs=resultatstring,fini=fini,longueur=longueur,tentatives=essais)
+        return render_template('jeulogin.html',login=login,clavier=clav,liste=L,gagne=g,res=stringmots,avance=nb_essais,couleurs=resultatstring,fini=fini,longueur=longueur,tentatives=essais, bravo=bravo)
 
 @app.route('/historique_score')
 def historique_score():

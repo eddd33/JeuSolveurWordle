@@ -51,7 +51,8 @@ function initJeu(longueur,tentatives,infos,avancee,couleur) {
                         //touche.style.background = 'grey'
                     }
                 }
-                
+            
+            
             }
 
             tableau.appendChild(rang)
