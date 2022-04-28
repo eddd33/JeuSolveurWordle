@@ -38,7 +38,7 @@
                 <option value="14">14</option>
             </select>
             <div class=bouton>
-            <input type="submit" value="Valider">
+            <input type="submit" value="Valider" >
             </div>
             </form>
     </div>
@@ -48,17 +48,23 @@
         <div id="wordle"></div>
     </body>
 
-    <div class=prop>
-        <ul>
-            {% for L in liste %}
-            
-            <li><a>{{ L }}</a></li>
-    
-            {% endfor %}
-        </ul>
-        <a>{{ gagne }}</a>
-    
+    <div class=legende>
+       
+        <div class=casev></div>
+        <div class=caseo></div>
+        <div class=caseg></div> 
+        <div class=legendev>
+        <a>Lettre bien positionnée</a>
+        </div>
+        <div class=legendeo>
+        <a>Lettre présente mais mal positionnée</a>
+        </div>
+        <div class=legendeg>
+        <a>Lettre absente</a>
+        </div>
     </div>
+
+
 
     <div id="clavier">
         <div class="rangee">

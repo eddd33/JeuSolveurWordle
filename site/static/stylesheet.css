@@ -21,7 +21,7 @@
 .nbchances{position:absolute;top:440px;left:0px;width: 280px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
 .nblettres{position:absolute;top:240px;left:0px;width: 280px;height:80px;color:white;font-size: x-large; font-weight: bold;background-color:rgb(101, 212, 170);}
 .fond{position:absolute;top:200px;left:600px;width: 700px;height: 400px;background-color: rgb(194, 194, 194);border-radius: 20px;}
-.fondjeu{position: absolute;top: 200px;left:500px;width:900px;height: 1200px;background-color: rgb(194,194,194);border-radius: 20px;}
+.fondjeu{position: absolute;top: 200px;left:500px;width:900px;height: 1500px;background-color: rgb(194,194,194);border-radius: 20px;}
 .titre{position:absolute;top: 30px; left: 50px;font-size: x-large; font-weight:bold;font-family: Arial, Helvetica, sans-serif; color:white;}
 .message{position:absolute;top: 30px; left: 50px;font-size: x-large; font-weight:bold;font-family: Arial, Helvetica, sans-serif; color:white;}
 .score{position: absolute;top: 240px;left: 80px;font: x-large;font-weight: bold;color:white;}
@@ -41,11 +41,18 @@
 .titre_nb_gagnees{position:absolute;top:240px; left: 50px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .nb_gagnees{position:absolute;top:270px; left: 100px;font-size: x-large; font-family:Arial, Helvetica, sans-serif;color:white;}
 .transparente{position : absolute;top:100px; left:300px;opacity: 0;}
-.bouton{position:absolute;top:550px;left:60px;}
+.bouton{position:absolute;top:550px;left:110px;}
 .w{background-color:white;}
-.v{background-color:green}
-.o{background-color: orange;}
+.v{background-color:#6dd8af}
+.o{background-color: rgb(245, 182, 131);}
 .g{background-color: gray;}
+.legende{position:absolute;top:45px;left:45px}
+.legendev{position:absolute;top: 2px;left:40px; width:400px;}
+.legendeo{position:absolute;top: 2px;left:300px;width:400px;}
+.legendeg{position: absolute;top: 2px;left:665px;width:400px;}
+.casev{position:absolute;top:0px;left:0px;width: 25px;height: 25px;background-color: rgb(109, 216, 175);border-radius: 2px;}
+.caseo{position:absolute;top:0px;left:260px;width: 25px;height: 25px;background-color: rgb(245, 182, 131);border-radius: 2px;}
+.caseg{position:absolute;top:0px;left:625px;width: 25px;height: 25px;background-color: grey;border-radius: 2px;}
 
 :root {
   --wrong: #f5b683;
@@ -57,7 +64,7 @@
   align-items: center;
   flex-direction: column;
   position: relative;
-  top: 80px;
+  top: 130px;
   width: 516px;
   margin-left: auto;
   margin-right: auto;
@@ -100,7 +107,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  top: 300px;
+  top: 200px;
   height: 200px;
   width: 616px;
   margin-left: auto;

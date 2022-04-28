@@ -39,11 +39,11 @@ function initJeu(longueur,tentatives,infos,avancee,couleur) {
                     //let touche = document.getElementById(box.textContent)
                     //console.log(touche)
                     if (couleur[i*longueur+j] === "v"){
-                        box.style.background = 'green'
+                        box.style.background = '#6dd8af'
                         //touche.style.background = 'green'
                     }
                     else if (couleur[i*longueur+j] === "o"){
-                        box.style.background = 'orange'
+                        box.style.background = '#f5b683'
                         //touche.style.background = 'orange'
                     }
                     else if (couleur[i*longueur+j] === "g"){
