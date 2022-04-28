@@ -48,18 +48,22 @@
         <div id="wordle"></div>
     </body>
 
-    <div class=prop>
-        <ul>
-            {% for L in liste %}
-            
-            <li><a>{{ L }}</a></li>
-    
-            {% endfor %}
-        </ul>
-        <a>{{ gagne }}</a>
-    
+    <div class=legende>
+       
+        <div class=casev></div>
+        <div class=caseo></div>
+        <div class=caseg></div> 
+        <div class=legendev>
+        <a>Lettre bien positionnée</a>
+        </div>
+        <div class=legendeo>
+        <a>Lettre présente mais mal positionnée</a>
+        </div>
+        <div class=legendeg>
+        <a>Lettre absente</a>
+        </div>
     </div>
-
+    
     <div id="clavier">
         <div class="rangee">
             <button id="A" class={{ clavier[0] }}>A</button>
