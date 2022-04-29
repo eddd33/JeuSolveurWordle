@@ -135,7 +135,6 @@ if (Number(fini)===1){
     rangAct=tentatives;
 }
 
-
 document.addEventListener("keyup",(e) => {
 
     let Sup = document.getElementById("Sup")
@@ -149,6 +148,13 @@ document.addEventListener("keyup",(e) => {
     }
     
     let pressKey = String(e.key);
+
+    console.log(typeof(pressKey))
+    if (pressKey=="Enter"){
+        console.log("ca rentre")
+        handleClick("Entrer")
+        return
+    }
 
     console.log(pressKey);
 
@@ -164,9 +170,12 @@ document.addEventListener("keyup",(e) => {
         insertLettre(pressKey)
     }
 
+    
+
     let Enter = document.getElementById("Enter")
     Enter.addEventListener('click', () => handleClick(Enter.textContent))
 
+    
 })
 
 
