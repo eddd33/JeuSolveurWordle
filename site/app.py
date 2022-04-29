@@ -234,6 +234,7 @@ def jeusanslogin():
         motavalider=cur.fetchone()
         db.close()
         if not motavalider:
+        
             g=""
             pass
         else:
@@ -246,6 +247,7 @@ def jeusanslogin():
                 print("rentre dans le motp==mot")
                 pass
             else:
+                print("ca passe dans le else")
                 mot=motp
                 #print("mot",mot)
                 nb_essais+=1
@@ -285,7 +287,9 @@ def jeusanslogin():
         motstringpropose=""
         motpropose=[]
         
-        
+        print("nb_essais",nb_essais)
+        print("res",stringmots)
+        print("tentatives",essais)
 
         return render_template('jeusanslogin.html',clavier=clav,liste=L,gagne=g,res=stringmots,avance=nb_essais,couleurs=resultatstring,fini=fini,longueur=longueur,tentatives=essais, bravo=bravo)
 
