@@ -477,3 +477,29 @@
   color: black;
   text-align: center;
 }
+
+.regle{
+  position: absolute;
+  top: 100px;
+  left: 50px;
+  font-size: x-large;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.reglejeu{
+  position: absolute;
+  top: 300px;
+  left: 30px;
+}
+
+.textreglejeu{
+  font-size: x-large;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.reglejeu:hover>.textreglejeu {
+  color: grey
+}
