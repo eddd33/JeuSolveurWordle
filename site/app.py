@@ -446,3 +446,11 @@ def deco():
     global login
     login = 0
     return redirect("/jeusanslogin")
+
+@app.route("/regle")
+def regle():
+    return render_template("regle.html")
+
+@app.route("/regleco")
+def regleco():
+    return render_template("regleco.html")
