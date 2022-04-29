@@ -16,7 +16,7 @@ let couleur = recupcouleurs();
 let fini = recupfini();
 
 
-
+console.log("Avance pre ini",avancee)
 function initJeu(longueur,tentatives,infos,avancee,couleur) {
     if (avancee != 0){
         let tableau = document.getElementById("wordle");
@@ -128,7 +128,8 @@ elt2.addEventListener('change', function () {
 let lettreAct = 0;
 
 let rangAct = Number(avancee);
-console.log(avancee)
+
+console.log("avancee",avancee)
 
 if (Number(fini)===1){
     rangAct=tentatives;
@@ -268,6 +269,7 @@ function pythonvalide(){
     location.reload()
 }
 function pythonchange(longueur,tentatives){
+    avancee=0
     fetch("http://127.0.0.1:5000/recuplettre", 
     {
     method: 'POST',

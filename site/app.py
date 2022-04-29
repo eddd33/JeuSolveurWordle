@@ -113,7 +113,9 @@ def jslprov():
     ini=0
     return redirect('/jeusanslogin')
 
-
+@app.route('/tente')
+def tente():
+    return redirect('/jeusanslogin')
 @app.route('/recuplettre',methods=["POST","GET"])
 def recuplettre():
     global motpropose,motstringpropose,longueur,essais,ini,login
@@ -150,6 +152,7 @@ def recuplettre():
             pass
         elif lettre == "valide":
             print("PUTAIN")
+            
             return redirect("/jeusanslogin")
         elif lettre == "suppr":
             motpropose.pop()
@@ -177,14 +180,15 @@ def jeusanslogin():
     if testconnect():
         return redirect("/deco")
     global bravo,Alphabet,clav,fini,stringmots,motstringpropose,resultats,resultatstring,motpropose,ini,L,bonnes,longueur,essais,nb_essais,verifreload,motatrouve,mot #j'ai rajouté mot pour pas rajouter un essai quand on refresh
-    print("ini",ini)
-    print("longueur apres changement",longueur)
-    print("CA C BON",request.json)
+    #print("ini",ini)
+    #print("longueur apres changement",longueur)
+    #print("CA C BON",request.json)
 
     if verifreload!=0:
         ini=0
         verifreload=0
     if ini==0:
+        
         bravo = ""
         clav=["w" for i in range(26)]
         stringmots=""
@@ -202,26 +206,28 @@ def jeusanslogin():
         cur.execute("SELECT mot FROM dico WHERE longueur={}".format(longueur))
         mots=cur.fetchall()
         #print("mot",mots)
-        print("longueur AU SECOURS",longueur)
+        #print("longueur AU SECOURS",longueur)
         n=random.randint(0,len(mots))
         motatrouve=mots[n][0]
-        print("motatrouve",motatrouve)
+        #print("motatrouve",motatrouve)
         db.close()
         g=""
-        
+        print("CA RENTRE DANS INI",nb_essais)
         bonnes = ['-' for i in range(longueur)] 
         return render_template('jeusanslogin.html',clavier=clav,liste=L,avance=nb_essais,longueur=longueur,tentatives=essais, bravo=bravo)
     else:
         
         g=""
         motp=motpropose
-        if motp==mot:   #evite les problème de refresh
+        print("mot propose",motpropose)
+        if motp==mot  or motp==[]:   #evite les problème de refresh
+            print("rentre dans le motp==mot")
             pass
         else:
             mot=motp
-            print("mot",mot)
+            #print("mot",mot)
             nb_essais+=1
-            if mot == "" or len(mot)!=longueur:
+            if mot == "" or len(mot)!=longueur or motpropose=="":
                 pass
             else:
                 bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
@@ -231,6 +237,7 @@ def jeusanslogin():
                     fini=1
                     verifreload=1
                     bravo="Vous avez gagné !!"
+                
                 else:
                     resultats.append(([],[]))
                     for i in range(len(motpropose)):
@@ -246,26 +253,13 @@ def jeusanslogin():
 
                 #print(bonnes)
                 
-                clav=couleurClavier(Alphabet,clav,bonnes,malponctuel,faussesponctuel,motpropose)
+                    clav=couleurClavier(Alphabet,clav,bonnes,malponctuel,faussesponctuel,motpropose)
 
-        print(resultats)
-
-                # if bonnes==0:
-                #     g="Vous avez gagné ! "
-                #     verifreload=1
-                #     L.append("{}".format(mot))
-                # elif nb_essais==essais:
-                #     g="Vous avez perdu ! Le mot était {}".format(motatrouve)
-                #     verifreload=1
-                #     L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
-                # else:
-                #     L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
-                # L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
-        motpropose=[]
-        stringmots+=motstringpropose
+        
+                stringmots+=motstringpropose
         motstringpropose=""
-        print("c'est censé rendertemplate")
-        print("resultatstring",resultatstring,"prout",stringmots)
+        motpropose=[]
+        
         
 
         return render_template('jeusanslogin.html',clavier=clav,liste=L,gagne=g,res=stringmots,avance=nb_essais,couleurs=resultatstring,fini=fini,longueur=longueur,tentatives=essais, bravo=bravo)
@@ -343,6 +337,7 @@ def jeulogin():
                     db.commit()
                     db.close()
                 elif nb_essais==essais:
+                    bravo="Vous avez perdu, le mot était : {}".format(motatrouve)
                     verifreload=1
                     L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
                     db=sqlite3.connect("projet.db")
@@ -369,28 +364,18 @@ def jeulogin():
                             resultats[-1][0].append(motpropose[i])
                             resultatstring+="g"
 
-                #print(bonnes)
                 
-                clav=couleurClavier(Alphabet,clav,bonnes,malponctuel,faussesponctuel,motpropose)
+                
+                    clav=couleurClavier(Alphabet,clav,bonnes,malponctuel,faussesponctuel,motpropose)
 
-        print(resultats)
+                    print(resultats)
 
-                # if bonnes==0:
-                #     g="Vous avez gagné ! "
-                #     verifreload=1
-                #     L.append("{}".format(mot))
-                # elif nb_essais==essais:
-                #     g="Vous avez perdu ! Le mot était {}".format(motatrouve)
-                #     verifreload=1
-                #     L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
-                # else:
-                #     L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
-                # L.append("Nombre d'essais : {} / {}".format(nb_essais,essais))
-        motpropose=[]
-        stringmots+=motstringpropose
-        motstringpropose=""
-        print("c'est censé rendertemplate")
-        print("resultatstring",resultatstring,"prout",stringmots)
+                        
+                motpropose=[]
+                stringmots+=motstringpropose
+                motstringpropose=""
+                print("c'est censé rendertemplate")
+                print("resultatstring",resultatstring,"prout",stringmots)
 
         
 
