@@ -115,19 +115,21 @@
 .titreLettres {
   position: absolute;
   top: 200px;
-  left: 0px;
+  left: 10px;
   color: white;
   font-size: x-large;
   font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .titreChances {
   position: absolute;
   top: 400px;
-  left: 0px;
+  left: 10px;
   color: white;
   font-size: x-large;
   font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .nbchances {
@@ -467,12 +469,11 @@
 .bravodiv{
   position:relative;
   top:2%;
-  left: 38%;
   justify-content: center;
 }
 
 .bravomessage{
   font-size: x-large;
-  font-family: Arial, Helvetica, sans-serif;
   color: black;
+  text-align: center;
 }

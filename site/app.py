@@ -113,9 +113,13 @@ def jslprov():
     ini=0
     return redirect('/jeusanslogin')
 
-@app.route('/tente')
+@app.route('/tente',methods=["POST","GET"])
 def tente():
-    return redirect('/jeusanslogin')
+    if testconnect():
+        return redirect('/jeulogin')
+    else:
+        return redirect('/jeusanslogin')
+
 @app.route('/recuplettre',methods=["POST","GET"])
 def recuplettre():
     global motpropose,motstringpropose,longueur,essais,ini,login
@@ -169,6 +173,7 @@ def recuplettre():
             return redirect("/jeusanslogin")
         else:
             motstringpropose+=lettre
+            
             motpropose.append(lettre)
         print("CA C BON",request.json,motpropose)
         return "bonjour"
@@ -216,47 +221,61 @@ def jeusanslogin():
         bonnes = ['-' for i in range(longueur)] 
         return render_template('jeusanslogin.html',clavier=clav,liste=L,avance=nb_essais,longueur=longueur,tentatives=essais, bravo=bravo)
     else:
-        
-        g=""
-        motp=motpropose
-        print("mot propose",motpropose)
-        if motp==mot  or motp==[]:   #evite les problème de refresh
-            print("rentre dans le motp==mot")
+        print("motstringpropose",motstringpropose)
+        db=sqlite3.connect('projet.db')
+        cur=db.cursor()
+        cur.execute("SELECT mot FROM dico WHERE mot='{}'".format(motstringpropose))
+        motavalider=cur.fetchone()
+        db.close()
+        if not motavalider:
+            g=""
             pass
         else:
-            mot=motp
-            #print("mot",mot)
-            nb_essais+=1
-            if mot == "" or len(mot)!=longueur or motpropose=="":
+            print(motavalider)
+            
+            g=""
+            motp=motpropose
+            print("mot propose",motpropose)
+            if motp==mot  or motp==[]:   #evite les problème de refresh
+                print("rentre dans le motp==mot")
                 pass
             else:
-                bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
-                if bonnesponctuel==0:
-                    for i in range(longueur):
-                        resultatstring+="v"
-                    fini=1
-                    verifreload=1
-                    bravo="Vous avez gagné !!"
-                
+                mot=motp
+                #print("mot",mot)
+                nb_essais+=1
+                if mot == "" or len(mot)!=longueur or motpropose=="":
+                    pass
                 else:
-                    resultats.append(([],[]))
-                    for i in range(len(motpropose)):
-                        if bonnesponctuel[i]==motpropose[i]:
-                            resultats[-1][0].append(motpropose[i])
+                    bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
+                    if bonnesponctuel==0:
+                        for i in range(longueur):
                             resultatstring+="v"
-                        elif malponctuel[i]==motpropose[i]:
-                            resultats[-1][0].append(motpropose[i])
-                            resultatstring+="o"
-                        else:
-                            resultats[-1][0].append(motpropose[i])
-                            resultatstring+="g"
+                        fini=1
+                        verifreload=1
+                        bravo="Vous avez gagné !!"
+                    
+                    else:
+                        resultats.append(([],[]))
+                        for i in range(len(motpropose)):
+                            if bonnesponctuel[i]==motpropose[i]:
+                                resultats[-1][0].append(motpropose[i])
+                                resultatstring+="v"
+                            elif malponctuel[i]==motpropose[i]:
+                                resultats[-1][0].append(motpropose[i])
+                                resultatstring+="o"
+                            else:
+                                resultats[-1][0].append(motpropose[i])
+                                resultatstring+="g"
+                        if nb_essais==essais:
+                            bravo="Vous avez perdu, le mot était : {}".format(motatrouve)
+                            verifreload=1
 
-                #print(bonnes)
-                
-                    clav=couleurClavier(Alphabet,clav,bonnes,malponctuel,faussesponctuel,motpropose)
+                    #print(bonnes)
+                    
+                        clav=couleurClavier(Alphabet,clav,bonnes,malponctuel,faussesponctuel,motpropose)
 
         
-                stringmots+=motstringpropose
+                    stringmots+=motstringpropose
         motstringpropose=""
         motpropose=[]
         
@@ -296,86 +315,93 @@ def jeulogin():
         cur.execute("SELECT mot FROM dico WHERE longueur={}".format(longueur))
         mots=cur.fetchall()
         #print("mot",mots)
-        print("longueur AU SECOURS",longueur)
+        #print("longueur AU SECOURS",longueur)
         n=random.randint(0,len(mots))
         motatrouve=mots[n][0]
-        print("motatrouve",motatrouve)
+        #print("motatrouve",motatrouve)
         db.close()
         g=""
-        
+        print("CA RENTRE DANS INI",nb_essais)
         bonnes = ['-' for i in range(longueur)] 
-        return render_template('jeulogin.html',clavier=clav,liste=L,avance=nb_essais,longueur=longueur,tentatives=essais, bravo=bravo)
+        return render_template('jeulogin.html',login=login,clavier=clav,liste=L,avance=nb_essais,longueur=longueur,tentatives=essais, bravo=bravo)
     else:
-        
-        g=""
-        motp=motpropose
-        if motp==mot:   #evite les problème de refresh
+        print("motstringpropose",motstringpropose)
+        db=sqlite3.connect('projet.db')
+        cur=db.cursor()
+        cur.execute("SELECT mot FROM dico WHERE mot='{}'".format(motstringpropose))
+        motavalider=cur.fetchone()
+        db.close()
+        if not motavalider:
+            g=""
             pass
         else:
-            mot=motp
-            print("mot",mot)
-            if mot == "" or len(mot)!=longueur:
+            print(motavalider)
+            
+            g=""
+            motp=motpropose
+            print("mot propose",motpropose)
+            if motp==mot  or motp==[]:   #evite les problème de refresh
+                print("rentre dans le motp==mot")
                 pass
             else:
-                bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
-                print("ESSAIS",nb_essais,essais)
+                mot=motp
+                #print("mot",mot)
                 nb_essais+=1
-                if bonnesponctuel==0:
-                    for i in range(longueur):
-                        resultatstring+="v"
-                    fini=1
-                    verifreload=1
-                    bravo="Vous avez gagné !!"
-                    db=sqlite3.connect("projet.db")
-                    cur=db.cursor()
-                    cur.execute("SELECT parties_jouees,parties_gagnees FROM user WHERE pseudo='{}'".format(login))
-                    parties=cur.fetchone()
-                    part_j,part_g=parties[0]+1,parties[1]+1
-                    cur.execute("UPDATE user SET parties_jouees = {} WHERE pseudo = '{}'".format(part_j,login))
-                    cur.execute("UPDATE user SET parties_gagnees = {} WHERE pseudo = '{}'".format(part_g,login))
-
-                    db.commit()
-                    db.close()
-                elif nb_essais==essais:
-                    bravo="Vous avez perdu, le mot était : {}".format(motatrouve)
-                    verifreload=1
-                    L.append("{}, {}, {}, {}, {}".format(mot,bonnes,bonnesponctuel,malponctuel,faussesponctuel))
-                    db=sqlite3.connect("projet.db")
-                    cur=db.cursor()
-                    cur.execute("SELECT parties_jouees,parties_gagnees FROM user WHERE pseudo='{}'".format(login))
-                    parties=cur.fetchone()
-                    part_j,part_g=parties[0]+1,parties[1]
-                    cur.execute("UPDATE user SET parties_jouees = {} WHERE pseudo = '{}'".format(part_j,login))
-
-                    db.commit()
-                    db.close()
-
-
+                if mot == "" or len(mot)!=longueur or motpropose=="":
+                    pass
                 else:
-                    resultats.append(([],[]))
-                    for i in range(len(motpropose)):
-                        if bonnesponctuel[i]==motpropose[i]:
-                            resultats[-1][0].append(motpropose[i])
+                    bonnes,bonnesponctuel,malponctuel,faussesponctuel=prop(mot,motatrouve,longueur,bonnes)
+                    if bonnesponctuel==0:
+                        for i in range(longueur):
                             resultatstring+="v"
-                        elif malponctuel[i]==motpropose[i]:
-                            resultats[-1][0].append(motpropose[i])
-                            resultatstring+="o"
-                        else:
-                            resultats[-1][0].append(motpropose[i])
-                            resultatstring+="g"
+                        fini=1
+                        verifreload=1
+                        bravo="Vous avez gagné !!"
+                        db=sqlite3.connect("projet.db")
+                        cur=db.cursor()
+                        cur.execute("SELECT parties_jouees,parties_gagnees FROM user WHERE pseudo='{}'".format(login))
+                        parties=cur.fetchone()
+                        part_j,part_g=parties[0]+1,parties[1]+1
+                        cur.execute("UPDATE user SET parties_jouees = {} WHERE pseudo = '{}'".format(part_j,login))
+                        cur.execute("UPDATE user SET parties_gagnees = {} WHERE pseudo = '{}'".format(part_g,login))
 
-                
-                
-                    clav=couleurClavier(Alphabet,clav,bonnes,malponctuel,faussesponctuel,motpropose)
+                        db.commit()
+                        db.close()
+                    
+                    else:
+                        resultats.append(([],[]))
+                        for i in range(len(motpropose)):
+                            if bonnesponctuel[i]==motpropose[i]:
+                                resultats[-1][0].append(motpropose[i])
+                                resultatstring+="v"
+                            elif malponctuel[i]==motpropose[i]:
+                                resultats[-1][0].append(motpropose[i])
+                                resultatstring+="o"
+                            else:
+                                resultats[-1][0].append(motpropose[i])
+                                resultatstring+="g"
+                        if nb_essais==essais:
+                            bravo="Vous avez perdu, le mot était : {}".format(motatrouve)
+                            verifreload=1
+                            db=sqlite3.connect("projet.db")
+                            cur=db.cursor()
+                            cur.execute("SELECT parties_jouees FROM user WHERE pseudo='{}'".format(login))
+                            parties=cur.fetchone()
+                            part_j=parties[0]+1
+                            cur.execute("UPDATE user SET parties_jouees = {} WHERE pseudo = '{}'".format(part_j,login))
+                            
 
-                    print(resultats)
+                            db.commit()
+                            db.close()
 
-                        
-                motpropose=[]
-                stringmots+=motstringpropose
-                motstringpropose=""
-                print("c'est censé rendertemplate")
-                print("resultatstring",resultatstring,"prout",stringmots)
+                    #print(bonnes)
+                    
+                        clav=couleurClavier(Alphabet,clav,bonnes,malponctuel,faussesponctuel,motpropose)
+
+        
+                    stringmots+=motstringpropose
+        motstringpropose=""
+        motpropose=[]
 
         
 
