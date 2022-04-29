@@ -447,10 +447,12 @@ def deco():
     login = 0
     return redirect("/jeusanslogin")
 
-@app.route("/regle")
-def regle():
-    return render_template("regle.html")
+@app.route("/regles")
+def regles():
+    return render_template("regles.html")
 
 @app.route("/regleco")
 def regleco():
+    if not testconnect():
+        return redirect('/login')
     return render_template("regleco.html")
