@@ -56,13 +56,19 @@ def register():
     cur=db.cursor()
     cur.execute("SELECT pseudo FROM user")
     users=cur.fetchall()
+    print("users",users)
     login=request.form.get("login")
     mdp=request.form.get("mdp")
     if not login:
         return render_template('erreur.hmtl',message="Login non renseigné")
     if not mdp:
         return render_template('erreur.hmtl',message="Mot de passe non renseigné")
-    if login in users:
+    h=0
+    for P in users:
+        if P[0]==login:
+            h+=1
+    
+    if h!=0:
         return render_template('erreur.html',message="Login déjà utilisé, veuillez en choisir un autre.")
     cur.execute("INSERT INTO user (pseudo,mdp,parties_jouees,parties_gagnees) VALUES (?,?,0,0)",(login,mdp))
     db.commit()
