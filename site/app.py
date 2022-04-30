@@ -455,7 +455,7 @@ def filtrechances():
 def deco():
     global login
     login = 0
-    return redirect("/jeusanslogin")
+    return redirect("/login")
 
 @app.route("/regles")
 def regles():
