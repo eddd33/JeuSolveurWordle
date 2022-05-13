@@ -98,6 +98,7 @@ def prop(motpropo,MOT,longueur,bonnes):                     #fonction prenant en
     #prop(MOT,longueur)
     return bonnes,bonnesponctuel,malponctuel,faussesponctuel
 
+print(prop("appareils","protocole",9,['-','-','-','-','-','-','-','-','-']))
     
 
 
