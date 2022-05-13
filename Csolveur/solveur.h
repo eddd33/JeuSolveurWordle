@@ -27,6 +27,7 @@ struct _dico{
 int nb_letters(char* mot);
 
 void create_dico();
+void ajout_dico(dico dico,char* mot,int longueur);
 
 char* solveur();   // ou fonction avec un while et fonction annexe qui fait le boulot
 
