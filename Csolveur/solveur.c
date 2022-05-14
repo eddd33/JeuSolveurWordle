@@ -103,6 +103,25 @@ void dico_print(list_t* dico){
      
 }
 
+//float nb_mots_possibles(char* mot,int pattern[nb_letters(mot)]){
+    //int nb=nb_letters(mot);
+    //char motsatest[]=dico[nb];  Il faudrait pouvoir accéder au dico pour parcourir les mots, mais comme on créé le dico dans le main a priori, je vois pas trop
+    //char motpos[];   //Il faudrait initialiser cette liste comme une copie de motsatest mais on ne peut pas juste mettre un égal sinon on modifiera les données en mémoire 
+    //int tot=size(motsatest);
+    //for (int i=0;i<nb;i++){
+        //if (pattern[i]==0){
+            //retirer de motpos tout les mots qui contiennent la lettre, necessite de verifier qu'on a pas déjà eu la lettre bonne une fois avant 
+        //}
+        //if (pattern[i]==1){
+            //retirer de motpos tout les mots qui ne contiennent pas la lettre
+        //}
+        //if (pattern[i]==2){
+            //retirer de motpos tout les mots qui ne contiennent pas la lettre en position i
+        //}
+
+    //}
+    //return size(motpos)/tot;
+//}
 
 //float probabilite(char combinaison[??])
 
