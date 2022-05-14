@@ -16,6 +16,7 @@ int recupnb(){
 int nb_letters(char* mot){
     return strlen(mot);
 }
+
 list_t* create_dico(){   //dico est le nom de la liste contenant tous les mots d'une certaine longueur.
     int longueur=recupnb();
     list_t *dico=calloc(1,sizeof(list_t));
@@ -101,3 +102,12 @@ void dico_print(list_t* dico){
     
      
 }
+
+
+//float probabilite(char combinaison[??])
+
+//float entropie_initiale(char* mot){
+//    int longueur=nb_letters(mot);
+//    return  entropie;
+//}
+
