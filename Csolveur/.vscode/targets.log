@@ -1,17 +1,31 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-# GNU Make 4.2.1
-# Built for x86_64-pc-linux-gnu
-# Copyright (C) 1988-2016 Free Software Foundation, Inc.
-# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
-# This is free software: you are free to change and redistribute it.
-# There is NO WARRANTY, to the extent permitted by law.
+make: *** No rule to make target 'all'.  Stop.
 
-# Make data base, printed on Fri May 13 18:45:40 2022
+# GNU Make 4.2.1
+ 
+# Built for x86_64-pc-linux-gnu
+ 
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+ 
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+ 
+# This is free software: you are free to change and redistribute it.
+ 
+# There is NO WARRANTY, to the extent permitted by law.
+ 
+
+ 
+# Make data base, printed on Mon May 16 17:56:32 2022
+ 
 
 # Variables
+ 
 
+ 
 # 'override' directive
+ 
 GNUMAKEFLAGS := 
+ 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -49,9 +63,9 @@ VTE_VERSION = 6003
 # environment
 VSCODE_NLS_CONFIG = {"locale":"fr","availableLanguages":{"*":"fr"},"_languagePackId":"25fe6a3290ec415596628d4afc87a88c.fr","_translationsConfigFile":"/home/eleve/.config/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr/tcf.json","_cacheRoot":"/home/eleve/.config/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr","_resolvedLanguagePackCoreLocation":"/home/eleve/.config/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr/da15b6fd3ef856477bf6f4fb29ba1b7af717770d","_corruptedFile":"/home/eleve/.config/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr/corrupted.info","_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:34857
+JOURNAL_STREAM = 8:34918
 # makefile (from 'makefile', line 6)
-CFLAGS = -std=c99 -Wall -Wextra -pedantic -fdiagnostics-color=always $(CPPFLAGS) -O0 -g3 -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls
+CFLAGS = -Wall -Wextra -pedantic -fdiagnostics-color=always $(CPPFLAGS) -O0 -g3 -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -73,7 +87,7 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-MANAGERPID = 1324
+MANAGERPID = 1328
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -87,7 +101,7 @@ PATH = /home/eleve/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/TNCY-Linux:@/tmp/.ICE-unix/1590,unix/TNCY-Linux:/tmp/.ICE-unix/1590
+SESSION_MANAGER = local/TNCY-Linux:@/tmp/.ICE-unix/1588,unix/TNCY-Linux:/tmp/.ICE-unix/1588
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -105,7 +119,7 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 4ec5ceaf2c184b87ae87bff4ff5465dd
+INVOCATION_ID = f3c1bf9559d94d12aafb17e731f2f1f5
 # makefile (from 'makefile', line 7)
 LDFLAGS = -fsanitize=address
 # environment
@@ -131,7 +145,7 @@ PWD = /home/eleve/project2-E13/Csolveur
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1552
+SSH_AGENT_PID = 1550
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -180,10 +194,12 @@ QT_IM_MODULE = ibus
 SNAP_USER_DATA = /home/eleve/snap/code/96
 # environment
 SHLVL = 1
+# makefile (from 'makefile', line 4)
+CC = clang
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-c0365890-0d7b-4e0b-a00d-84b2f8a5cf80.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-1ac4e265-39d8-4856-85d7-bb2d083c7cf4.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -235,11 +251,11 @@ LC_ALL = C
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/bbb05b15_1bdc_430e_a7fa_6639f81b338b
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/620b8a25_7259_4a75_bbc4_c8b821648a65
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.68
+GNOME_TERMINAL_SERVICE = :1.65
 # default
 SUFFIXES := 
 # environment
@@ -259,9 +275,9 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 3145
+VSCODE_PID = 4059
 # variable set hash-table stats:
-# Load=125/1024=12%, Rehash=0, Collisions=15/153=10%
+# Load=126/1024=12%, Rehash=0, Collisions=15/154=10%
 
 # Pattern-specific Variable Values
 
@@ -269,16 +285,13 @@ VSCODE_PID = 3145
 
 # Directories
 
-# . (device 64768, inode 1306933): 12 files, no impossibilities.
+# . (device 64768, inode 1071256): 14 files, no impossibilities.
 
-# 12 files, no impossibilities in 1 directories.
+# 14 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
 # No implicit rules.
- 
-make: *** No rule to make target 'all'.  Stop.
-
 
 # Files
 
@@ -289,7 +302,9 @@ all:
 #  File does not exist.
 #  File has not been updated.
 
+ 
 solveur.o: solveur.h solveur.c
+ 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -310,7 +325,7 @@ test: solveur_test
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-13 14:10:01.096012548
+#  Last modified 2022-05-16 17:55:02.862732056
 #  File has been updated.
 #  Successfully updated.
 
@@ -362,12 +377,12 @@ solveur_test: solveur_test.o solveur.o
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 20 / storage = 193 B / avg = 9 B
-# current buf: size = 8162 B / used = 193 B / count = 20 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 22 / storage = 211 B / avg = 9 B
+# current buf: size = 8162 B / used = 211 B / count = 22 / avg = 9 B
 
-# strcache performance: lookups = 41 / hit rate = 51%
+# strcache performance: lookups = 43 / hit rate = 48%
 # hash-table stats:
-# Load=20/8192=0%, Rehash=0, Collisions=1/41=2%
-# Finished Make data base on Fri May 13 18:45:40 2022
+# Load=22/8192=0%, Rehash=0, Collisions=1/43=2%
+# Finished Make data base on Mon May 16 17:56:32 2022
 
  

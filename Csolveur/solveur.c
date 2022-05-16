@@ -1,7 +1,6 @@
-#include "solveur.h"
-#include "string.h"
 #include <assert.h>
 #include <string.h>
+#include "solveur.h"
 
 int recupnb(){
     FILE* fichier=fopen("wsolf.txt","r");
@@ -29,7 +28,7 @@ list_t* create_dico(){   //dico est le nom de la liste contenant tous les mots d
         
         if (nb_letters(ligne)==longueur+1){
             //printf("%s",ligne);
-            ajout_dico(ligne,dico);
+            ajout_dico(strdup(ligne),dico);
 
         } 
         
@@ -58,7 +57,7 @@ void ajout_dico(char* mot, list_t *dico){
         current = current->next;
     }
     current->next = new_element;
-    printf("%s",current->ch1);
+    printf("%s",current->next->ch1);
 
 }
 

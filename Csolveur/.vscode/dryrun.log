@@ -1,7 +1,7 @@
-make --dry-run --always-make --keep-going --print-directory
+make --dry-run --keep-going --print-directory
 make: Entering directory '/home/eleve/project2-E13/Csolveur'
-cc -std=c99 -Wall -Wextra -pedantic -fdiagnostics-color=always  -O0 -g3 -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls   -c -o solveur.o solveur.c
-cc -std=c99 -Wall -Wextra -pedantic -fdiagnostics-color=always  -O0 -g3 -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls   -c -o solveur_test.o solveur_test.c
-cc -fsanitize=address  solveur_test.o solveur.o   -o solveur_test
+ 
+make: 'solveur_test' is up to date.
+ 
 make: Leaving directory '/home/eleve/project2-E13/Csolveur'
  

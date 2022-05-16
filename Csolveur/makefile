@@ -1,8 +1,8 @@
 ##########################
 ##### COMPILER FLAGS #####
 ##########################
-
-CFLAGS=-std=c99 -Wall -Wextra -pedantic -fdiagnostics-color=always
+CC=clang
+CFLAGS=-Wall -Wextra -pedantic -fdiagnostics-color=always
 CFLAGS+=$(CPPFLAGS) -O0 -g3 -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls
 LDFLAGS+=-fsanitize=address
 
