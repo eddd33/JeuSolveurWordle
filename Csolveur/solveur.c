@@ -1,5 +1,7 @@
 #include <assert.h>
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "solveur.h"
 
 int recupnb(){
@@ -37,10 +39,23 @@ list_t* create_dico(){   //dico est le nom de la liste contenant tous les mots d
     
     return dico;
 }
-
+// char* removen(char* mot[])
+// {
+//     char *adr_retour_ligne;
+//     /* Recherche de l'adresse d'un \r ou d'un \n dans la variable mot */
+//     adr_retour_ligne = strpbrk(mot, "\r\n");
+//     /* Adresse trouvée ? */
+//     if(adr_retour_ligne != NULL)
+//     {
+//         /* Remplacement du caractère par un octet nul (fin de chaîne en C) */
+//         *adr_retour_ligne = 0;
+//     }
+//     //printf("'%s'", mot); /* 'Salut !' */
+//     return mot;
+// }
 void ajout_dico(char* mot, list_t *dico){
     
-    element_t *new_element = malloc(sizeof(element_t));
+    element_t *new_element = calloc(1,sizeof(element_t));
     
     new_element->ch1=mot;
     //printf("%s",new_element->ch1);
@@ -57,7 +72,7 @@ void ajout_dico(char* mot, list_t *dico){
         current = current->next;
     }
     current->next = new_element;
-    printf("%s",current->next->ch1);
+    //printf("%s",current->next->ch1);
 
 }
 
@@ -68,10 +83,10 @@ void dico_destroy(list_t *dico)
     while (current!= NULL)
     {
         tmp=current;
-        current = current->next;
-        free(tmp);
-
         
+        current = current->next;
+        free(tmp->ch1);
+        free(tmp);
     };
     free(dico);
 }
@@ -96,31 +111,167 @@ void dico_print(list_t* dico){
             element_print(actuel);
             actuel = actuel->next;
         }
-        printf("]\n");
-    }
-    
-     
+        printf("]\n ");
+    }   
 }
 
-//float nb_mots_possibles(char* mot,int pattern[nb_letters(mot)]){
-    //int nb=nb_letters(mot);
-    //char motsatest[]=dico[nb];  Il faudrait pouvoir accéder au dico pour parcourir les mots, mais comme on créé le dico dans le main a priori, je vois pas trop
-    //char motpos[];   //Il faudrait initialiser cette liste comme une copie de motsatest mais on ne peut pas juste mettre un égal sinon on modifiera les données en mémoire 
-    //int tot=size(motsatest);
-    //for (int i=0;i<nb;i++){
-        //if (pattern[i]==0){
-            //retirer de motpos tout les mots qui contiennent la lettre, necessite de verifier qu'on a pas déjà eu la lettre bonne une fois avant 
-        //}
-        //if (pattern[i]==1){
-            //retirer de motpos tout les mots qui ne contiennent pas la lettre
-        //}
-        //if (pattern[i]==2){
-            //retirer de motpos tout les mots qui ne contiennent pas la lettre en position i
-        //}
 
-    //}
-    //return size(motpos)/tot;
-//}
+
+bool isEmpty(list_t *liste){
+    if (liste->head==NULL){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+
+int length(list_t *liste){
+    int compteur=0;
+    element_t *actuel=liste->head;
+    
+    while(actuel->next!=NULL){
+        actuel=actuel->next;
+        compteur++;
+    }
+    return compteur;
+}
+
+void retire(element_t *element,list_t* dico){
+    if (!isEmpty(dico)){
+        element_t* current=dico->head;
+        element_t* previous;
+
+        if (current==dico->head){
+            dico->head=current->next;
+            free(current->ch1);
+            free(current);
+        }
+        else{
+            while(current!=element && current!=NULL){
+            previous=current;
+            current=current->next;
+            }
+            if (current!=NULL && current->next!=NULL){
+                element_t* suivant=current->next;
+                free(current->ch1);
+                free(current);
+                previous->next=suivant;
+            }
+            if (current!=NULL && current->next==NULL){
+                free(current->ch1);
+                free(current);
+            }
+        }
+        
+    }
+}
+
+char* list_get(list_t *dico, int index) {
+    assert(dico != NULL);
+    assert(! isEmpty(dico));
+
+    int pos = index;
+    element_t *current = dico->head;
+    
+    while (pos > 0 && current->next != NULL) 
+    {
+        pos--;
+        current = current->next;
+    }
+    assert(pos == 0);
+    return current->ch1;
+}
+
+int list_index_of(list_t *dico, char* mot) {
+    assert(dico != NULL);
+    assert(!isEmpty(dico));
+
+    int pos = 0;
+
+    element_t *current = dico->head;    
+    while (current->ch1 != mot && current->next != NULL) 
+    {
+        //printf("oskur %s",current->ch1);
+        pos++;
+        current = current->next;
+    }
+    printf("%s,%s",current->ch1,mot);
+    if (current->ch1 == mot) {
+        return pos;
+    } else {
+        return -1;
+    }
+}
+element_t* list_element_of(list_t *dico, char* mot) {
+    assert(dico != NULL);
+    assert(!isEmpty(dico));
+
+
+    element_t *current = dico->head;    
+    while (current->ch1 != mot && current->next != NULL) 
+    {
+        //printf("oskur %s",current->ch1);
+        current = current->next;
+    }
+    printf("%s,%s",current->ch1,mot);
+    if (current->ch1 == mot) {
+        return current;
+    } else {
+        return -1;
+    }
+}
+
+
+int occurences(char* mot,char lettre){
+    int compteur=0;
+    for (int i=0;i<nb_letters(mot);i++){
+        if (mot[i]==lettre){
+            compteur++;
+        }
+    }
+    return compteur;
+}
+
+// float nb_mots_possibles(char* mot,int pattern[nb_letters(mot)], list_t* dico){
+//     int nb=nb_letters(mot);
+//     list_t* motpossibles=create_dico();  //on créé un dico que l'on peut modifier sans conséquence pour cette fonction
+//     int tot=length(motpossibles);
+//     char* présents[nb];
+//     for (int i=0;i<nb;i++){
+//         if (pattern[i]==0){}
+//             int occurence=occurences(mot,mot[i]);
+//             retire(list_elementof(mots_possibles,mot))
+
+//             //retirer de motpos tout les mots qui contiennent la lettre, necessite de verifier qu'on a pas déjà eu la lettre bonne une fois avant 
+//         }
+//         if (pattern[i]==1){
+//             présents[i]=mot[i];
+//             element_t* current=motpossibles->head;
+//             while(current!=NULL){
+//                 if (occurences(current->ch1,mot[i])==){
+//                     retire(current);
+//                     current=current->next;
+//                 }
+//             }
+//         }
+//         if (pattern[i]==2){
+//             présents[i]=mot[i];
+//             element_t* current=motpossibles->head;
+//             while(current!=NULL){
+//                 if (current->ch1[i]!=mot[i]){
+//                     retire(current,motpossibles);
+//                     current=current->next;
+//                 }
+//             }
+//         }
+
+//     }
+//     int posssibilités=length(motpossibles);
+//     dico_destroy(motpossibles);
+//     return possibilités/tot;
+// }
 
 //float probabilite(char combinaison[??])
 
