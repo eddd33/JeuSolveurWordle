@@ -234,13 +234,15 @@ int occurences(char* mot,char lettre){
     return compteur;
 }
 
-list_t reduction_dico(char* mot,int pattern[nb_letters(mot)], list_t* dico){
+list_t* reduction_dico(char* mot,int pattern, list_t* dico){
     int nb=nb_letters(mot);
     list_t* mots_possibles=dico;  //on créé un dico que l'on peut modifier sans conséquence pour cette fonction
     char* présents[nb];
+    printf("%d",pattern);
     for (int i=0;i<nb;i++){
-        if (pattern[i]==2){
-            *présents[i]=mot[i];
+        printf ("%d",pattern/pow(10,i));
+        if (pattern/(int)pow(10,i)==2){
+            *(présents[i])=mot[i];
             element_t* current=mots_possibles->head;
             while(current!=NULL){
                 if (current->ch1[i]!=mot[i]){
@@ -251,12 +253,12 @@ list_t reduction_dico(char* mot,int pattern[nb_letters(mot)], list_t* dico){
         }
     }   
     for (int i=0;i<nb;i++){
-        if (pattern[i]==1){
-            *présents[i]=mot[i];
+        if (pattern/(int)pow(10,i)==1){
+            *(présents[i])=mot[i];
         }
     }
     for (int i=0;i<nb;i++){
-         if (pattern[i]==0){
+         if (pattern/(int)pow(10,i)==0){
             element_t* current=mots_possibles->head;
             while(current!=NULL){
                 if (occurences(current->ch1,mot[i])>=occurences(présents,mot[i])){
@@ -266,7 +268,7 @@ list_t reduction_dico(char* mot,int pattern[nb_letters(mot)], list_t* dico){
             } 
         }
     }
-    return *mots_possibles;
+    return mots_possibles;
 }
 
 

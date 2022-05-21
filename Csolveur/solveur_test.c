@@ -10,6 +10,8 @@ int main(){
 
     //Vérification des fonctions annexes
     assert(occurences("aaa",'a')==3);
+    assert(occurences("azerty",'b')==0);
+    assert(occurences("",'a')==0);
     
     //dico_print(dico);
     printf("testage %s\n",dico->head->ch1);
@@ -17,7 +19,8 @@ int main(){
     char* m="abaca";
     printf("%c\n", m[3]);
  
-    
+    list_t* dico_reduit=reduction_dico("plage",22222,dico);
+    dico_print(dico_reduit);
 
     //assert(removen(dico->head->ch1)==m);    // fail mais on sait pas pourquoi
 
