@@ -236,7 +236,7 @@ int occurences(char* mot,char lettre){
 
 list_t reduction_dico(char* mot,int pattern[nb_letters(mot)], list_t* dico){
     int nb=nb_letters(mot);
-    list_t* mots_possibles=create_dico();  //on créé un dico que l'on peut modifier sans conséquence pour cette fonction
+    list_t* mots_possibles=dico;  //on créé un dico que l'on peut modifier sans conséquence pour cette fonction
     char* présents[nb];
     for (int i=0;i<nb;i++){
         if (pattern[i]==2){
@@ -253,6 +253,7 @@ list_t reduction_dico(char* mot,int pattern[nb_letters(mot)], list_t* dico){
     for (int i=0;i<nb;i++){
         if (pattern[i]==1){
             *présents[i]=mot[i];
+        }
     }
     for (int i=0;i<nb;i++){
          if (pattern[i]==0){
@@ -261,13 +262,11 @@ list_t reduction_dico(char* mot,int pattern[nb_letters(mot)], list_t* dico){
                 if (occurences(current->ch1,mot[i])>=occurences(présents,mot[i])){
                     retire(current,mots_possibles);
                     current=current->next;
-                 }
-             }
-            //retirer de motpos tout les mots qui contiennent la lettre, necessite de verifier qu'on a pas déjà eu la lettre bonne une fois avant 
+                }
+            } 
         }
     }
     return *mots_possibles;
- }
 }
 
 
