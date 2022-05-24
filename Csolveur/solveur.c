@@ -234,39 +234,48 @@ int occurences(char* mot,char lettre){
     return compteur;
 }
 
-list_t* reduction_dico(char* mot,char* pattern, list_t* dico){
-    int nb=nb_letters(mot);
-    list_t* mots_possibles=dico;  //on créé un dico que l'on peut modifier sans conséquence pour cette fonction
+list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction prenant en paramètre le mot proposé par le solveur et le pattern renvoyé par l'utilisateur ainsi que le dictionnaire des mots encore possible avant cette étape
+    int nb=nb_letters(mot);        
+    list_t* mots_possibles=dico;  //on créé un dico que l'on peut modifier sans conséquence pour cette fonction, il serait finalement plus judicieux de prendre le dico passé en paramètre puisqu'on relance le solveur à chaque partie
     //dico_print(mots_possibles);
-    char* présents;
-    présents[nb]="\0";
+    char* présents;   //on créé une un chaîne des caractères présents dans le mot, bien placés ou non
+    présents[nb]="\0"; 
     printf("pattern %s\n",pattern);
-    for (int i=0;i<nb;i++){
+    for (int i=0;i<nb;i++){                 //on parcours le pattern pour trouver les lettres bien placées
         printf ("%c\n",pattern[i]);
         if (pattern[i]=='2'){
-            présents[i]=mot[i];
+            présents[i]=mot[i];             //on ajoute la lettre dans la chaîne des lettres présentes
             printf("presents %c\n",présents[i]);
-            element_t* current=mots_possibles->head;
-            while(current!=NULL){
+            element_t* current=mots_possibles->head;   //on prend le premier mot du dctionnaire
+            while(current!=NULL){                       //on parcours le dictionnaire
                 //printf("lettre %s",current->ch1[i]);
-                element_t *suivant=current->next;
-                if (current->ch1[i]!=mot[i]){
-                    retire(current,mots_possibles);
+                element_t *suivant=current->next;       //on récupère le pointeur vers le suivant avant de possiblement supprimer l'élément de la liste
+                if (current->ch1[i]!=mot[i]){           //si la lettre n'est pas présente en position i du mot 
+                    retire(current,mots_possibles);     //on retire le mot du dictionnaire
                 }
                 current=suivant;
             }
         }
     }   
-    for (int i=0;i<nb;i++){
+    for (int i=0;i<nb;i++){                             //on parcours le pattern pour trouver les lettres présentes mais mal placées
         if (pattern[i]=='1'){
-            présents[i]=mot[i];
+            présents[i]=mot[i];                          //on ajoute la lettre dans la chaîne des lettres présentes
+            element_t* current=mots_possibles->head;   //on prend le premier mot du dctionnaire
+            while(current!=NULL){                       //on parcours le dictionnaire
+                //printf("lettre %s",current->ch1[i]);
+                element_t *suivant=current->next;       //on récupère le pointeur vers le suivant avant de possiblement supprimer l'élément de la liste
+                if (current->ch1[i]==mot[i]){           //si la lettre est présente en position i du mot (mal placée)
+                    retire(current,mots_possibles);     //on retire le mot du dictionnaire
+                }
+                current=suivant;
+            }
         }
     }
-    for (int i=0;i<nb;i++){
+    for (int i=0;i<nb;i++){                              //on parcours le pattern pour trouver les lettres absentes ou présentes moins de fois que proposé
          if (pattern[i]=='0'){
             element_t* current=mots_possibles->head;
             while(current!=NULL){
-                if (occurences(current->ch1,mot[i])>=occurences(présents,mot[i])){
+                if (occurences(current->ch1,mot[i])>=occurences(présents,mot[i])){    //si une lettre est "absente" on supprime les mots pour lesquels le nombre d'occurrence de la lettre est supérieur au nombre d'occurence de la lettre dans le mot
                     retire(current,mots_possibles);
                     current=current->next;
                 }
