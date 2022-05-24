@@ -320,10 +320,46 @@ bool in(char lettre,char* mot){
     return false;
 }
 
-char* hereofafter(char* mot,int index){
+char* hereorafter(char* mot,int index){
     printf("%s\n",mot+index);
     return mot + index;
 }
+char* hereorbefore(char* mot,int index){
+    char* copy=strdup(mot);
+    copy[index]='\0';
+    mot=copy;
+    //free(copy);
+    printf("%s\n",copy);
+    return copy;
+
+}
+
+/* list_t best_letters(list_t *dico){
+    char* alphabet="abcdefghijklmnopqrstuvwxyz";
+    listint_t *alphacount=calloc(1,sizeof(listint_t));
+    int i=1;                                                // (1)
+    elementint_t *first=malloc(sizeof(elementint_t));
+    first->value=0;
+    alphacount->head=first;
+    first->next=NULL;
+    while (i!=26){
+        elementint_t *nouveau=malloc(sizeof(elementint_t));
+        nouveau->value=0;
+        nouveau->next=alphacount->head;
+        alphacount->head=nouveau;
+        i++;
+    }
+
+    int compteur=0; // (2)
+    for (int l=0;l<length(dico);l++){ 
+        for (int j=0;j<recupnb(dico->head->ch1);j++){
+            
+            // faire une fonction attrapant l'indice d'un element dans une liste
+            //faire une fonction pouvant ajouter une valeur à un indice donner
+
+        }
+    }
+} */
 
 
 

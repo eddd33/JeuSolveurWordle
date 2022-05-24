@@ -20,8 +20,8 @@ int main(){
     printf("%c\n", m[3]);
  
     assert(occurence("mission",'s')==2);
-    assert(strcmp(hereofafter("mission",2),"ssion")==0);
-
+    assert(strcmp(hereorafter("mission",2),"ssion")==0);
+    assert(strcmp(hereorbefore("mission",2),"mi")==0);
 
     printf("---------Truc qui marche pas en dessous--------------");
 
