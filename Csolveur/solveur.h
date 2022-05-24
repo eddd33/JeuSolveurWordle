@@ -24,6 +24,18 @@ struct _list_t
 };
 
 
+typedef struct _listint_t listint_t;
+typedef struct _elementint_t elementint_t;
+struct _elementint_t{
+    int value;
+    elementint_t *next;
+};
+
+struct _listint_t{
+    elementint_t *head;
+};
+
+
 
 int nb_letters(char* mot);
 
@@ -43,7 +55,8 @@ int occurences(char* mot,char lettre);
 list_t* reduction_dico(char* mot,char* pattern, list_t* dico);
 int occurence(char* mot, char lettre);
 bool in(char lettre,char*mot);
-char* hereofafter(char* mot,int index);
+char* hereorafter(char* mot,int index);
+char* hereorbefore(char* mot,int index);
 //float nb_mots_possibles(char* mot,int pattern[nb_letters(mot)],list_t* dico);
 //float entropie_initiale(char* mot);  nécessite une fonction qui calcule la la probabilité d'obtenir une combinaison à partir de l'ensemble des mots possibles après cette combinaison
 

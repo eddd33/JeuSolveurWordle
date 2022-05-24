@@ -139,11 +139,11 @@ int length(list_t *liste){
 }
 
 void retire(element_t *element,list_t* dico){
-    if (!isEmpty(dico)){
-        element_t* current=dico->head;
-        element_t* previous;
+    if (!isEmpty(dico)){                    //on vérifie que le dictionnaire n'est pas vide
+        element_t* current=dico->head;      //on initialise notre élément courant à la tête de la liste
+        element_t* previous;                //on prévoit de garder en mémoire l'élément précédant courant
 
-        if (current==dico->head){
+        if (current==dico->head && current==element){           
             dico->head=current->next;
             free(current->ch1);
             free(current);
@@ -236,15 +236,16 @@ int occurences(char* mot,char lettre){
 
 list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction prenant en paramètre le mot proposé par le solveur et le pattern renvoyé par l'utilisateur ainsi que le dictionnaire des mots encore possible avant cette étape
     int nb=nb_letters(mot);        
-    list_t* mots_possibles=dico;  //on créé un dico que l'on peut modifier sans conséquence pour cette fonction, il serait finalement plus judicieux de prendre le dico passé en paramètre puisqu'on relance le solveur à chaque partie
-    //dico_print(mots_possibles);
+    list_t* mots_possibles=dico; 
+    dico_print(mots_possibles);
     char* présents[nb+1];   //on créé une un chaîne des caractères présents dans le mot, bien placés ou non
-    présents[nb]="\0";                      //problème d'accès aux paramètre lié à la structure de présents
+    présents[nb]="\0";                      
     printf("pattern %s\n",pattern);
+    printf("présent %s\n",présents);
     for (int i=0;i<nb;i++){                 //on parcours le pattern pour trouver les lettres bien placées
         printf ("%c\n",pattern[i]);
         if (pattern[i]=='2'){
-            présents[i]=mot[i];             //on ajoute la lettre dans la chaîne des lettres présentes
+            présents[i]=&mot[i];             //on ajoute la lettre dans la chaîne des lettres présentes
             printf("presents %c\n",présents[i]);
             element_t* current=mots_possibles->head;   //on prend le premier mot du dctionnaire
             while(current!=NULL){                       //on parcours le dictionnaire
@@ -256,10 +257,11 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
                 current=suivant;
             }
         }
-    }   
+    }  
+    dico_print(mots_possibles);     //->problème dans la première boucle
     for (int i=0;i<nb;i++){                             //on parcours le pattern pour trouver les lettres présentes mais mal placées
         if (pattern[i]=='1'){
-            présents[i]=mot[i];                          //on ajoute la lettre dans la chaîne des lettres présentes
+            présents[i]=&mot[i];                          //on ajoute la lettre dans la chaîne des lettres présentes
             element_t* current=mots_possibles->head;   //on prend le premier mot du dctionnaire
             while(current!=NULL){                       //on parcours le dictionnaire
                 //printf("lettre %s",current->ch1[i]);
@@ -276,10 +278,10 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
             element_t* current=mots_possibles->head;
             while(current!=NULL){
                 element_t *suivant=current->next; 
-                if (occurences(current->ch1,mot[i])>=occurences(présents,mot[i])){    //si une lettre est "absente" on supprime les mots pour lesquels le nombre d'occurrence de la lettre est supérieur au nombre d'occurence de la lettre dans le mot
+                if (occurences(current->ch1,mot[i])>=occurences(*présents,mot[i])){    //si une lettre est "absente" on supprime les mots pour lesquels le nombre d'occurrence de la lettre est supérieur au nombre d'occurence de la lettre dans le mot
                     retire(current,mots_possibles);
-                    current=suivant;
                 }
+                current=suivant;
             } 
         }
     }
@@ -318,10 +320,46 @@ bool in(char lettre,char* mot){
     return false;
 }
 
-char* hereofafter(char* mot,int index){
+char* hereorafter(char* mot,int index){
     printf("%s\n",mot+index);
     return mot + index;
 }
+char* hereorbefore(char* mot,int index){
+    char* copy=strdup(mot);
+    copy[index]='\0';
+    mot=copy;
+    //free(copy);
+    printf("%s\n",copy);
+    return copy;
+
+}
+
+/* list_t best_letters(list_t *dico){
+    char* alphabet="abcdefghijklmnopqrstuvwxyz";
+    listint_t *alphacount=calloc(1,sizeof(listint_t));
+    int i=1;                                                // (1)
+    elementint_t *first=malloc(sizeof(elementint_t));
+    first->value=0;
+    alphacount->head=first;
+    first->next=NULL;
+    while (i!=26){
+        elementint_t *nouveau=malloc(sizeof(elementint_t));
+        nouveau->value=0;
+        nouveau->next=alphacount->head;
+        alphacount->head=nouveau;
+        i++;
+    }
+
+    int compteur=0; // (2)
+    for (int l=0;l<length(dico);l++){ 
+        for (int j=0;j<recupnb(dico->head->ch1);j++){
+            
+            // faire une fonction attrapant l'indice d'un element dans une liste
+            //faire une fonction pouvant ajouter une valeur à un indice donner
+
+        }
+    }
+} */
 
 
 
