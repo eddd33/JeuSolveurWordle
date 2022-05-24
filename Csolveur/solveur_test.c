@@ -28,8 +28,8 @@ int main(){
 
 
 
-    list_t* dico_reduit=reduction_dico("plage","22202\0",dico);
-    //dico_print(dico_reduit);
+    list_t* dico_reduit=reduction_dico("plage","22202",dico);
+    dico_print(dico_reduit);
     printf("dicoreduit ^^\n");
 
     //assert(removen(dico->head->ch1)==m);    // fail mais on sait pas pourquoi
