@@ -40,7 +40,10 @@ char* list_get(list_t *dico, int index);
 int list_index_of(list_t *dico, char* mot);
 element_t* list_element_of(list_t *dico, char* mot);
 int occurences(char* mot,char lettre);
-list_t* reduction_dico(char* mot,int pattern, list_t* dico);
+list_t* reduction_dico(char* mot,char* pattern, list_t* dico);
+int occurence(char* mot, char lettre);
+bool in(char lettre,char*mot);
+char* hereofafter(char* mot,int index);
 //float nb_mots_possibles(char* mot,int pattern[nb_letters(mot)],list_t* dico);
 //float entropie_initiale(char* mot);  nécessite une fonction qui calcule la la probabilité d'obtenir une combinaison à partir de l'ensemble des mots possibles après cette combinaison
 

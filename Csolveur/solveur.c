@@ -234,31 +234,36 @@ int occurences(char* mot,char lettre){
     return compteur;
 }
 
-list_t* reduction_dico(char* mot,int pattern, list_t* dico){
+list_t* reduction_dico(char* mot,char* pattern, list_t* dico){
     int nb=nb_letters(mot);
     list_t* mots_possibles=dico;  //on créé un dico que l'on peut modifier sans conséquence pour cette fonction
-    char* présents[nb];
-    printf("%d",pattern);
+    //dico_print(mots_possibles);
+    char* présents;
+    présents[nb]="\0";
+    printf("pattern %s\n",pattern);
     for (int i=0;i<nb;i++){
-        printf ("%d",pattern/pow(10,i));
-        if (pattern/(int)pow(10,i)==2){
-            *(présents[i])=mot[i];
+        printf ("%c\n",pattern[i]);
+        if (pattern[i]=='2'){
+            présents[i]=mot[i];
+            printf("presents %c\n",présents[i]);
             element_t* current=mots_possibles->head;
             while(current!=NULL){
+                //printf("lettre %s",current->ch1[i]);
+                element_t *suivant=current->next;
                 if (current->ch1[i]!=mot[i]){
                     retire(current,mots_possibles);
-                    current=current->next;
                 }
+                current=suivant;
             }
         }
     }   
     for (int i=0;i<nb;i++){
-        if (pattern/(int)pow(10,i)==1){
-            *(présents[i])=mot[i];
+        if (pattern[i]=='1'){
+            présents[i]=mot[i];
         }
     }
     for (int i=0;i<nb;i++){
-         if (pattern/(int)pow(10,i)==0){
+         if (pattern[i]=='0'){
             element_t* current=mots_possibles->head;
             while(current!=NULL){
                 if (occurences(current->ch1,mot[i])>=occurences(présents,mot[i])){
@@ -268,8 +273,63 @@ list_t* reduction_dico(char* mot,int pattern, list_t* dico){
             } 
         }
     }
+
     return mots_possibles;
 }
+
+
+char* wordfinder(list_t dico){
+    return "Pasfini";
+}
+
+int occurence(char* mot, char lettre){  //compte le nombre d'occurences d'une lettre dans un mot
+    int compteur=0;
+    for (int i=0;i<nb_letters(mot);i++){
+        if(mot[i]==lettre){
+            compteur++;
+        }
+    }
+    return compteur;
+}
+
+// char* singularite(char* mot){
+//     compteur=0;
+//     for (int i=0;i<nb_letters(mot);i++){
+//         if (in(mot[i],mot))
+//     }
+// }
+
+bool in(char lettre,char* mot){
+    for (int i=0;i<nb_letters(mot);i++){
+        if (mot[i]==lettre){
+            return true;
+        }
+    }
+    return false;
+}
+
+char* hereofafter(char* mot,int index){
+    printf("%s\n",mot+index);
+    return mot + index;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
