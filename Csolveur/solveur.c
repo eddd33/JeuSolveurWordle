@@ -238,8 +238,8 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
     int nb=nb_letters(mot);        
     list_t* mots_possibles=dico;  //on créé un dico que l'on peut modifier sans conséquence pour cette fonction, il serait finalement plus judicieux de prendre le dico passé en paramètre puisqu'on relance le solveur à chaque partie
     //dico_print(mots_possibles);
-    char* présents;   //on créé une un chaîne des caractères présents dans le mot, bien placés ou non
-    présents[nb]="\0"; 
+    char* présents[nb+1];   //on créé une un chaîne des caractères présents dans le mot, bien placés ou non
+    présents[nb]="\0";                      //problème d'accès aux paramètre lié à la structure de présents
     printf("pattern %s\n",pattern);
     for (int i=0;i<nb;i++){                 //on parcours le pattern pour trouver les lettres bien placées
         printf ("%c\n",pattern[i]);
@@ -275,9 +275,10 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
          if (pattern[i]=='0'){
             element_t* current=mots_possibles->head;
             while(current!=NULL){
+                element_t *suivant=current->next; 
                 if (occurences(current->ch1,mot[i])>=occurences(présents,mot[i])){    //si une lettre est "absente" on supprime les mots pour lesquels le nombre d'occurrence de la lettre est supérieur au nombre d'occurence de la lettre dans le mot
                     retire(current,mots_possibles);
-                    current=current->next;
+                    current=suivant;
                 }
             } 
         }
