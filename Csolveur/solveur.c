@@ -39,20 +39,7 @@ list_t* create_dico(){   //dico est le nom de la liste contenant tous les mots d
     
     return dico;
 }
-// char* removen(char* mot[])
-// {
-//     char *adr_retour_ligne;
-//     /* Recherche de l'adresse d'un \r ou d'un \n dans la variable mot */
-//     adr_retour_ligne = strpbrk(mot, "\r\n");
-//     /* Adresse trouvée ? */
-//     if(adr_retour_ligne != NULL)
-//     {
-//         /* Remplacement du caractère par un octet nul (fin de chaîne en C) */
-//         *adr_retour_ligne = 0;
-//     }
-//     //printf("'%s'", mot); /* 'Salut !' */
-//     return mot;
-// }
+
 void ajout_dico(char* mot, list_t *dico){
     
     element_t *new_element = calloc(1,sizeof(element_t));
@@ -249,13 +236,22 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
             présents[i]=&mot[i];             //on ajoute la lettre dans la chaîne des lettres présentes
             printf("presents %c\n",présents[i]);
             element_t* current=mots_possibles->head;   //on prend le premier mot du dctionnaire
+            element_t* previous=mots_possibles->head;
             while(current!=NULL){                       //on parcours le dictionnaire
                 //printf("lettre %s",current->ch1[i]);
-                element_t *suivant=current->next;       //on récupère le pointeur vers le suivant avant de possiblement supprimer l'élément de la liste
                 if (current->ch1[i]!=mot[i]){           //si la lettre n'est pas présente en position i du mot 
-                    retire(current,mots_possibles);     //on retire le mot du dictionnaire
+                    if (current!=mots_possibles->head){
+                        retire(current,mots_possibles);     //on retire le mot du dictionnaire
+                        current=previous->next;
+                    }
+                    else{
+                        retire(current,mots_possibles);     //on retire le mot du dictionnaire
+                        current=mots_possibles->head;
+                    }
                 }
-                current=suivant;
+                else{
+                    current=current->next;
+                }
             }
         }
     }  
@@ -334,8 +330,64 @@ char* hereorbefore(char* mot,int index){
     return copy;
 
 }
+int indexletter(char* alphabet,char letter){
+    for (int i=0;i<26;i++){
+        if (alphabet[i]==letter){
+            return i;
+        }
+    }
+}
+int indexlistint(listint_t *countlist,int val){
+    elementint_t *current=countlist->head;
+    int i=0;
+    while(current!=NULL){
+        if (current->value==val){
+            return i;
+        }
+        i++;
+        current=current->next;
+    }
+}
+elementint_t* findelementint(listint_t *countlist,int index){
+    elementint_t *current=countlist->head;
+    int i=0;
+    while (i!=index){
+        current=current->next;
+        i++;
+    }
+    return current;
+}
 
-/* list_t best_letters(list_t *dico){
+element_t* findelement(list_t *dico,int index){
+    element_t *current=dico->head;
+    int i=0;
+    while (i!=index){
+        current=current->next;
+        i++;
+    }
+    return current;
+}
+
+void addone(listint_t *countlist,int index){
+        elementint_t *toadd=findelementint(countlist,index);
+        toadd->value++;
+}
+
+int max(listint_t *countlist){
+    elementint_t *current=countlist->head;
+    int m = current->value;
+    while (current!=NULL){
+        if (current->next->value > m){
+            m=current->next->value;
+        }
+        current=current->next;
+
+    }
+    return m;
+}
+
+
+listchar_t* best_letters(list_t *dico){
     char* alphabet="abcdefghijklmnopqrstuvwxyz";
     listint_t *alphacount=calloc(1,sizeof(listint_t));
     int i=1;                                                // (1)
@@ -352,17 +404,64 @@ char* hereorbefore(char* mot,int index){
     }
 
     int compteur=0; // (2)
+    int ind;
     for (int l=0;l<length(dico);l++){ 
-        for (int j=0;j<recupnb(dico->head->ch1);j++){
-            
-            // faire une fonction attrapant l'indice d'un element dans une liste
-            //faire une fonction pouvant ajouter une valeur à un indice donner
-
+        for (int j=0;j<nb_letters(dico->head->ch1);j++){
+            element_t *mot=findelement(dico,l); 
+            ind=indexletter(alphabet,indexletter(alphabet,(mot->ch1)[j]));
+            addone(alphacount,ind);
         }
     }
-} */
+
+    listchar_t *bestletters=malloc(sizeof(listchar_t));
+    int m;
+    int indletter;
+    for (int k=0;k<26;k++){
+        m=max(alphacount);
+        indletter=indexlistint(alphacount,m);
+        listchar_append(bestletters,alphabet[indletter]);
+
+        //changer l'alphabet en liste? ou coder une fonction pour enlever un caractere d'une chaine de caractere
+        //pareil avec les liste d'entier
+        
+    }
+
+    return bestletters;
+}
 
 
+void listchar_destroy(listchar_t* listchar){
+    while (listchar->head != NULL)
+    {
+        elementchar_t *aSupprimer = listchar->head;
+        listchar->head = listchar->head->next;
+        free(aSupprimer);
+    }
+    free(listchar);
+}
+
+void listchar_append(listchar_t* listchar, char letter){
+    elementchar_t *nouveau = malloc(sizeof(*nouveau));
+    if (listchar == NULL || nouveau == NULL){
+        exit(EXIT_FAILURE);
+    }
+    nouveau->letter=letter;
+    
+
+    elementchar_t *current=listchar->head;
+
+    if (current==NULL){
+        listchar->head=nouveau;
+    }
+    else{
+        while (current->next != NULL){
+            current=current->next;
+        }
+        current->next = nouveau;
+    }
+    nouveau->next = NULL;
+    
+}
 
 
 
