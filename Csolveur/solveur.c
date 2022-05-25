@@ -31,7 +31,6 @@ list_t* create_dico(){   //dico est le nom de la liste contenant tous les mots d
         if (nb_letters(ligne)==longueur+1){
             //printf("%s",ligne);
             ajout_dico(strdup(ligne),dico);
-
         } 
         
         l++;
