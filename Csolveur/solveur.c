@@ -143,25 +143,26 @@ void retire(element_t *element,list_t* dico){
         element_t* current=dico->head;      //on initialise notre élément courant à la tête de la liste
         element_t* previous;                //on prévoit de garder en mémoire l'élément précédant courant
 
-        if (current==dico->head && current==element){           
-            dico->head=current->next;
-            free(current->ch1);
-            free(current);
+        if (current==dico->head && current==element){          //si l'élément à retirer est la tête de liste
+            dico->head=current->next;                           //on donne à la liste pour nouvelle tête le suivant de la tête
+            free(current->ch1);                                 //on libère la chaine de caracatere
+            free(current);                                      //et l'élément
         }
+
         else{
-            while(current!=element && current!=NULL){
-            previous=current;
-            current=current->next;
+            while(current!=element && current!=NULL){           //on cherche l'élément dans la liste
+                previous=current;           
+                current=current->next;                          //on parcourt jusqu'à trouver l'élément
             }
-            if (current!=NULL && current->next!=NULL){
-                element_t* suivant=current->next;
-                free(current->ch1);
-                free(current);
-                previous->next=suivant;
+            if (current!=NULL && current->next!=NULL){          //si on à trouvé l'élément (cad que current n'est pas vide) et qu'il a un suivant
+                element_t* suivant=current->next;               //on enregistre sont suivant
+                free(current->ch1);                             //on supprime la chaine stockée dans l'élément
+                free(current);                                  //et l'élément
+                previous->next=suivant;                         //on reconnecte la liste en donnant pour suivaant au précédent de l'élément son suivant
             }
-            if (current!=NULL && current->next==NULL){
-                free(current->ch1);
-                free(current);
+            else if (current!=NULL && current->next==NULL){     //si on à trouvé l'élément (cad que current n'est pas vide) et qu'il n'a pas de suivant
+                free(current->ch1);                             //on supprime la chaine stockée dans l'élément
+                free(current);                                  //et l'élément
             }
         }
         
