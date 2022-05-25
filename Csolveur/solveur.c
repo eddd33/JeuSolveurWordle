@@ -30,12 +30,13 @@ list_t* create_dico(){   //dico est le nom de la liste contenant tous les mots d
         
         if (nb_letters(ligne)==longueur+1){
             //printf("%s",ligne);
-            ajout_dico(strdup(ligne),dico);
+            char* dup=strdup(ligne);
+            ajout_dico(dup,dico);
         } 
         
         l++;
     }
-    
+    fclose(fichier);
     return dico;
 }
 
@@ -243,7 +244,12 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
                 }
                 else{
                     current=current->next;
-                }
+                }                                   //Il faudra traiter le dernier mot, génère de erreurs à l'exec
+                // if(current!=NULL){
+                //     if (current->ch1[i]!=mot[i]){           //si la lettre n'est pas présente en position i du mot 
+                //         retire(current,mots_possibles);     //on retire le mot du dictionnaire
+                //     }
+                // }
             }
         }
     }  
@@ -254,12 +260,15 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
             element_t* current=mots_possibles->head;   //on prend le premier mot du dctionnaire
             while(current!=NULL){                       //on parcours le dictionnaire
                 //printf("lettre %s",current->ch1[i]);
-                element_t *suivant=current->next;       //on récupère le pointeur vers le suivant avant de possiblement supprimer l'élément de la liste
-                if (current->ch1[i]==mot[i]){           //si la lettre est présente en position i du mot (mal placée)
-                    retire(current,mots_possibles);     //on retire le mot du dictionnaire
+                if (current->ch1[i]==mot[i]){           //si la lettre est présente en position i du mot (mal placée) 
+                    element_t* tmp=current;
+                    current=current->next; 
+                    retire(tmp,mots_possibles);     //on retire le mot du dictionnaire
                 }
-                current=suivant;
-            }
+                else{
+                    current=current->next;
+                } 
+            }//si la lettre est présente en position i du mot (mal placée)
         }
     }
     for (int i=0;i<nb;i++){                              //on parcours le pattern pour trouver les lettres absentes ou présentes moins de fois que proposé
@@ -268,9 +277,13 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
             while(current!=NULL){
                 element_t *suivant=current->next; 
                 if (occurences(current->ch1,mot[i])>=occurences(*présents,mot[i])){    //si une lettre est "absente" on supprime les mots pour lesquels le nombre d'occurrence de la lettre est supérieur au nombre d'occurence de la lettre dans le mot
-                    retire(current,mots_possibles);
+                    element_t* tmp=current;
+                    current=current->next; 
+                    retire(tmp,mots_possibles);     //on retire le mot du dictionnaire
                 }
-                current=suivant;
+                else{
+                    current=current->next;
+                } 
             } 
         }
     }

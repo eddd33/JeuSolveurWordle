@@ -7,6 +7,7 @@ int main(){
 
     list_t *dico = create_dico();
     assert(!isEmpty(dico));
+    //dico_print(dico);
 
     //Vérification des fonctions annexes
     assert(occurences("aaa",'a')==3);
