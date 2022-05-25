@@ -132,7 +132,7 @@ void retire(element_t *element,list_t* dico){
 
         if (current==dico->head && current==element){          //si l'élément à retirer est la tête de liste
             dico->head=current->next;                           //on donne à la liste pour nouvelle tête le suivant de la tête
-            free(current->ch1);                                 //on libère la chaine de caracatere
+                              //on libère la chaine de caracatere
             free(current);                                      //et l'élément
         }
 
@@ -143,16 +143,15 @@ void retire(element_t *element,list_t* dico){
             }
             if (current!=NULL && current->next!=NULL){          //si on à trouvé l'élément (cad que current n'est pas vide) et qu'il a un suivant
                 element_t* suivant=current->next;               //on enregistre sont suivant
-                free(current->ch1);                             //on supprime la chaine stockée dans l'élément
+                      //on supprime la chaine stockée dans l'élément
                 free(current);                                  //et l'élément
                 previous->next=suivant;                         //on reconnecte la liste en donnant pour suivaant au précédent de l'élément son suivant
             }
             else if (current!=NULL && current->next==NULL){     //si on à trouvé l'élément (cad que current n'est pas vide) et qu'il n'a pas de suivant
-                free(current->ch1);                             //on supprime la chaine stockée dans l'élément
+                            //on supprime la chaine stockée dans l'élément
                 free(current);                                  //et l'élément
             }
-        }
-        
+        }    
     }
 }
 
@@ -228,26 +227,20 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
     dico_print(mots_possibles);
     char* présents[nb+1];   //on créé une un chaîne des caractères présents dans le mot, bien placés ou non
     présents[nb]="\0";                      
-    printf("pattern %s\n",pattern);
-    printf("présent %s\n",présents);
+    //printf("pattern %s\n",pattern);
+    //printf("présent %s\n",présents);
     for (int i=0;i<nb;i++){                 //on parcours le pattern pour trouver les lettres bien placées
-        printf ("%c\n",pattern[i]);
+        //printf ("%c\n",pattern[i]);
         if (pattern[i]=='2'){
             présents[i]=&mot[i];             //on ajoute la lettre dans la chaîne des lettres présentes
-            printf("presents %c\n",présents[i]);
             element_t* current=mots_possibles->head;   //on prend le premier mot du dctionnaire
-            element_t* previous=mots_possibles->head;
-            while(current!=NULL){                       //on parcours le dictionnaire
+            while(current!=NULL && current->next!=NULL){                       //on parcours le dictionnaire
                 //printf("lettre %s",current->ch1[i]);
+                //printf("%s\n",current->ch1);
                 if (current->ch1[i]!=mot[i]){           //si la lettre n'est pas présente en position i du mot 
-                    if (current!=mots_possibles->head){
-                        retire(current,mots_possibles);     //on retire le mot du dictionnaire
-                        current=previous->next;
-                    }
-                    else{
-                        retire(current,mots_possibles);     //on retire le mot du dictionnaire
-                        current=mots_possibles->head;
-                    }
+                    element_t* tmp=current;
+                    current=current->next; 
+                    retire(tmp,mots_possibles);     //on retire le mot du dictionnaire
                 }
                 else{
                     current=current->next;
@@ -285,6 +278,7 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
 
     return mots_possibles;
 }
+
 
 
 char* wordfinder(list_t dico){
