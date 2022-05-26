@@ -134,6 +134,7 @@ void retire(element_t *element,list_t* dico){
 
         if (current==dico->head && current==element){          //si l'élément à retirer est la tête de liste
             dico->head=current->next;                           //on donne à la liste pour nouvelle tête le suivant de la tête
+            free(current->ch1); // LAISSE MOI CES LIGNES
             free(current);                                      //on free l'élément
         }
 
@@ -144,11 +145,13 @@ void retire(element_t *element,list_t* dico){
             }
             if (current!=NULL && current->next!=NULL){          //si on à trouvé l'élément (cad que current n'est pas vide) et qu'il a un suivant
                 element_t* suivant=current->next;               //on enregistre sont suivant
+                free(current->ch1);
                 free(current);                                  //on free l'élément
                 previous->next=suivant;                         //on reconnecte la liste en donnant pour suivaant au précédent de l'élément son suivant
             }
             else if (current!=NULL && current->next==NULL){     //si on à trouvé l'élément (cad que current n'est pas vide) et qu'il n'a pas de suivant
                 previous->next==NULL;
+                free(current->ch1);
                 free(current);                                  //on free l'élément
             }
         }    
@@ -224,24 +227,34 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
         //printf ("%c\n",pattern[i]);
         if (pattern[i]=='2'){
             présents[i]=&mot[i];             //on ajoute la lettre dans la chaîne des lettres présentes
+            
             element_t* current=mots_possibles->head;   //on prend le premier mot du dctionnaire
+            printf("%i\n",i);
+            printf("%s\n",current->ch1);
             while(current!=NULL && current->next!=NULL){                       //on parcours le dictionnaire
                 //printf("lettre %s",current->ch1[i]);
                 //printf("%s\n",current->ch1);
+                //printf("%s %i\n",current->ch1,i);
+                
                 if (current->ch1[i]!=mot[i]){           //si la lettre n'est pas présente en position i du mot 
                     element_t* tmp=current;
                     current=current->next; 
                     retire(tmp,mots_possibles);     //on retire le mot du dictionnaire
                 }
+                
                 else{
                     current=current->next;
-                }                                   //Il faudra traiter le dernier mot, génère des erreurs à l'exec
+                }    
+
+            
+                    //Il faudra traiter le dernier mot, génère des erreurs à l'exec
+                
                 // if(current!=NULL){
                 //     if (current->ch1[i]!=mot[i]){           //si la lettre n'est pas présente en position i du mot 
                 //         retire(current,mots_possibles);     //on retire le mot du dictionnaire
                 //     }
                 // }
-            }
+            }   
         }
     }  
     //dico_print(mots_possibles);     //->problème dans la première boucle
@@ -284,8 +297,29 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
 
 
 
-char* wordfinder(list_t dico){
-    return "Pasfini";
+char* wordfinder(list_t *dico,int trynumber){
+    listchar_t *ranking=best_letters(dico);
+    listint_t *wordscores=malloc(sizeof(listint_t));
+    wordscores->head=NULL;
+    element_t *current=dico->head;
+    while (current!=NULL){
+        //printf("Cb de fois? \n");
+        int s=0;
+        for (int l=0;l<nb_letters(dico->head->ch1);l++){
+            s+=indexlistchar(ranking,current->ch1[l]);
+        }
+        //printf("%i\n",s);
+        // gerer pour le nb essais < 3
+        listint_append(wordscores,s);
+        
+        current=current->next;
+    }
+
+    int indexofwordtogive=indexofmin(wordscores);
+    char* wordtogive=list_get(dico,indexofwordtogive);
+
+    
+    return wordtogive;
 }
 
 // char* singularite(char* mot){
@@ -329,6 +363,18 @@ int indexlistint(listint_t *countlist,int val){
     int i=0;
     while(current!=NULL){
         if (current->value==val){
+            return i;
+        }
+        i++;
+        current=current->next;
+    }
+    return -1;
+}
+int indexlistchar(listchar_t *charlist,char lettre){
+    elementchar_t *current=charlist->head;
+    int i=0;
+    while(current!=NULL){
+        if (current->letter==lettre){
             return i;
         }
         i++;
@@ -382,7 +428,21 @@ void addone(listint_t *countlist,int index){
         elementint_t *toadd=findelementint(countlist,index);
         toadd->value++;
 }
-
+int indexofmin(listint_t *wordscores){
+    elementint_t *current=wordscores->head;
+    int m = current->value;
+    int i=0;
+    int ind=0;
+    while (current->next!=NULL){
+        if (current->next->value < m){
+            m=current->next->value;
+            ind=i+1;
+        }
+        i++;
+        current=current->next;
+    }
+    return ind;
+}
 int max(listint_t *countlist){
     elementint_t *current=countlist->head;
     int m = current->value;
@@ -461,6 +521,7 @@ listchar_t* best_letters(list_t *dico){
     }
     printcountlist(alphacount);
     listchar_t *bestletters=malloc(sizeof(listchar_t));
+    bestletters->head=NULL;
     int m;
     int indletter;
     char* alphareduc;
@@ -469,13 +530,14 @@ listchar_t* best_letters(list_t *dico){
         printf("max %i\n",m);
         indletter=indexlistint(alphacount,m);
         printf("indice du max %i\n",indletter);
+        printf("meilleur lettre %c\n",alphabet[indletter]);
         listchar_append(bestletters,alphabet[indletter]);
 
         //changer l'alphabet en liste? ou coder une fonction pour enlever un caractere d'une chaine de caractere
         //pareil avec les liste d'entier
         alphareduc=removeletterinalphabet(alphabet,indletter);
         alphabet=alphareduc;
-        free(alphareduc);
+        
         removeelementint(alphacount,indletter);
         
         
@@ -506,7 +568,9 @@ void listchar_append(listchar_t* listchar, char letter){
     elementchar_t *current=listchar->head;
 
     if (current==NULL){
+        printf("Ca rentre\n");
         listchar->head=nouveau;
+        return;
     }
 
     while (current->next != NULL){
@@ -515,9 +579,51 @@ void listchar_append(listchar_t* listchar, char letter){
     current->next = nouveau;
 }
 
+void listint_append(listint_t* wordscores,int score){
+    elementint_t *new=calloc(1,sizeof(elementint_t));
+    new->value=score;
+    new->next=NULL;
 
+    elementint_t *current=wordscores->head;
+    if (current==NULL){
+        wordscores->head=new;
+        return;
+    }
+    while (current->next!=NULL){
+        current=current->next;
+    }
+    current->next=new;
+}
 
+void listint_destroy(listint_t *listint)
+{
+    elementint_t *current = listint->head;
+    elementint_t *tmp;
+    while (current!= NULL)
+    {
+        tmp=current;
+        
+        current = current->next;
+        free(tmp->value);
+        free(tmp);
+    }
+    free(listint);
+}
 
+void listchar_destroy(listchar_t *listchar)
+{
+    elementchar_t *current = listchar->head;
+    elementchar_t *tmp;
+    while (current!= NULL)
+    {
+        tmp=current;
+        
+        current = current->next;
+        free(tmp->letter);
+        free(tmp);
+    }
+    free(listchar);
+}
 
 
 

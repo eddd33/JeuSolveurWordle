@@ -38,18 +38,28 @@ int main(){
     printf("3ème élement du dico après suppression : %s\n",dico->head->next->next->ch1);
 
 
-    printf("début test réduction du dico\n");
-    dico_print(dico);
-    list_t* dico_reduit=reduction_dico("plage","22202",dico);
-    dico_print(dico_reduit);
-    printf("dicoreduit ^^\n");
+    char* wordtogive=wordfinder(dico,0);
 
 
 
 
-    assert(strcmp(findelement(dico,1)->ch1,"abbes")==0);
 
-    listchar_t *bestl=best_letters(dico);
+
+    // printf("début test réduction du dico\n");
+    // dico_print(dico);
+    // list_t* dico_reduit=reduction_dico("plage","22202",dico);
+    // dico_print(dico_reduit);
+    // printf("dicoreduit ^^\n");
+
+    // element_t *current=dico->head;
+    // while(current->next!=NULL){
+    //     current=current->next;
+    // }
+    // printf("Ce ptit batard %s",current->ch1);
+
+
+
+    //listchar_t *bestl=best_letters(dico);
 
 
     dico_destroy(dico);

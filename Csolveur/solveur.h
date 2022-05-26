@@ -62,23 +62,28 @@ int list_index_of(list_t *dico, char* mot);             //
 element_t* list_element_of(list_t *dico, char* mot);   // pas utilisé     
 int occurrences(char* mot,char lettre);                 //
 list_t* reduction_dico(char* mot,char* pattern, list_t* dico);
-char* wordfinder(list_t dico);
+char* wordfinder(list_t *dico,int trynumber);
 bool in(char lettre,char*mot);              //
 char* hereorafter(char* mot,int index);     //
 char* hereorbefore(char* mot,int index);        //
 int indexletter(char* alphabet,char letter);        //
 int indexlistint(listint_t *countlist,int val);     //
+int indexlistchar(listchar_t *charlist,char lettre);
 elementint_t* findelementint(listint_t *countlist,int index);
 element_t* findelement(list_t *dico,int index);         //
 void elementint_print(elementint_t* nbr);           //
 void printcountlist(listint_t *countlist);          //
 void addone(listint_t *countlist,int index);        //
+int indexofmin(listint_t *wordscores);
 int max(listint_t *countlist);                      //
 void removeelementint(listint_t *countlist,int index);
 char* removeletterinalphabet(char* alphabet,int index);     //
 listchar_t* best_letters(list_t *dico); 
 void listchar_destroy(listchar_t* listchar);
 void listchar_append(listchar_t* listchar, char letter);
+void listint_append(listint_t* wordscores,int score);
+void listint_destroy(listint_t *listint);
+void listchar_destroy(listchar_t *listchar);
 
 //float nb_mots_possibles(char* mot,int pattern[nb_letters(mot)],list_t* dico);
 //float entropie_initiale(char* mot);  nécessite une fonction qui calcule la la probabilité d'obtenir une combinaison à partir de l'ensemble des mots possibles après cette combinaison
