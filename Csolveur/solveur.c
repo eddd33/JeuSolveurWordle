@@ -24,7 +24,7 @@ list_t* create_dico(){   //dico est le nom de la liste contenant tous les mots d
     
     FILE* fichier=fopen("motst.txt","r");
     int l=30;
-    char ligne[l];
+    char *ligne[l];
     //printf("bite %s\n",fgets(ligne,30,fichier));
     while (fgets(ligne,l,fichier) !=NULL){
         
@@ -72,7 +72,7 @@ void dico_destroy(list_t *dico)
         tmp=current;
         
         current = current->next;
-        free(tmp->ch1);
+        //free(tmp->ch1);
         free(tmp);
     };
     free(dico);
@@ -224,7 +224,7 @@ int occurences(char* mot,char lettre){
 list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction prenant en paramètre le mot proposé par le solveur et le pattern renvoyé par l'utilisateur ainsi que le dictionnaire des mots encore possible avant cette étape
     int nb=nb_letters(mot);        
     list_t* mots_possibles=dico; 
-    dico_print(mots_possibles);
+    //dico_print(mots_possibles);
     char* présents[nb+1];   //on créé une un chaîne des caractères présents dans le mot, bien placés ou non
     présents[nb]="\0";                      
     //printf("pattern %s\n",pattern);
@@ -253,7 +253,7 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
             }
         }
     }  
-    dico_print(mots_possibles);     //->problème dans la première boucle
+    //dico_print(mots_possibles);     //->problème dans la première boucle
     for (int i=0;i<nb;i++){                             //on parcours le pattern pour trouver les lettres présentes mais mal placées
         if (pattern[i]=='1'){
             présents[i]=&mot[i];                          //on ajoute la lettre dans la chaîne des lettres présentes
@@ -391,7 +391,39 @@ int max(listint_t *countlist){
     }
     return m;
 }
+void removeelementint(listint_t *countlist,int index){
+    elementint_t *current=countlist->head;
+    elementint_t *prec=current;
+    int i=0;
+    if (index==0){
+        countlist->head=current->next;
+        free(current);
+    }
+    else{
+        while (i!=index && current!=NULL){
+        prec=current;
+        current=current->next;
+        
+        i++;
+        }
+        if (i==index){
+            if (current->next==NULL){
+                prec->next=NULL;
+            }
+            else{
+                prec->next=current->next;
+            }
+            free(current);
+        }
+    }
+    
+}
 
+char* removeletterinalphabet(char* alphabet,int index){
+    char *firstpart=hereorbefore(alphabet,index);
+    strcat(firstpart,hereorafter(alphabet,index));
+    return firstpart;
+}
 
 listchar_t* best_letters(list_t *dico){
     char* alphabet="abcdefghijklmnopqrstuvwxyz";
@@ -429,6 +461,9 @@ listchar_t* best_letters(list_t *dico){
 
         //changer l'alphabet en liste? ou coder une fonction pour enlever un caractere d'une chaine de caractere
         //pareil avec les liste d'entier
+        alphabet=removeletterinalphabet(alphabet,indletter);
+        removeelementint(alphacount,indletter);
+        
         
     }
 

@@ -73,6 +73,8 @@ int indexletter(char* alphabet,char letter);
 int indexlistint(listint_t *countlist,int val);
 elementint_t* findelementint(listint_t *countlist,int index);
 element_t* findelement(list_t *dico,int index);
+void removeelementint(listint_t *countlist,int index);
+char* removeletterinalphabet(char* alphabet,int index);
 void addone(listint_t *countlist,int index);
 int max(listint_t *countlist);
 void listchar_destroy(listchar_t* listchar);
