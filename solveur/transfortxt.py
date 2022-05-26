@@ -1,6 +1,8 @@
 f=open("/home/eleve/project2-E13/solveur/mots.txt","r")
-g=open("/home/eleve/project2-E13/solveur/motst.txt","w")
+g=open("/home/eleve/project2-E13/solveur/motst.txt","w+")
 c=0
+intermediaire=[]
+toremove=[]
 for ligne in f.readlines():
     LIGNE=ligne
     a=0
@@ -24,10 +26,23 @@ for ligne in f.readlines():
             LIGNE=LIGNE[:i]+"c"+LIGNE[i+1:]
         elif ligne[i]=="ñ":
             LIGNE=LIGNE[:i]+"n"+LIGNE[i+1:]
-        else:    
-            pass   
-
-
-
+    
     if a==0:
-        g.write(LIGNE)
+        intermediaire.append(LIGNE)
+        
+intermediaire.sort()
+
+for i in range(len(intermediaire)-1):
+    if intermediaire[i]==intermediaire[i+1]:
+        toremove.append(i)
+ 
+c=0
+for j in toremove:
+    intermediaire.remove(intermediaire[j-c])
+    c+=1
+
+for i in range(len(intermediaire)):
+        g.write(intermediaire[i])
+        
+        
+

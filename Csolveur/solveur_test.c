@@ -38,6 +38,15 @@ int main(){
     printf("3ème élement du dico après suppression : %s\n",dico->head->next->next->ch1);
 
 
+    printf("début test réduction du dico\n");
+    dico_print(dico);
+    list_t* dico_reduit=reduction_dico("plage","22202",dico);
+    dico_print(dico_reduit);
+    printf("dicoreduit ^^\n");
+
+
+
+
     assert(strcmp(findelement(dico,1)->ch1,"abbes")==0);
 
     listchar_t *bestl=best_letters(dico);
