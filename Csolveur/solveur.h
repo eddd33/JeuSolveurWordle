@@ -73,13 +73,14 @@ elementint_t* findelementint(listint_t *countlist,int index);
 element_t* findelement(list_t *dico,int index);         //
 void elementint_print(elementint_t* nbr);           //
 void printcountlist(listint_t *countlist);          //
+void elementchar_print(elementchar_t* lettre);
+void printlistchar(listchar_t *listchar);
 void addone(listint_t *countlist,int index);        //
 int indexofmin(listint_t *wordscores);
 int max(listint_t *countlist);                      //
 void removeelementint(listint_t *countlist,int index);
 char* removeletterinalphabet(char* alphabet,int index);     //
 listchar_t* best_letters(list_t *dico); 
-void listchar_destroy(listchar_t* listchar);
 void listchar_append(listchar_t* listchar, char letter);
 void listint_append(listint_t* wordscores,int score);
 void listint_destroy(listint_t *listint);

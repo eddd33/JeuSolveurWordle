@@ -317,8 +317,12 @@ char* wordfinder(list_t *dico,int trynumber){
 
     int indexofwordtogive=indexofmin(wordscores);
     char* wordtogive=list_get(dico,indexofwordtogive);
-
+    //printcountlist(wordscores);
+    printlistchar(ranking);
+    printf("MOT A DONNER %s\n",wordtogive);
     
+    listint_destroy(wordscores);
+    listchar_destroy(ranking);
     return wordtogive;
 }
 
@@ -424,6 +428,29 @@ void printcountlist(listint_t *countlist){
     }
 }
 
+void elementchar_print(elementchar_t* lettre){
+    printf("%c ",lettre->letter);
+
+}
+void printlistchar(listchar_t *listchar){
+    if (listchar == NULL){
+        exit(EXIT_FAILURE);
+    }
+    elementchar_t *actuel = listchar->head;
+    
+    if (actuel==NULL){
+        printf("C'est vide\n");
+    }
+    else{
+        printf("[ ");
+        while (actuel != NULL){
+            elementchar_print(actuel);
+            actuel = actuel->next;
+        }
+        printf("]\n ");
+    }
+}
+
 void addone(listint_t *countlist,int index){
         elementint_t *toadd=findelementint(countlist,index);
         toadd->value++;
@@ -464,6 +491,7 @@ void removeelementint(listint_t *countlist,int index){
     int i=0;
     if (index==0){
         countlist->head=current->next;
+        //free(current->value);
         free(current);
     }
     else{
@@ -480,6 +508,7 @@ void removeelementint(listint_t *countlist,int index){
             else{
                 prec->next=current->next;
             }
+            //free(current->value);
             free(current);
         }
     }
@@ -524,8 +553,9 @@ listchar_t* best_letters(list_t *dico){
     bestletters->head=NULL;
     int m;
     int indletter;
-    char* alphareduc;
+    
     for (int k=0;k<26;k++){
+        printf("CA RENTRE DANS LA BOUCLE FOR\n");
         m=max(alphacount);
         printf("max %i\n",m);
         indletter=indexlistint(alphacount,m);
@@ -535,27 +565,26 @@ listchar_t* best_letters(list_t *dico){
 
         //changer l'alphabet en liste? ou coder une fonction pour enlever un caractere d'une chaine de caractere
         //pareil avec les liste d'entier
-        alphareduc=removeletterinalphabet(alphabet,indletter);
-        alphabet=alphareduc;
         
+            
+        
+        
+        char* alphareduc=removeletterinalphabet(alphabet,indletter);
+        char* alphabet=strdup(alphareduc);
+        free(alphareduc);
         removeelementint(alphacount,indletter);
         
         
+        
     }
+    
+    listint_destroy(alphacount);
 
     return bestletters;
 }
 
 
-void listchar_destroy(listchar_t* listchar){
-    while (listchar->head != NULL)
-    {
-        elementchar_t *aSupprimer = listchar->head;
-        listchar->head = listchar->head->next;
-        free(aSupprimer);
-    }
-    free(listchar);
-}
+
 
 void listchar_append(listchar_t* listchar, char letter){
     elementchar_t *nouveau = malloc(sizeof(*nouveau));
@@ -580,7 +609,7 @@ void listchar_append(listchar_t* listchar, char letter){
 }
 
 void listint_append(listint_t* wordscores,int score){
-    elementint_t *new=calloc(1,sizeof(elementint_t));
+    elementint_t *new=malloc(sizeof(elementint_t));
     new->value=score;
     new->next=NULL;
 
@@ -597,33 +626,28 @@ void listint_append(listint_t* wordscores,int score){
 
 void listint_destroy(listint_t *listint)
 {
-    elementint_t *current = listint->head;
-    elementint_t *tmp;
-    while (current!= NULL)
+    while (listint->head != NULL)
     {
-        tmp=current;
-        
-        current = current->next;
-        free(tmp->value);
-        free(tmp);
+        elementint_t *aSupprimer = listint->head;
+        listint->head = listint->head->next;
+        free(aSupprimer);
     }
     free(listint);
 }
 
 void listchar_destroy(listchar_t *listchar)
 {
-    elementchar_t *current = listchar->head;
-    elementchar_t *tmp;
-    while (current!= NULL)
+    while (listchar->head != NULL)
     {
-        tmp=current;
+        elementchar_t *aSupprimer = listchar->head;
+        listchar->head = listchar->head->next;
         
-        current = current->next;
-        free(tmp->letter);
-        free(tmp);
+        free(aSupprimer);
     }
     free(listchar);
 }
+
+
 
 
 
