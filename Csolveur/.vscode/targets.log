@@ -2,28 +2,17 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target 'all'.  Stop.
 
 # GNU Make 4.2.1
- 
 # Built for x86_64-pc-linux-gnu
- 
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
- 
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
- 
 # This is free software: you are free to change and redistribute it.
- 
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
- 
-# Make data base, printed on Sat May 21 19:14:14 2022
- 
+# Make data base, printed on Thu May 26 18:38:07 2022
 
 # Variables
- 
 
- 
 # 'override' directive
- 
 GNUMAKEFLAGS := 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
@@ -62,7 +51,7 @@ VTE_VERSION = 6003
 # environment
 VSCODE_NLS_CONFIG = {"locale":"fr","availableLanguages":{"*":"fr"},"_languagePackId":"25fe6a3290ec415596628d4afc87a88c.fr","_translationsConfigFile":"/home/eleve/.config/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr/tcf.json","_cacheRoot":"/home/eleve/.config/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr","_resolvedLanguagePackCoreLocation":"/home/eleve/.config/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5","_corruptedFile":"/home/eleve/.config/Code/clp/25fe6a3290ec415596628d4afc87a88c.fr/corrupted.info","_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:35726
+JOURNAL_STREAM = 8:34965
 # makefile (from 'makefile', line 6)
 CFLAGS = -Wall -Wextra -pedantic -fdiagnostics-color=always $(CPPFLAGS) -O0 -g3 -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls
 # environment
@@ -86,7 +75,7 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-MANAGERPID = 1366
+MANAGERPID = 1332
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -100,7 +89,7 @@ PATH = /home/eleve/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/TNCY-Linux:@/tmp/.ICE-unix/1626,unix/TNCY-Linux:/tmp/.ICE-unix/1626
+SESSION_MANAGER = local/TNCY-Linux:@/tmp/.ICE-unix/1595,unix/TNCY-Linux:/tmp/.ICE-unix/1595
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -118,7 +107,7 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 958543fd6b484c99a4bb228092f9ea84
+INVOCATION_ID = 51dcf5cd229b4c8fa3b9a1d44c5de6a3
 # makefile (from 'makefile', line 7)
 LDFLAGS = -fsanitize=address
 # environment
@@ -144,7 +133,7 @@ PWD = /home/eleve/project2-E13/Csolveur
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1589
+SSH_AGENT_PID = 1557
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -198,7 +187,7 @@ CC = clang
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-4d6b1cdf-befa-4245-bae3-44624da6dc09.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-8fcc2645-dbe2-402e-9be8-f216b7d74dec.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -234,6 +223,8 @@ GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
 # environment
+NO_AT_BRIDGE = 1
+# environment
 QT_ACCESSIBILITY = 1
 # default
 MAKEFILES := 
@@ -248,11 +239,11 @@ LC_ALL = C
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/1bbc5173_7e3f_404b_b3c2_a8673757c23e
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/189987ab_582f_4a00_ad9c_6746f086653f
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.68
+GNOME_TERMINAL_SERVICE = :1.65
 # default
 SUFFIXES := 
 # environment
@@ -272,9 +263,9 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 4654
+VSCODE_PID = 11980
 # variable set hash-table stats:
-# Load=125/1024=12%, Rehash=0, Collisions=15/153=10%
+# Load=126/1024=12%, Rehash=0, Collisions=15/154=10%
 
 # Pattern-specific Variable Values
 
@@ -282,11 +273,12 @@ VSCODE_PID = 4654
 
 # Directories
 
-# . (device 64768, inode 1570175): 16 files, no impossibilities.
+# . (device 64768, inode 1064150): 17 files, no impossibilities.
 
-# 16 files, no impossibilities in 1 directories.
+# 17 files, no impossibilities in 1 directories.
 
 # Implicit Rules
+ 
 
 # No implicit rules.
 
@@ -300,9 +292,7 @@ all:
 #  File has not been updated.
 
 solveur.o: solveur.h solveur.c
- 
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -322,7 +312,7 @@ test: solveur_test
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-21 19:13:43.213479965
+#  Last modified 2022-05-26 14:28:34.39583797
 #  File has been updated.
 #  Successfully updated.
 
@@ -374,12 +364,12 @@ solveur_test: solveur_test.o solveur.o
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 24 / storage = 223 B / avg = 9 B
-# current buf: size = 8162 B / used = 223 B / count = 24 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 25 / storage = 238 B / avg = 9 B
+# current buf: size = 8162 B / used = 238 B / count = 25 / avg = 9 B
 
-# strcache performance: lookups = 45 / hit rate = 46%
+# strcache performance: lookups = 46 / hit rate = 45%
 # hash-table stats:
-# Load=24/8192=0%, Rehash=0, Collisions=1/45=2%
-# Finished Make data base on Sat May 21 19:14:14 2022
+# Load=25/8192=0%, Rehash=0, Collisions=1/46=2%
+# Finished Make data base on Thu May 26 18:38:07 2022
 
  
