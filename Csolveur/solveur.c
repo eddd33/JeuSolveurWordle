@@ -9,7 +9,7 @@ int recupnb(){
     int longueur;
 
     fscanf(fichier,"%i",&longueur);
-    printf("%i\n",longueur);
+    //printf("%i\n",longueur);
     fclose(fichier);
     return longueur;
 }
@@ -31,7 +31,8 @@ list_t* create_dico(){   //dico est le nom de la liste contenant tous les mots d
         if (nb_letters(ligne)==longueur+1){
             //printf("%s",ligne);
             char* dup=strdup(ligne);
-            ajout_dico(dup,dico);
+            ajout_dico(hereorbefore(dup,longueur),dico);
+            free(dup);
         } 
         
         l++;
@@ -72,7 +73,7 @@ void dico_destroy(list_t *dico)
         tmp=current;
         
         current = current->next;
-        //free(tmp->ch1);
+        free(tmp->ch1);
         free(tmp);
     };
     free(dico);
@@ -132,7 +133,7 @@ void retire(element_t *element,list_t* dico){
 
         if (current==dico->head && current==element){          //si l'élément à retirer est la tête de liste
             dico->head=current->next;                           //on donne à la liste pour nouvelle tête le suivant de la tête
-                              //on libère la chaine de caracatere
+            free(current->ch1);                                               //on libère la chaine de caracatere
             free(current);                                      //et l'élément
         }
 
@@ -144,11 +145,13 @@ void retire(element_t *element,list_t* dico){
             if (current!=NULL && current->next!=NULL){          //si on à trouvé l'élément (cad que current n'est pas vide) et qu'il a un suivant
                 element_t* suivant=current->next;               //on enregistre sont suivant
                       //on supprime la chaine stockée dans l'élément
+                free(current->ch1);
                 free(current);                                  //et l'élément
                 previous->next=suivant;                         //on reconnecte la liste en donnant pour suivaant au précédent de l'élément son suivant
             }
             else if (current!=NULL && current->next==NULL){     //si on à trouvé l'élément (cad que current n'est pas vide) et qu'il n'a pas de suivant
-                            //on supprime la chaine stockée dans l'élément
+                           //on supprime la chaine stockée dans l'élément
+                free(current->ch1);
                 free(current);                                  //et l'élément
             }
         }    
@@ -178,24 +181,17 @@ int list_index_of(list_t *dico, char* mot) {
     int pos = 0;
 
     element_t *current = dico->head;    
-    while (current->ch1 != mot && current->next != NULL) 
-    {
-        //printf("oskur %s",current->ch1);
+    while (strcmp(current->ch1,mot)!=0 && current->next != NULL) 
+    {   
         pos++;
         current = current->next;
     }
-    printf("%s,%s",current->ch1,mot);
-    if (current->ch1 == mot) {
-        return pos;
-    } else {
-        return -1;
-    }
+    return pos;
+    
 }
 element_t* list_element_of(list_t *dico, char* mot) {
     assert(dico != NULL);
     assert(!isEmpty(dico));
-
-
     element_t *current = dico->head;    
     while (current->ch1 != mot && current->next != NULL) 
     {
@@ -205,13 +201,11 @@ element_t* list_element_of(list_t *dico, char* mot) {
     printf("%s,%s",current->ch1,mot);
     if (current->ch1 == mot) {
         return current;
-    } else {
-        return -1; 
     }
 }
 
 
-int occurences(char* mot,char lettre){
+int occurrences(char* mot,char lettre){
     int compteur=0;
     for (int i=0;i<nb_letters(mot);i++){
         if (mot[i]==lettre){
@@ -276,7 +270,7 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
             element_t* current=mots_possibles->head;
             while(current!=NULL){
                 element_t *suivant=current->next; 
-                if (occurences(current->ch1,mot[i])>=occurences(*présents,mot[i])){    //si une lettre est "absente" on supprime les mots pour lesquels le nombre d'occurrence de la lettre est supérieur au nombre d'occurence de la lettre dans le mot
+                if (occurrences(current->ch1,mot[i])>=occurrences(*présents,mot[i])){    //si une lettre est "absente" on supprime les mots pour lesquels le nombre d'occurrence de la lettre est supérieur au nombre d'occurence de la lettre dans le mot
                     element_t* tmp=current;
                     current=current->next; 
                     retire(tmp,mots_possibles);     //on retire le mot du dictionnaire
@@ -297,16 +291,6 @@ char* wordfinder(list_t dico){
     return "Pasfini";
 }
 
-int occurence(char* mot, char lettre){  //compte le nombre d'occurences d'une lettre dans un mot
-    int compteur=0;
-    for (int i=0;i<nb_letters(mot);i++){
-        if(mot[i]==lettre){
-            compteur++;
-        }
-    }
-    return compteur;
-}
-
 // char* singularite(char* mot){
 //     compteur=0;
 //     for (int i=0;i<nb_letters(mot);i++){
@@ -324,15 +308,14 @@ bool in(char lettre,char* mot){
 }
 
 char* hereorafter(char* mot,int index){
-    printf("%s\n",mot+index);
+    //printf("%s\n",mot+index);
     return mot + index;
 }
 char* hereorbefore(char* mot,int index){
     char* copy=strdup(mot);
     copy[index]='\0';
-    mot=copy;
     //free(copy);
-    printf("%s\n",copy);
+    //printf("%s\n",copy);
     return copy;
 
 }
@@ -342,6 +325,7 @@ int indexletter(char* alphabet,char letter){
             return i;
         }
     }
+    return -1;
 }
 int indexlistint(listint_t *countlist,int val){
     elementint_t *current=countlist->head;
@@ -353,17 +337,18 @@ int indexlistint(listint_t *countlist,int val){
         i++;
         current=current->next;
     }
+    return -1;
 }
 elementint_t* findelementint(listint_t *countlist,int index){
     elementint_t *current=countlist->head;
     int i=0;
     while (i!=index){
+        //printf("%i\n",i);
         current=current->next;
         i++;
     }
     return current;
 }
-
 element_t* findelement(list_t *dico,int index){
     element_t *current=dico->head;
     int i=0;
@@ -372,6 +357,28 @@ element_t* findelement(list_t *dico,int index){
         i++;
     }
     return current;
+}
+void elementint_print(elementint_t* nbr){
+    printf("%i ",nbr->value);
+
+}
+void printcountlist(listint_t *countlist){
+    if (countlist == NULL){
+        exit(EXIT_FAILURE);
+    }
+    elementint_t *actuel = countlist->head;
+    
+    if (actuel==NULL){
+        printf("C'est vide\n");
+    }
+    else{
+        printf("[ ");
+        while (actuel != NULL){
+            elementint_print(actuel);
+            actuel = actuel->next;
+        }
+        printf("]\n ");
+    }
 }
 
 void addone(listint_t *countlist,int index){
@@ -382,11 +389,14 @@ void addone(listint_t *countlist,int index){
 int max(listint_t *countlist){
     elementint_t *current=countlist->head;
     int m = current->value;
-    while (current!=NULL){
+    while (current->next!=NULL){
         if (current->next->value > m){
             m=current->next->value;
+          
+            
         }
         current=current->next;
+       
 
     }
     return m;
@@ -420,8 +430,8 @@ void removeelementint(listint_t *countlist,int index){
 }
 
 char* removeletterinalphabet(char* alphabet,int index){
-    char *firstpart=hereorbefore(alphabet,index);
-    strcat(firstpart,hereorafter(alphabet,index));
+    char* firstpart=hereorbefore(alphabet,index);
+    strcat(firstpart,hereorafter(alphabet,index+1));
     return firstpart;
 }
 
@@ -441,27 +451,34 @@ listchar_t* best_letters(list_t *dico){
         i++;
     }
 
-    int compteur=0; // (2)
+    //int compteur=0; // (2)
     int ind;
     for (int l=0;l<length(dico);l++){ 
         for (int j=0;j<nb_letters(dico->head->ch1);j++){
             element_t *mot=findelement(dico,l); 
-            ind=indexletter(alphabet,indexletter(alphabet,(mot->ch1)[j]));
+            ind=indexletter(alphabet,(mot->ch1)[j]);
+            //printf("lettre qui fait bugguer %c\n",(mot->ch1)[j]);
+            //printf("indice qui fait buguer %i,%i\n",ind,j);
             addone(alphacount,ind);
         }
     }
-
+    printcountlist(alphacount);
     listchar_t *bestletters=malloc(sizeof(listchar_t));
     int m;
     int indletter;
+    char* alphareduc;
     for (int k=0;k<26;k++){
         m=max(alphacount);
+        printf("max %i\n",m);
         indletter=indexlistint(alphacount,m);
+        printf("indice du max %i\n",indletter);
         listchar_append(bestletters,alphabet[indletter]);
 
         //changer l'alphabet en liste? ou coder une fonction pour enlever un caractere d'une chaine de caractere
         //pareil avec les liste d'entier
-        alphabet=removeletterinalphabet(alphabet,indletter);
+        alphareduc=removeletterinalphabet(alphabet,indletter);
+        alphabet=alphareduc;
+        free(alphareduc);
         removeelementint(alphacount,indletter);
         
         

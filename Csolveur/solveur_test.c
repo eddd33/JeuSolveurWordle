@@ -1,46 +1,47 @@
 #include "solveur.h"
 
 int main(){
-    int longueur = recupnb();
-    printf("longueur %d\n",longueur);
-    printf("%d\n",nb_letters("abc"));
+    assert(recupnb()==5);
+    assert(nb_letters("plage")== 5);
+    assert(occurrences("plage",'o')==0);
+    assert(occurrences("fauteuil",'u')==2);
+    assert(in('a',"plage"));
+    assert(!in('o',"canape"));
+    assert(strcmp(hereorafter("abcdefghijklmnopqrstuvwxyz",5),"fghijklmnopqrstuvwxyz")==0);
 
-    list_t *dico = create_dico();
+    char* test1=hereorbefore("abcdefghijklmnopqrstuvwxyz",5);
+    assert(strcmp(test1,"abcde")==0);
+    free(test1);
+
+    assert(indexletter("abcdefghijklmnopqrstuvwxyz",'e') == 4);
+
+
+    char* test2=removeletterinalphabet("abcdefghijklmnopqrstuvwxyz",5);
+    printf("%s\n",test2);
+    assert(strcmp(test2,"abcdeghijklmnopqrstuvwxyz")==0);
+    free(test2);
+
+    list_t* dico = create_dico();
     assert(!isEmpty(dico));
-    //dico_print(dico);
-
-    //Vérification des fonctions annexes
-    assert(occurences("aaa",'a')==3);
-    assert(occurences("azerty",'b')==0);
-    assert(occurences("",'a')==0);
+    printf("length : %i\n",length(dico));
     
-    //dico_print(dico);
-    printf("testage %s\n",dico->head->ch1);
-    printf("%i\n",length(dico));
-    char* m="abaca";
-    printf("%c\n", m[3]);
- 
-    assert(occurence("mission",'s')==2);
-    assert(strcmp(hereorafter("mission",2),"ssion")==0);
-    //assert(strcmp(hereorbefore("mission",2),"mi")==0);
+    printf("4ème élement : %s\n",list_get(dico,3));
+    assert(strcmp(dico->head->next->ch1,"abats")==0);
+    printf("Indice du mot abces : %i\n",list_index_of(dico,"abces")),
 
-    printf("---------Truc qui marche pas en dessous--------------");
-
-
-
-
-    list_t* dico_reduit=reduction_dico("plage","22202",dico);
-    //dico_print(dico_reduit);
-    printf("dicoreduit ^^\n");
-
-    //assert(removen(dico->head->ch1)==m);    // fail mais on sait pas pourquoi
-
-    printf("%i\n",list_index_of(dico,"ilots"));
-    printf("%s\n",list_get(dico,5));
+    printf("Tête de dico avant suppression : %s\n",dico->head->ch1);
     retire(dico->head,dico);
-    printf("testage v2 %s\n",dico->head->ch1);
+    printf("Tête de dico après suppression : %s\n",dico->head->ch1);
 
-    dico_destroy(dico_reduit);
-    
+    printf("3ème élement du dico avant suppression : %s\n",dico->head->next->next->ch1);
+    retire(dico->head->next->next,dico);
+    printf("3ème élement du dico après suppression : %s\n",dico->head->next->next->ch1);
 
+
+    assert(strcmp(findelement(dico,1)->ch1,"abbes")==0);
+
+    listchar_t *bestl=best_letters(dico);
+
+
+    dico_destroy(dico);
 }
