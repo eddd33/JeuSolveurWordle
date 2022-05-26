@@ -46,6 +46,7 @@ struct _listchar_t{
     elementchar_t *head;
 };
 
+
 int recupnb();                              //
 int nb_letters(char* mot);                  //
 list_t* create_dico();                      //

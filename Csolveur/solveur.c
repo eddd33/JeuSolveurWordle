@@ -18,6 +18,7 @@ int nb_letters(char* mot){
     return strlen(mot);
 }
 
+
 list_t* create_dico(){   //dico est le nom de la liste contenant tous les mots d'une certaine longueur.
     int longueur=recupnb();
     list_t *dico=calloc(1,sizeof(list_t));
@@ -75,7 +76,7 @@ void dico_destroy(list_t *dico)
         current = current->next;
         free(tmp->ch1);
         free(tmp);
-    };
+    }
     free(dico);
 }
 
@@ -133,8 +134,7 @@ void retire(element_t *element,list_t* dico){
 
         if (current==dico->head && current==element){          //si l'élément à retirer est la tête de liste
             dico->head=current->next;                           //on donne à la liste pour nouvelle tête le suivant de la tête
-            free(current->ch1);                                               //on libère la chaine de caracatere
-            free(current);                                      //et l'élément
+            free(current);                                      //on free l'élément
         }
 
         else{
@@ -144,15 +144,12 @@ void retire(element_t *element,list_t* dico){
             }
             if (current!=NULL && current->next!=NULL){          //si on à trouvé l'élément (cad que current n'est pas vide) et qu'il a un suivant
                 element_t* suivant=current->next;               //on enregistre sont suivant
-                      //on supprime la chaine stockée dans l'élément
-                free(current->ch1);
-                free(current);                                  //et l'élément
+                free(current);                                  //on free l'élément
                 previous->next=suivant;                         //on reconnecte la liste en donnant pour suivaant au précédent de l'élément son suivant
             }
             else if (current!=NULL && current->next==NULL){     //si on à trouvé l'élément (cad que current n'est pas vide) et qu'il n'a pas de suivant
-                           //on supprime la chaine stockée dans l'élément
-                free(current->ch1);
-                free(current);                                  //et l'élément
+                previous->next==NULL;
+                free(current);                                  //on free l'élément
             }
         }    
     }
@@ -238,7 +235,7 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
                 }
                 else{
                     current=current->next;
-                }                                   //Il faudra traiter le dernier mot, génère de erreurs à l'exec
+                }                                   //Il faudra traiter le dernier mot, génère des erreurs à l'exec
                 // if(current!=NULL){
                 //     if (current->ch1[i]!=mot[i]){           //si la lettre n'est pas présente en position i du mot 
                 //         retire(current,mots_possibles);     //on retire le mot du dictionnaire
