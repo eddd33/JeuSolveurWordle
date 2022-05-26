@@ -504,21 +504,18 @@ void listchar_append(listchar_t* listchar, char letter){
         exit(EXIT_FAILURE);
     }
     nouveau->letter=letter;
-    
+    nouveau->next=NULL;
 
     elementchar_t *current=listchar->head;
 
     if (current==NULL){
         listchar->head=nouveau;
     }
-    else{
-        while (current->next != NULL){
-            current=current->next;
-        }
-        current->next = nouveau;
+
+    while (current->next != NULL){
+        current=current->next;
     }
-    nouveau->next = NULL;
-    
+    current->next = nouveau;
 }
 
 
