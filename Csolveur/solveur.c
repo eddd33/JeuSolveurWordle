@@ -230,7 +230,7 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
         if (pattern[i]=='2'){
             présents[i]=&mot[i];             //on ajoute la lettre dans la chaîne des lettres présentes
             
-            element_t* current=mots_possibles->head;   //on prend le premier mot du dctionnaire
+            element_t* current=mots_possibles->head;   //on prend le premier mot du dictionnaire
             printf("%i\n",i);
             printf("%s\n",current->ch1);
             while(current!=NULL && current->next!=NULL){                       //on parcours le dictionnaire
@@ -257,18 +257,17 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
                 //     }
                 // }
             }   
-        }
-    }  
+        }  
     //dico_print(mots_possibles);     //->problème dans la première boucle
-    for (int i=0;i<nb;i++){                             //on parcours le pattern pour trouver les lettres présentes mais mal placées
         if (pattern[i]=='1'){
             présents[i]=&mot[i];                          //on ajoute la lettre dans la chaîne des lettres présentes
-            element_t* current=mots_possibles->head;   //on prend le premier mot du dctionnaire
+            element_t* current=mots_possibles->head;   //on prend le premier mot du dictionnaire
             assert(current!=NULL && current->ch1!=NULL);
             while(current!=NULL){                       //on parcours le dictionnaire
                 //printf("lettre %s",current->ch1[i]);
-                printf("%c\n",current->ch1[i]);
-                if (current->ch1[i]==mot[i]){           //si la lettre est présente en position i du mot (mal placée) 
+                //printf("%c\n",current->ch1[i]);
+                if (current->ch1[i]==mot[i]){           //si la lettre est présente en position i du mot (mal placée)
+                    //printf("mot enlevé %s\n",current->ch1); 
                     element_t* tmp=current;
                     current=current->next; 
                     retire(tmp,mots_possibles);     //on retire le mot du dictionnaire
@@ -276,15 +275,13 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
                 else{
                     current=current->next;
                 } 
-            }//si la lettre est présente en position i du mot (mal placée)
+            }
         }
-    }
-    for (int i=0;i<nb;i++){                              //on parcours le pattern pour trouver les lettres absentes ou présentes moins de fois que proposé
          if (pattern[i]=='0'){
             element_t* current=mots_possibles->head;
             while(current!=NULL && current->next!=NULL){
                 element_t *suivant=current->next; 
-                if (occurrences(current->ch1,mot[i])>=occurrences(*présents,mot[i])){    //si une lettre est "absente" on supprime les mots pour lesquels le nombre d'occurrence de la lettre est supérieur au nombre d'occurence de la lettre dans le mot
+                if (occurrences(current->ch1,mot[i])!=0){    //si une lettre est "absente" on supprime les mots pour lesquels le nombre d'occurrence de la lettre est supérieur au nombre d'occurence de la lettre dans le mot
                     element_t* tmp=current;
                     current=current->next; 
                     retire(tmp,mots_possibles);     //on retire le mot du dictionnaire
@@ -294,7 +291,7 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
                 } 
             } 
         }
-    }
+    }    
     printf("AU BOUT MON PETIT\n");
     return mots_possibles;
 }
