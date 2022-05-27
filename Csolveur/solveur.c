@@ -305,6 +305,7 @@ char* inttochar(int patternint){
     printf("%s\n",res);
     char* final;
     for (int i=0;i<nb_letters(res);i++){
+        printf("Cb?\n");
         final[i]=res[i];
         
     }
@@ -317,6 +318,7 @@ char* wordfinder(list_t *dico,int trynumber){
     listint_t *wordscores=malloc(sizeof(listint_t));
     wordscores->head=NULL;
     element_t *current=dico->head;
+    
     while (current!=NULL){
         //printf("Cb de fois? \n");
         int s=0;
@@ -337,7 +339,7 @@ char* wordfinder(list_t *dico,int trynumber){
         
         current=current->next;
     }
-
+    
     /* if (trynumber<3){
 
     } */
@@ -350,6 +352,7 @@ char* wordfinder(list_t *dico,int trynumber){
     
     listint_destroy(wordscores);
     listchar_destroy(ranking);
+    
     return wordtogive;
 }
 

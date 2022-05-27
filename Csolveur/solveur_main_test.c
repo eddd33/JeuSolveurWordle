@@ -4,8 +4,9 @@ int main(){
     int nb_essais=0;
     int longueur = recupnb();
     list_t *dico = create_dico();
-    dico_print(dico);
+    
     char* mot = wordfinder(dico,nb_essais);
+    
     printf("Is this your word ? : %s\n", mot);
 
     
@@ -16,6 +17,7 @@ int main(){
     printf("Pattern donné en string: %s\n",pattern);
 
     nb_essais++;
+    
     if (!(in('0',pattern) || in('1',pattern))){
         printf("I won !\nThe word was %s\n",mot);
     }
@@ -23,6 +25,7 @@ int main(){
     else {
         printf("Ca passe\n");
         while (in('0',pattern) || in('1',pattern)){
+            
             dico=reduction_dico(mot, pattern, dico);
 
             mot = wordfinder(dico,nb_essais);

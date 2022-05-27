@@ -47,7 +47,7 @@ int main(){
 
     printf("début test réduction du dico\n");
     dico_print(dico);
-    list_t* dico_reduit=reduction_dico("plage","22202",dico);
+    list_t* dico_reduit=reduction_dico("plage","10100",dico);
     dico_print(dico_reduit);
     printf("dicoreduit ^^\n");
 
