@@ -225,14 +225,16 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
     présents[nb]="\0";                      
     //printf("pattern %s\n",pattern);
     //printf("présent %s\n",présents);
-    for (int i=0;i<nb;i++){                 //on parcours le pattern pour trouver les lettres bien placées
+    for (int i=0;i<nb;i++){       
+        //on parcours le pattern pour trouver les lettres bien placées
         //printf ("%c\n",pattern[i]);
+        printf("%i\n",i);
         if (pattern[i]=='2'){
             présents[i]=&mot[i];             //on ajoute la lettre dans la chaîne des lettres présentes
             
             element_t* current=mots_possibles->head;   //on prend le premier mot du dictionnaire
-            printf("%i\n",i);
-            printf("%s\n",current->ch1);
+            
+            //printf("%s\n",current->ch1);
             while(current!=NULL && current->next!=NULL){                       //on parcours le dictionnaire
                 //printf("lettre %s",current->ch1[i]);
                 //printf("%s\n",current->ch1);
@@ -266,7 +268,7 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
             while(current!=NULL){                       //on parcours le dictionnaire
                 //printf("lettre %s",current->ch1[i]);
                 //printf("%c\n",current->ch1[i]);
-                if (current->ch1[i]==mot[i]){           //si la lettre est présente en position i du mot (mal placée)
+                if (current->ch1[i]==mot[i] || !in(mot[i],current->ch1)){           //si la lettre est présente en position i du mot (mal placée)
                     //printf("mot enlevé %s\n",current->ch1); 
                     element_t* tmp=current;
                     current=current->next; 
@@ -279,7 +281,10 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
         }
          if (pattern[i]=='0'){
             element_t* current=mots_possibles->head;
-            while(current!=NULL && current->next!=NULL){
+            while(current!=NULL){
+                if(current->next==NULL){
+                    printf("c con\n");
+                }
                 element_t *suivant=current->next; 
                 if (occurrences(current->ch1,mot[i])!=0){    //si une lettre est "absente" on supprime les mots pour lesquels le nombre d'occurrence de la lettre est supérieur au nombre d'occurence de la lettre dans le mot
                     element_t* tmp=current;
