@@ -20,23 +20,23 @@ int nb_letters(char* mot){
 
 
 list_t* create_dico(){   //dico est le nom de la liste contenant tous les mots d'une certaine longueur.
-    int longueur=recupnb();
-    list_t *dico=calloc(1,sizeof(list_t));
-    
-    FILE* fichier=fopen("motst.txt","r");
-    int l=30;
-    char *ligne[l];
+    int longueur=recupnb();                 //on recupere la longueur des mots a traiter
+    list_t *dico=calloc(1,sizeof(list_t)); // on alloue de la mémoire au dico
+    dico->head=NULL;
+    FILE* fichier=fopen("motst.txt","r");  // on ouvre le txt des mots du dictionnaire
+    int l=30;                               // longueur max des mots 
+    char *ligne[l];                         //initialisation de la variable ligne qui va accueillir chaque mot 
     //printf("bite %s\n",fgets(ligne,30,fichier));
-    while (fgets(ligne,l,fichier) !=NULL){
+    while (fgets(ligne,l,fichier) !=NULL){  //ligne accueille le mot de la ligne
         
         if (nb_letters(ligne)==longueur+1){
             //printf("%s",ligne);
-            char* dup=strdup(ligne);
-            ajout_dico(hereorbefore(dup,longueur),dico);
-            free(dup);
+            char* dup=strdup(ligne);        // on le duplique pour pouvoir l'ajouter dans le dico sans probleme de pointeur
+            ajout_dico(hereorbefore(dup,longueur),dico); // on ajoute le mot sans le dernier caractere qui est le \n
+            free(dup);                              // on libere la memoire
         } 
         
-        l++;
+
     }
     fclose(fichier);
     return dico;
@@ -216,9 +216,11 @@ int occurrences(char* mot,char lettre){
 }
 
 list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction prenant en paramètre le mot proposé par le solveur et le pattern renvoyé par l'utilisateur ainsi que le dictionnaire des mots encore possible avant cette étape
+    printf("On rentre dans la fonction reduction_dico\n");
     int nb=nb_letters(mot);        
     list_t* mots_possibles=dico; 
-    //dico_print(mots_possibles);
+    
+    assert(mots_possibles->head!=NULL);
     char* présents[nb+1];   //on créé une un chaîne des caractères présents dans le mot, bien placés ou non
     présents[nb]="\0";                      
     //printf("pattern %s\n",pattern);
@@ -262,8 +264,10 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
         if (pattern[i]=='1'){
             présents[i]=&mot[i];                          //on ajoute la lettre dans la chaîne des lettres présentes
             element_t* current=mots_possibles->head;   //on prend le premier mot du dctionnaire
+            assert(current!=NULL && current->ch1!=NULL);
             while(current!=NULL){                       //on parcours le dictionnaire
                 //printf("lettre %s",current->ch1[i]);
+                printf("%c\n",current->ch1[i]);
                 if (current->ch1[i]==mot[i]){           //si la lettre est présente en position i du mot (mal placée) 
                     element_t* tmp=current;
                     current=current->next; 
@@ -278,7 +282,7 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
     for (int i=0;i<nb;i++){                              //on parcours le pattern pour trouver les lettres absentes ou présentes moins de fois que proposé
          if (pattern[i]=='0'){
             element_t* current=mots_possibles->head;
-            while(current!=NULL){
+            while(current!=NULL && current->next!=NULL){
                 element_t *suivant=current->next; 
                 if (occurrences(current->ch1,mot[i])>=occurrences(*présents,mot[i])){    //si une lettre est "absente" on supprime les mots pour lesquels le nombre d'occurrence de la lettre est supérieur au nombre d'occurence de la lettre dans le mot
                     element_t* tmp=current;
@@ -291,11 +295,22 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
             } 
         }
     }
-
+    printf("AU BOUT MON PETIT\n");
     return mots_possibles;
 }
 
-
+char* inttochar(int patternint){
+    char res[recupnb()+1];
+    sprintf(res,"%i",patternint);
+    printf("%s\n",res);
+    char* final;
+    for (int i=0;i<nb_letters(res);i++){
+        final[i]=res[i];
+        
+    }
+    printf("%s\n",final);
+    return final;
+}
 
 char* wordfinder(list_t *dico,int trynumber){
     listchar_t *ranking=best_letters(dico);
@@ -307,6 +322,14 @@ char* wordfinder(list_t *dico,int trynumber){
         int s=0;
         for (int l=0;l<nb_letters(dico->head->ch1);l++){
             s+=indexlistchar(ranking,current->ch1[l]);
+
+            if (trynumber<2){
+                if (occurrences(current->ch1,current->ch1[l])>1){
+                    //printf("Plus d'une lettre");
+                    s+=100;
+                }
+            }
+            
         }
         //printf("%i\n",s);
         // gerer pour le nb essais < 3
@@ -315,10 +338,14 @@ char* wordfinder(list_t *dico,int trynumber){
         current=current->next;
     }
 
+    /* if (trynumber<3){
+
+    } */
+
     int indexofwordtogive=indexofmin(wordscores);
     char* wordtogive=list_get(dico,indexofwordtogive);
     //printcountlist(wordscores);
-    printlistchar(ranking);
+    //printlistchar(ranking);
     printf("MOT A DONNER %s\n",wordtogive);
     
     listint_destroy(wordscores);
@@ -326,12 +353,7 @@ char* wordfinder(list_t *dico,int trynumber){
     return wordtogive;
 }
 
-// char* singularite(char* mot){
-//     compteur=0;
-//     for (int i=0;i<nb_letters(mot);i++){
-//         if (in(mot[i],mot))
-//     }
-// }
+
 
 bool in(char lettre,char* mot){
     for (int i=0;i<nb_letters(mot);i++){
@@ -558,9 +580,9 @@ listchar_t* best_letters(list_t *dico){
     for (int k=0;k<26;k++){
         //printf("CA RENTRE DANS LA BOUCLE FOR\n");
         m=max(alphacount);
-        printf("max %i\n",m);
+        //printf("max %i\n",m);
         indletter=indexlistint(alphacount,m);
-        printf("indice du max %i\n",indletter);
+        //printf("indice du max %i\n",indletter);
         //printf("%c \n",listchar_get(alphabetlist,indletter));
         //printf("meilleur lettre %c\n",alphabet[indletter]);
         listchar_append(bestletters,listchar_get(alphabetlist,indletter));

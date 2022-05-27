@@ -62,6 +62,7 @@ int list_index_of(list_t *dico, char* mot);             //
 element_t* list_element_of(list_t *dico, char* mot);   // pas utilisé     
 int occurrences(char* mot,char lettre);                 //
 list_t* reduction_dico(char* mot,char* pattern, list_t* dico);
+char* inttochar(int patternint);
 char* wordfinder(list_t *dico,int trynumber);
 bool in(char lettre,char*mot);              //
 char* hereorafter(char* mot,int index);     //
