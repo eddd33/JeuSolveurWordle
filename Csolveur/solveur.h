@@ -81,6 +81,9 @@ int max(listint_t *countlist);                      //
 void removeelementint(listint_t *countlist,int index);
 char* removeletterinalphabet(char* alphabet,int index);     //
 listchar_t* best_letters(list_t *dico); 
+listchar_t* create_alphalist();
+char* listchar_get(listchar_t *listchar, int index);
+void retirechar(int index,listchar_t* listchar);
 void listchar_append(listchar_t* listchar, char letter);
 void listint_append(listint_t* wordscores,int score);
 void listint_destroy(listint_t *listint);

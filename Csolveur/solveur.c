@@ -553,15 +553,17 @@ listchar_t* best_letters(list_t *dico){
     bestletters->head=NULL;
     int m;
     int indletter;
-    
+    listchar_t *alphabetlist=create_alphalist();
+    printlistchar(alphabetlist);
     for (int k=0;k<26;k++){
-        printf("CA RENTRE DANS LA BOUCLE FOR\n");
+        //printf("CA RENTRE DANS LA BOUCLE FOR\n");
         m=max(alphacount);
         printf("max %i\n",m);
         indletter=indexlistint(alphacount,m);
         printf("indice du max %i\n",indletter);
-        printf("meilleur lettre %c\n",alphabet[indletter]);
-        listchar_append(bestletters,alphabet[indletter]);
+        //printf("%c \n",listchar_get(alphabetlist,indletter));
+        //printf("meilleur lettre %c\n",alphabet[indletter]);
+        listchar_append(bestletters,listchar_get(alphabetlist,indletter));
 
         //changer l'alphabet en liste? ou coder une fonction pour enlever un caractere d'une chaine de caractere
         //pareil avec les liste d'entier
@@ -569,9 +571,8 @@ listchar_t* best_letters(list_t *dico){
             
         
         
-        char* alphareduc=removeletterinalphabet(alphabet,indletter);
-        char* alphabet=strdup(alphareduc);
-        free(alphareduc);
+        retirechar(indletter,alphabetlist);
+        
         removeelementint(alphacount,indletter);
         
         
@@ -579,10 +580,72 @@ listchar_t* best_letters(list_t *dico){
     }
     
     listint_destroy(alphacount);
-
+    free(alphabetlist);
     return bestletters;
 }
 
+listchar_t* create_alphalist(){
+    listchar_t *alphabet=malloc(sizeof(listchar_t));
+    char* alpha="abcdefghijklmnopqrstuvwxyz";
+    elementchar_t *tete=malloc(sizeof(elementchar_t));
+    tete->letter='a';
+    alphabet->head=tete;
+    elementchar_t *current=alphabet->head;
+    for (int i=1;i<nb_letters(alpha);i++){
+        elementchar_t *new=malloc(sizeof(elementchar_t));
+        new->letter=alpha[i];
+        current->next=new;
+        current=current->next;
+    }
+    current->next=NULL;
+    return alphabet;
+
+
+}
+
+char* listchar_get(listchar_t *listchar, int index) {
+    int pos = index;
+    elementchar_t *current = listchar->head;
+    
+    while (pos > 0 && current->next != NULL) 
+    {
+        //printf("%i\n",pos);
+        pos--;
+        current = current->next;
+    }
+    return current->letter;
+}
+void retirechar(int index,listchar_t* listchar){
+    if (!isEmpty(listchar)){                    //on vérifie que le dictionnaire n'est pas vide
+        elementchar_t* current=listchar->head;      //on initialise notre élément courant à la tête de la liste
+        elementchar_t* previous;                //on prévoit de garder en mémoire l'élément précédant courant
+        int i=0;
+        if (index==0){          //si l'élément à retirer est la tête de liste
+            listchar->head=current->next;                           //on donne à la liste pour nouvelle tête le suivant de la tête
+             // LAISSE MOI CES LIGNES
+            free(current);                                      //on free l'élément
+        }
+
+        else{
+            while(i!=index && current!=NULL){           //on cherche l'élément dans la liste
+                previous=current;           
+                current=current->next;                          //on parcourt jusqu'à trouver l'élément
+                i++;
+            }
+            if (current!=NULL && current->next!=NULL){          //si on à trouvé l'élément (cad que current n'est pas vide) et qu'il a un suivant
+                elementchar_t* suivant=current->next;               //on enregistre sont suivant
+                
+                free(current);                                  //on free l'élément
+                previous->next=suivant;                         //on reconnecte la liste en donnant pour suivaant au précédent de l'élément son suivant
+            }
+            else if (current!=NULL && current->next==NULL){     //si on à trouvé l'élément (cad que current n'est pas vide) et qu'il n'a pas de suivant
+                previous->next==NULL;
+                
+                free(current);                                  //on free l'élément
+            }
+        }    
+    }
+}
 
 
 
