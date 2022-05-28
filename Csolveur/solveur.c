@@ -128,6 +128,7 @@ int length(list_t *liste){
 }
 
 void retire(element_t *element,list_t* dico){
+    //printf("On rentre dans la fonction retire\n");
     if (!isEmpty(dico)){                    //on vérifie que le dictionnaire n'est pas vide
         element_t* current=dico->head;      //on initialise notre élément courant à la tête de la liste
         element_t* previous;                //on prévoit de garder en mémoire l'élément précédant courant
@@ -150,9 +151,11 @@ void retire(element_t *element,list_t* dico){
                 previous->next=suivant;                         //on reconnecte la liste en donnant pour suivaant au précédent de l'élément son suivant
             }
             else if (current!=NULL && current->next==NULL){     //si on à trouvé l'élément (cad que current n'est pas vide) et qu'il n'a pas de suivant
+                printf("on retire le dernier %s\n",current->ch1);
                 previous->next==NULL;
                 free(current->ch1);
                 free(current);                                  //on free l'élément
+                
             }
         }    
     }
@@ -216,89 +219,59 @@ int occurrences(char* mot,char lettre){
 }
 
 list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction prenant en paramètre le mot proposé par le solveur et le pattern renvoyé par l'utilisateur ainsi que le dictionnaire des mots encore possible avant cette étape
-    printf("On rentre dans la fonction reduction_dico\n");
-    int nb=nb_letters(mot);        
-    list_t* mots_possibles=dico; 
-    
-    assert(mots_possibles->head!=NULL);
-    char* présents[nb+1];   //on créé une un chaîne des caractères présents dans le mot, bien placés ou non
-    présents[nb]="\0";                      
-    //printf("pattern %s\n",pattern);
-    //printf("présent %s\n",présents);
-    for (int i=0;i<nb;i++){       
-        //on parcours le pattern pour trouver les lettres bien placées
-        //printf ("%c\n",pattern[i]);
-        printf("%i\n",i);
-        if (pattern[i]=='2'){
-            présents[i]=&mot[i];             //on ajoute la lettre dans la chaîne des lettres présentes
-            
-            element_t* current=mots_possibles->head;   //on prend le premier mot du dictionnaire
-            
-            //printf("%s\n",current->ch1);
-            while(current!=NULL && current->next!=NULL){                       //on parcours le dictionnaire
-                //printf("lettre %s",current->ch1[i]);
-                //printf("%s\n",current->ch1);
-                //printf("%s %i\n",current->ch1,i);
-                
-                if (current->ch1[i]!=mot[i]){           //si la lettre n'est pas présente en position i du mot 
-                    element_t* tmp=current;
-                    current=current->next; 
-                    retire(tmp,mots_possibles);     //on retire le mot du dictionnaire
+    printf("On rentre dans reduction-dico\n");
+    int nb=nb_letters(mot);
+    element_t* current=dico->head;
+    list_t* newdico=malloc(sizeof(list_t));
+    newdico->head=NULL;
+    int a=0;
+    int b=0;
+    while (current!=NULL){  // on parcourt tout le dico
+        printf("%s\n",current->ch1);
+        a=0;
+        b=0;
+        for (int i=0;i<nb;i++){      //
+            if (pattern[i]=='2'){
+                if (current->ch1[i]!=mot[i]){   //si la lettre n'est pas bonne
+                    a+=1;   
                 }
-                
-                else{
-                    current=current->next;
-                }    
-
-            
-                    //Il faudra traiter le dernier mot, génère des erreurs à l'exec
-                
-                // if(current!=NULL){
-                //     if (current->ch1[i]!=mot[i]){           //si la lettre n'est pas présente en position i du mot 
-                //         retire(current,mots_possibles);     //on retire le mot du dictionnaire
-                //     }
-                // }
-            }   
-        }  
-    //dico_print(mots_possibles);     //->problème dans la première boucle
-        if (pattern[i]=='1'){
-            présents[i]=&mot[i];                          //on ajoute la lettre dans la chaîne des lettres présentes
-            element_t* current=mots_possibles->head;   //on prend le premier mot du dictionnaire
-            assert(current!=NULL && current->ch1!=NULL);
-            while(current!=NULL){                       //on parcours le dictionnaire
-                //printf("lettre %s",current->ch1[i]);
-                //printf("%c\n",current->ch1[i]);
-                if (current->ch1[i]==mot[i] || !in(mot[i],current->ch1)){           //si la lettre est présente en position i du mot (mal placée)
-                    //printf("mot enlevé %s\n",current->ch1); 
-                    element_t* tmp=current;
-                    current=current->next; 
-                    retire(tmp,mots_possibles);     //on retire le mot du dictionnaire
-                }
-                else{
-                    current=current->next;
-                } 
             }
-        }
-         if (pattern[i]=='0'){
-            element_t* current=mots_possibles->head;
-            while(current!=NULL){
-                if(current->next==NULL){
-                    printf("c con\n");
+            else if (pattern[i]=='1'){
+                if (current->ch1[i]==mot[i]){  // si la lettre mal placée est tjr mal placée
+                    a+=1;
                 }
-                element_t *suivant=current->next; 
-                if (occurrences(current->ch1,mot[i])!=0){    //si une lettre est "absente" on supprime les mots pour lesquels le nombre d'occurrence de la lettre est supérieur au nombre d'occurence de la lettre dans le mot
-                    element_t* tmp=current;
-                    current=current->next; 
-                    retire(tmp,mots_possibles);     //on retire le mot du dictionnaire
+                else if(!in(mot[i],current->ch1)){  // si la lettre mal placée n'est pas dans le mot
+                    a+=1;
                 }
-                else{
-                    current=current->next;
-                } 
-            } 
+            }
+            else if (pattern[i]=='0'){
+                for (int k=0;k<nb;k++){
+                    if (k!=i){
+                        if (mot[k]==mot[i] && pattern[k]=='2'){
+                            b+=1;
+                        }
+                        else if(mot[k]==mot[i] && pattern[k]=='1'){
+                            b+=1;
+                        }
+                    }
+                }
+                if (occurrences(current->ch1,mot[i])>b){
+                        a+=1;
+                    }
+            }
+            
+            
         }
-    }    
-    printf("AU BOUT MON PETIT\n");
-    return mots_possibles;
+        if (a==0){
+            ajout_dico(strdup(current->ch1),newdico);
+        }
+        current=current->next;
+        
+    }
+    dico_print(newdico);
+    dico_destroy(dico);
+    return newdico;
+    
 }
 
 char* inttochar(int patternint){

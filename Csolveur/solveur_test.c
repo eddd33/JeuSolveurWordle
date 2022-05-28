@@ -46,16 +46,10 @@ int main(){
 
 
     printf("début test réduction du dico\n");
-    dico_print(dico);
-    list_t* dico_reduit=reduction_dico("plage","10100",dico);
-    dico_print(dico_reduit);
+    //dico_print(dico);
+    dico=reduction_dico("peage","20222",dico);
+    //dico_print(dico_reduit);
     printf("dicoreduit ^^\n");
-
-    element_t *current=dico->head;
-    while(current->next!=NULL){
-        current=current->next;
-    }
-    printf("Ce ptit batard %s",current->ch1);
 
     char* wordtogive=wordfinder(dico,0);
 
