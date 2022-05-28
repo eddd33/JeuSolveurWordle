@@ -120,7 +120,7 @@ int length(list_t *liste){
     int compteur=0;
     element_t *actuel=liste->head;
     
-    while(actuel->next!=NULL){
+    while(actuel!=NULL){
         actuel=actuel->next;
         compteur++;
     }
@@ -219,7 +219,7 @@ int occurrences(char* mot,char lettre){
 }
 
 list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction prenant en paramètre le mot proposé par le solveur et le pattern renvoyé par l'utilisateur ainsi que le dictionnaire des mots encore possible avant cette étape
-    printf("On rentre dans reduction-dico\n");
+    //printf("On rentre dans reduction-dico\n");
     int nb=nb_letters(mot);
     element_t* current=dico->head;
     list_t* newdico=malloc(sizeof(list_t));
@@ -227,7 +227,7 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
     int a=0;
     int b=0;
     while (current!=NULL){  // on parcourt tout le dico
-        printf("%s\n",current->ch1);
+        //printf("%s\n",current->ch1);
         a=0;
         b=0;
         for (int i=0;i<nb;i++){      //
@@ -268,7 +268,7 @@ list_t* reduction_dico(char* mot,char* pattern, list_t* dico){   //fonction pren
         current=current->next;
         
     }
-    dico_print(newdico);
+    //dico_print(newdico);
     dico_destroy(dico);
     return newdico;
     
@@ -280,7 +280,6 @@ char* inttochar(int patternint){
     printf("%s\n",res);
     char* final;
     for (int i=0;i<nb_letters(res);i++){
-        printf("Cb?\n");
         final[i]=res[i];
         
     }

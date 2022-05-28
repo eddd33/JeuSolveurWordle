@@ -41,18 +41,25 @@ int main(){
     
 
 
+    //fonctionne seulement avec 5 lettres là
 
-
-
+    char* wordtogive=wordfinder(dico,0);    //aires
 
     printf("début test réduction du dico\n");
     //dico_print(dico);
-    dico=reduction_dico("peage","20222",dico);
+    dico=reduction_dico(wordtogive,"10010",dico);
     //dico_print(dico_reduit);
     printf("dicoreduit ^^\n");
-
-    char* wordtogive=wordfinder(dico,0);
-
+    printf("--------------------------------------\n");
+    wordtogive=wordfinder(dico,1);  //calte
+    dico=reduction_dico(wordtogive,"01102",dico);
+    printf("--------------------------------------\n");
+    wordtogive=wordfinder(dico,2);  //egale
+    dico=reduction_dico(wordtogive,"01212",dico);
+    printf("--------------------------------------\n");
+    wordtogive=wordfinder(dico,3);  //glane
+    dico=reduction_dico(wordtogive,"12202",dico);
+    printf("--------------------------------------\n");
     
 
 

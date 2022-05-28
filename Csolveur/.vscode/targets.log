@@ -15,7 +15,7 @@ make: *** No rule to make target 'all'.  Stop.
  
 
  
-# Make data base, printed on Sat May 28 14:05:38 2022
+# Make data base, printed on Sat May 28 15:44:10 2022
  
 
 # Variables
@@ -171,7 +171,9 @@ VSCODE_CLI = 1
 # environment
 VSCODE_CODE_CACHE_PATH = /home/eleve/.config/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
 # environment
+ 
 LOGNAME = eleve
+ 
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
@@ -217,7 +219,7 @@ USER = eleve
 # environment
 SNAP_REVISION = 97
 # makefile
-.DEFAULT_GOAL := solveur_test
+.DEFAULT_GOAL := solveur_main_test
 # environment
 XDG_CURRENT_DESKTOP = Unity
 # automatic
@@ -315,27 +317,17 @@ solveur.o: solveur.h solveur.c
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-solveur_test.c:
+test: solveur_main_test
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-
-test: solveur_test
- 
-#  Implicit rule search has not been done.
- 
-#  Modification time never checked.
- 
-#  File has not been updated.
- 
 #  recipe to execute (from 'makefile', line 38):
-	./solveur_test
+	./solveur_main_test
 
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-28 14:05:33.690788838
+#  Last modified 2022-05-28 15:43:58.187984923
 #  File has been updated.
 #  Successfully updated.
 
@@ -346,6 +338,16 @@ solveur.c:
 #  File has not been updated.
 
 .SILENT: clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+solveur_main_test.o: solveur.o solveur_main_test.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+solveur_main_test: solveur_main_test.o solveur.o
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -369,12 +371,8 @@ clean:
 #  recipe to execute (from 'makefile', line 34):
 	rm -f *.o *_test
 
-solveur_test.o: solveur.o solveur_test.c
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-solveur_test: solveur_test.o solveur.o
+# Not a target:
+solveur_main_test.c:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -393,6 +391,6 @@ solveur_test: solveur_test.o solveur.o
 # strcache performance: lookups = 48 / hit rate = 43%
 # hash-table stats:
 # Load=27/8192=0%, Rehash=0, Collisions=1/48=2%
-# Finished Make data base on Sat May 28 14:05:38 2022
+# Finished Make data base on Sat May 28 15:44:10 2022
 
  
