@@ -547,13 +547,13 @@ listchar_t* best_letters(list_t *dico){
             addone(alphacount,ind);
         }
     }
-    printcountlist(alphacount);
+    //printcountlist(alphacount);
     listchar_t *bestletters=malloc(sizeof(listchar_t));
     bestletters->head=NULL;
     int m;
     int indletter;
     listchar_t *alphabetlist=create_alphalist();
-    printlistchar(alphabetlist);
+    //printlistchar(alphabetlist);
     for (int k=0;k<26;k++){
         //printf("CA RENTRE DANS LA BOUCLE FOR\n");
         m=max(alphacount);
@@ -709,7 +709,37 @@ void listchar_destroy(listchar_t *listchar)
     free(listchar);
 }
 
-
+char* savedwords(int longueur){
+    char* mot;
+    if (longueur==4){
+        mot="aies";
+    }
+    else if (longueur==5){
+        mot="aires";
+    }
+    else if (longueur==6){
+        mot="aitres";
+    }
+    else if (longueur==7){
+        mot="arisent";
+    }
+    else if (longueur==8){
+        mot="aterions";
+    }
+    else if (longueur==9){
+        mot="alertions";
+    }
+    else if (longueur==10){
+        mot="calorisent";
+    }
+    else if (longueur==11){
+        mot="consulterai";
+    }
+    else if (longueur==12){
+        mot="capitulerons";
+    }
+    return mot;
+}
 
 
 

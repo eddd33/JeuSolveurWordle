@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <assert.h>
 #include <math.h>
+#include <unistd.h>
 
 
 typedef struct _element_t element_t;
@@ -89,7 +90,7 @@ void listchar_append(listchar_t* listchar, char letter);
 void listint_append(listint_t* wordscores,int score);
 void listint_destroy(listint_t *listint);
 void listchar_destroy(listchar_t *listchar);
-
+char* savedwords(int longueur);
 //float nb_mots_possibles(char* mot,int pattern[nb_letters(mot)],list_t* dico);
 //float entropie_initiale(char* mot);  nécessite une fonction qui calcule la la probabilité d'obtenir une combinaison à partir de l'ensemble des mots possibles après cette combinaison
 
