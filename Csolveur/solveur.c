@@ -289,7 +289,7 @@ char* inttochar(int patternint){
 
 char* wordfinder(list_t *dico,int trynumber){
     listchar_t *ranking=best_letters(dico);
-    listint_t *wordscores=malloc(sizeof(listint_t));
+    listint_t *wordscores=create_listint();
     wordscores->head=NULL;
     element_t *current=dico->head;
     
@@ -522,12 +522,13 @@ char* removeletterinalphabet(char* alphabet,int index){
 
 listchar_t* best_letters(list_t *dico){
     char* alphabet="abcdefghijklmnopqrstuvwxyz";
-    listint_t *alphacount=calloc(1,sizeof(listint_t));
-    int i=1;                                                // (1)
+    listint_t *alphacount=create_listint();
     elementint_t *first=malloc(sizeof(elementint_t));
     first->value=0;
     alphacount->head=first;
     first->next=NULL;
+    int i=1;                                                // (1)
+    
     while (i!=26){
         elementint_t *nouveau=malloc(sizeof(elementint_t));
         nouveau->value=0;
@@ -743,6 +744,11 @@ char* savedwords(int longueur){
 
 
 
+listint_t* create_listint(){
+    listint_t* countlist=malloc(sizeof(listint_t));
+    
+    return countlist;
+}
 
 
 
@@ -757,49 +763,4 @@ char* savedwords(int longueur){
 
 
 
-// float nb_mots_possibles(char* mot,int pattern[nb_letters(mot)], list_t* dico){
-//     int nb=nb_letters(mot);
-//     list_t* motpossibles=create_dico();  //on créé un dico que l'on peut modifier sans conséquence pour cette fonction
-//     int tot=length(motpossibles);
-//     char* présents[nb];
-//     for (int i=0;i<nb;i++){
-//         if (pattern[i]==0){}
-//             int occurence=occurences(mot,mot[i]);
-//             retire(list_elementof(mots_possibles,mot))
-
-//             //retirer de motpos tout les mots qui contiennent la lettre, necessite de verifier qu'on a pas déjà eu la lettre bonne une fois avant 
-//         }
-//         if (pattern[i]==1){
-//             présents[i]=mot[i];
-//             element_t* current=motpossibles->head;
-//             while(current!=NULL){
-//                 if (occurences(current->ch1,mot[i])==){
-//                     retire(current);
-//                     current=current->next;
-//                 }
-//             }
-//         }
-//         if (pattern[i]==2){
-//             présents[i]=mot[i];
-//             element_t* current=motpossibles->head;
-//             while(current!=NULL){
-//                 if (current->ch1[i]!=mot[i]){
-//                     retire(current,motpossibles);
-//                     current=current->next;
-//                 }
-//             }
-//         }
-
-//     }
-//     int posssibilités=length(motpossibles);
-//     dico_destroy(motpossibles);
-//     return possibilités/tot;
-// }
-
-//float probabilite(char combinaison[??])
-
-//float entropie_initiale(char* mot){
-//    int longueur=nb_letters(mot);
-//    return  entropie;
-//}
 

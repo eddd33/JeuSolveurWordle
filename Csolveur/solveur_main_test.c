@@ -13,7 +13,7 @@ int main(){
 
 
     char* mot;
-    printf("Start searching... \n ");
+    printf("Start searching... \n");
     if (longueur<=12){
         mot=savedwords(longueur);
     }
@@ -44,10 +44,10 @@ int main(){
     else {
 
         while (strcmp(pattern,"-1")!=0){
-            printf("Reducing dictionnary...\n  ");
+            printf("Reducing dictionnary...\n");
             dico=reduction_dico(mot,pattern,dico);
             printf("Dictionnary reduced !\n");
-            printf("Start searching...\n  ");
+            printf("Start searching...\n");
             mot = wordfinder(dico,nb_essais);
             printf("Word found !\n");
             printf("Is this your word ? : %s\n", mot);
