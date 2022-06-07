@@ -3,18 +3,30 @@
 int main(){
     //assert(recupnb()==5);
     assert(nb_letters("plage")== 5);
+    assert(nb_letters("")==0);
+
     assert(occurrences("plage",'o')==0);
+    assert(occurences("monter",'o')==1);
     assert(occurrences("fauteuil",'u')==2);
+
     assert(in('a',"plage"));
     assert(!in('o',"canape"));
+
     assert(strcmp(hereorafter("abcdefghijklmnopqrstuvwxyz",5),"fghijklmnopqrstuvwxyz")==0);
+    assert(strcmp(hereorafter("bonjour",0),"bonjour")==0);
+    assert(strcmp(hereorafter("plus",4),"")==0);
 
     char* test1=hereorbefore("abcdefghijklmnopqrstuvwxyz",5);
     assert(strcmp(test1,"abcde")==0);
     free(test1);
+    char* test2=hereorbefore("bonjour",7);
+    assert(strcmp(test2,"bonjour")==0);
+    free(test2);
+    char* test3=hereorbefore("bonjour",0);
+    assert(strcmp(test3,"")==0);
+    free(test3);
 
     assert(indexletter("abcdefghijklmnopqrstuvwxyz",'e') == 4);
-
 
     char* test2=removeletterinalphabet("abcdefghijklmnopqrstuvwxyz",5);
     printf("%s\n",test2);
