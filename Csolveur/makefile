@@ -12,14 +12,14 @@ LDFLAGS+=-fsanitize=address
 ############################
 
 # Program:
-solveur_main_test: solveur_main_test.o solveur.o
+solveur_test: solveur_test.o solveur.o
 
 # Format is:
 ## program_name: file_name1.o file_name2.o
 
 
 # Object files
-solveur_main_test.o: solveur.o solveur_main_test.c
+solveur_test.o: solveur.o solveur_test.c
 solveur.o: solveur.h solveur.c
 
 # Format is:
@@ -34,7 +34,7 @@ clean:
 	rm -f *.o *_test
 
 # For the test, replace `solveur_main_test` with your program name.
-test: solveur_main_test
-	./solveur_main_test
+test: solveur_test
+	./solveur_test
 
 .SILENT: clean
