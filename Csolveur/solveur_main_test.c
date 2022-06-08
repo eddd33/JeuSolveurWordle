@@ -7,10 +7,6 @@ int main(){
     list_t *dico = create_dico();
     printf("Dictionnary created ! \n");
 
-    //printf("longueur en dur de 10010 %i\n",nb_letters("10010"));
-
-
-
 
     char* mot;
     printf("Start searching... \n");
@@ -21,7 +17,6 @@ int main(){
         mot = wordfinder(dico,nb_essais);
     }
     
-    //mot=savedwords(longueur);
     printf("Word found !\n");
     printf("Is this your word ? : %s\n", mot);
 
@@ -29,10 +24,6 @@ int main(){
     char pattern[longueur+2];
     fgets(pattern,longueur+2,stdin);
     pattern[strlen(pattern)-1]=0;
-    
-    //dico_print(dico);
-    //printf("Pattern donné en string: %s\n",&pattern);
-    //printf("longueur de pattern %i\n",nb_letters(&pattern));
     
 
     nb_essais++;
