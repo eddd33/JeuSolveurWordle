@@ -40,20 +40,13 @@ int main(){
 
     assert(length(dico)==7087);
 
-    char* mot = "test";
-    ajout_dico(mot,dico);
-    printf("length : %i\n",length(dico)); // on a bien length : 7088
-    assert(length(dico)==7088);
-    retire(mot, dico);
-    free(mot);
+    //char* mot = "test";
+    //ajout_dico(mot,dico);
+    //printf("length : %i\n",length(dico)); // on a bien length : 7088
 
-    //char* word = savedwords(5);
-    //assert(strcmp(wordfinder(dico,0),word)==0);
-    //free(word);
-
-    /* printf("4ème élement : %s\n",list_get(dico,3));
+    printf("4ème élement : %s\n",list_get(dico,3));
     assert(strcmp(dico->head->next->ch1,"abats")==0);
-    printf("Indice du mot abces : %i\n",list_index_of(dico,"abces")),
+    printf("Indice du mot abces : %i\n",list_index_of(dico,"abces"));
 
     printf("Tête de dico avant suppression : %s\n",dico->head->ch1);
     retire(dico->head,dico);
@@ -61,31 +54,9 @@ int main(){
 
     printf("3ème élement du dico avant suppression : %s\n",dico->head->next->next->ch1);
     retire(dico->head->next->next,dico);
-    printf("3ème élement du dico après suppression : %s\n",dico->head->next->next->ch1); */
+    printf("3ème élement du dico après suppression : %s\n",dico->head->next->next->ch1); 
 
 
-    
-
-
-    //fonctionne seulement avec 5 lettres là
-
-    /*char* wordtogive=wordfinder(dico,0);    //aires
-
-    printf("début test réduction du dico\n");
-    //dico_print(dico);
-    dico=reduction_dico(wordtogive,"10010",dico);
-    //dico_print(dico_reduit);
-    printf("dicoreduit ^^\n");
-    printf("--------------------------------------\n");
-    wordtogive=wordfinder(dico,1);  //calte
-    dico=reduction_dico(wordtogive,"01102",dico);
-    printf("--------------------------------------\n");
-    wordtogive=wordfinder(dico,2);  //egale
-    dico=reduction_dico(wordtogive,"01212",dico);
-    printf("--------------------------------------\n");
-    wordtogive=wordfinder(dico,3);  //glane
-    dico=reduction_dico(wordtogive,"12202",dico);
-    printf("--------------------------------------\n");*/
     
 
 
